@@ -31,6 +31,9 @@ cdef inline double intersection_scale(
 @cython.wraparound(False)
 @cython.infer_types(True)
 cdef class SDetector(Detector):
+  """
+  Yeeeh... You need to go this far to simply implement partial application...
+  """
   cdef double max_pseudorapidity
   cdef double max_tanh
   cdef double R
@@ -73,7 +76,8 @@ cdef class SDetector(Detector):
 
         p = px * px + py * py + pz * pz
 
-        if p < 1.0e-6:
+        if p < 1.0e-12:
+          ### I guess, nobody would miss such particles
           continue
 
         ox = pythia.event.at(i).xProd()
@@ -82,21 +86,31 @@ cdef class SDetector(Detector):
 
         o = ox * ox + oy * oy + oz * oz
         if o > R_sqr:
+          ### Particle originates outside the detector
+          ### could in principle return back,
+          ### but ignoring for now.
           continue
 
+        ### solution of ||o + scale * p|| = R for scale
+        ### for positive scale
         scale = intersection_scale(o, ox, oy, oz, p, px, py, pz, R_sqr)
 
         ix = ox + scale * px
         iy = oy + scale * py
         iz = oz + scale * pz
 
+        ### ix ** 2 + iy ** 2 + iz ** 2 must sum to R ** 2
         th = abs(iz) / self.R
+
+        ### to avoid expensive atanh call
+        ### Note: tanh and atanh are monotonous.
         if th >= self.max_tanh:
           continue
 
         pr = atanh(th)
         pr_i = <int> floor(pr / pr_step)
 
+        ### the negative semi-sphere.
         if iz < 0:
           pr_i = -pr_i - 1
 
