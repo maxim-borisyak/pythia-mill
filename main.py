@@ -12,12 +12,13 @@ options=[
   "PhaseSpace:pTHatMin = 20.",
 ]
 
-mill = PythiaMill(options, batch_size=1, cache_size=128, buffer_size=1024)
+mill = PythiaMill(options, batch_size=3, cache_size=128, buffer_size=64, minimum_size_scale_factor=2.0)
 
 from time import time
 start_time = time()
 
-mill.wait_unit(128)
+for _ in range(2 ** 14 / 32):
+  mill.sample(batch_size=32)
 
 end_time = time()
 
