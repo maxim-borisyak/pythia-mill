@@ -17,7 +17,7 @@ mill = PythiaMill(options, batch_size=3, cache_size=1024, buffer_size=None, mini
 from time import time
 start_time = time()
 
-for _ in range(2 ** 14 / 32):
+for _ in range(2 ** 10 / 32):
   mill.sample(batch_size=32)
 
 end_time = time()
