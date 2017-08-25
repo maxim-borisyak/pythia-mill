@@ -26,24 +26,9 @@ class PythiaBlade(Process):
     pythia = launch_pythia(self.options)
     queue = self.queue
 
-    def write(event, timeout=0.1):
-      try:
-        queue.put(event, block=True, timeout=timeout)
-        return True
-      except:
-        return False
-
     while not self.exit_event.is_set():
       pythia_worker(pythia, buffer)
-      copy = buffer.copy()
-
-      while not (self.exit_event.is_set() or write(copy)):
-        pass
-
-    del pythia
-
-  def stop(self):
-    self.exit_event.set()
+      queue.put(buffer.copy(), block=True)
 
 
 class PythiaMill(object):
@@ -124,6 +109,7 @@ class PythiaMill(object):
         batch = batch[:(self.X.shape[0] - self.fill_size)]
         to_i = self.X.shape[0]
 
+      print 'filling from %d to %d'
       self.X[from_i:to_i] = batch
       self.fill_size += batch.shape[0]
 
@@ -168,7 +154,7 @@ class PythiaMill(object):
 
   def sample(self, batch_size=32, perform_fill=True, max_updates = 32):
     if self.X is None:
-      return self.sample_unbuffered(batch_size=batch_size)
+      return self.sample_unbuffered(batch_size)
     elif self.fill_size >= self.X.shape[0]:
       return self.sample_filled(batch_size=batch_size, perform_fill=perform_fill, max_updates=max_updates)
     else:
@@ -179,7 +165,6 @@ class PythiaMill(object):
       return
 
     for p in self.processes:
-      p.stop()
       p.terminate()
 
     self.processes = None
