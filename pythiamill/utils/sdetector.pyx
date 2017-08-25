@@ -1,9 +1,19 @@
 cimport cython
 import cython
-from detector cimport Detector, FLOAT
-from pythiautils cimport Pythia, Event
+from pythiautils cimport Pythia, Event, FLOAT
 
 from libc.math cimport sqrt, atanh, tanh, atan2, M_PI, floor
+
+DEF tracker_channel = 0
+DEF rich_channel = 1
+DEF calo_channel = 2
+DEF muon_channel = 3
+
+DEF electron = 11
+DEF muon = 13
+DEF pi_plus = 211
+DEF K_0 = 321
+DEF proton = 2212
 
 cdef inline double abs(double x) nogil:
   return -x if x < 0 else x
@@ -25,100 +35,106 @@ cdef inline double intersection_scale(
 
   return (1 / p) * (0.5 * sqrt(d) - scalar_prod)
 
+ctypedef cnp.uint8_t uint8
+
 @cython.boundscheck(False)
 @cython.nonecheck(False)
 @cython.overflowcheck(False)
 @cython.wraparound(False)
 @cython.infer_types(True)
-cdef class SDetector(Detector):
-  """
-  Yeeeh... You need to go this far to simply implement partial application...
-  """
-  cdef double max_pseudorapidity
-  cdef double max_tanh
-  cdef double R
+cdef void view(Pythia * pythia, FLOAT[:, :, :] buffer) nogil:
+  cdef double max_pseudorapidity = 10
+  cdef double tracker_threshold = 1.0e+2
+  cdef double R = 100.0
 
-  def __init__(self, double max_pseudorapidity, double R = 1.0):
-    self.max_pseudorapidity = max_pseudorapidity
-    self.max_tanh = tanh(max_pseudorapidity)
-    self.R = R
+  cdef double max_tanh = tanh(max_pseudorapidity)
 
-  cdef void view(self, Pythia * pythia, FLOAT[:, :] buffer) nogil:
-    cdef int pr_steps = buffer.shape[0]
-    cdef double pr_step = 2 * self.max_pseudorapidity / pr_steps
+  cdef int n_channels = buffer.shape[0]
+  cdef int pr_steps = buffer.shape[1]
+  cdef double pr_step = 2 * max_pseudorapidity / pr_steps
 
-    cdef int phi_cells = buffer.shape[1]
-    cdef double phi_step = 2 * M_PI / phi_cells
+  cdef int phi_cells = buffer.shape[2]
+  cdef double phi_step = 2 * M_PI / phi_cells
 
-    cdef double px, py, pz
-    cdef double ox, oy, oz
-    cdef double ix, iy, iz
+  cdef double px, py, pz
+  cdef double ox, oy, oz
+  cdef double ix, iy, iz
 
-    cdef double pr
-    cdef double phi
-    cdef double o
-    cdef double p
-    cdef double R_sqr = self.R * self.R
-    cdef double scale
-    cdef double th
+  cdef double pr
+  cdef double phi
+  cdef double o
+  cdef double p
+  cdef double R_sqr = R * R
+  cdef double scale
+  cdef double th
 
-    cdef int pr_i, phi_i
+  cdef int pr_i, phi_i
 
-    cdef int i
+  cdef int i
 
-    buffer[:, :] = 0.0
+  buffer[:, :, :] = 0.0
 
-    for i in range(pythia.event.size()):
-      if pythia.event.at(i).isCharged() and pythia.event.at(i).isFinal():
-        px = pythia.event.at(i).px()
-        py = pythia.event.at(i).py()
-        pz = pythia.event.at(i).pz()
+  for i in range(pythia.event.size()):
+    if not pythia.event.at(i).isFinal():
+      continue
 
-        p = px * px + py * py + pz * pz
+    px = pythia.event.at(i).px()
+    py = pythia.event.at(i).py()
+    pz = pythia.event.at(i).pz()
 
-        if p < 1.0e-12:
-          ### I guess, nobody would miss such particles
-          continue
+    p = px * px + py * py + pz * pz
 
-        ox = pythia.event.at(i).xProd()
-        oy = pythia.event.at(i).yProd()
-        oz = pythia.event.at(i).zProd()
+    if p < 1.0e-12:
+      ### I guess, nobody would miss such particles
+      continue
 
-        o = ox * ox + oy * oy + oz * oz
-        if o > R_sqr:
-          ### Particle originates outside the detector
-          ### could in principle return back,
-          ### but ignoring for now.
-          continue
+    ox = pythia.event.at(i).xProd()
+    oy = pythia.event.at(i).yProd()
+    oz = pythia.event.at(i).zProd()
 
-        ### solution of ||o + scale * p|| = R for scale
-        ### for positive scale
-        scale = intersection_scale(o, ox, oy, oz, p, px, py, pz, R_sqr)
+    o = ox * ox + oy * oy + oz * oz
+    if o > R_sqr:
+      ### Particle originates outside the detector
+      ### could in principle return back,
+      ### but ignoring for now.
+      continue
 
-        ix = ox + scale * px
-        iy = oy + scale * py
-        iz = oz + scale * pz
+    ### solution of ||o + scale * p|| = R for scale
+    ### for positive scale
+    scale = intersection_scale(o, ox, oy, oz, p, px, py, pz, R_sqr)
 
-        ### ix ** 2 + iy ** 2 + iz ** 2 must sum to R ** 2
-        th = abs(iz) / self.R
+    ix = ox + scale * px
+    iy = oy + scale * py
+    iz = oz + scale * pz
 
-        ### to avoid expensive atanh call
-        ### Note: tanh and atanh are monotonous.
-        if th >= self.max_tanh:
-          continue
+    ### ix ** 2 + iy ** 2 + iz ** 2 must sum to R ** 2
+    th = abs(iz) / R
 
-        pr = atanh(th)
-        pr_i = <int> floor(pr / pr_step)
+    ### to avoid expensive atanh call
+    ### Note: tanh and atanh are monotonous.
+    if th >= max_tanh:
+      continue
 
-        ### the negative semi-sphere.
-        if iz < 0:
-          pr_i = -pr_i - 1
+    pr = atanh(th)
+    pr_i = <int> floor(pr / pr_step)
 
-        pr_i += pr_steps / 2
+    ### the negative semi-sphere.
+    if iz < 0:
+      pr_i = -pr_i - 1
 
-        phi = atan2(iy, ix) + M_PI
-        phi_i = <int> floor(phi / phi_step)
+    pr_i += pr_steps / 2
 
-        buffer[pr_i, phi_i] += pythia.event.at(i).e()
+    phi = atan2(iy, ix) + M_PI
+    phi_i = <int> floor(phi / phi_step)
 
-    return
+    if buffer[tracker_channel, pr_i, phi_i] < 0.5 and pythia.event.at(i).e() > tracker_threshold:
+      buffer[tracker_channel, pr_i, phi_i] = 1.0
+
+    if pythia.event.at(i).isCharged():
+      buffer[rich_channel, pr_i, phi_i] += pythia.event.at(i).e()
+
+    if (pythia.event.at(i).isCharged() and pythia.event.at(i).idAbs() != muon) or pythia.event.at(i).idAbs() == 22:
+      buffer[calo_channel, pr_i, phi_i] += pythia.event.at(i).e()
+
+    if pythia.event.at(i).idAbs() == muon:
+      buffer[muon_channel, pr_i, phi_i] += pythia.event.at(i).e()

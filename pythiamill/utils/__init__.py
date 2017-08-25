@@ -1,2 +1,1 @@
-from pythiautils import launch_pythia
-from sdetector import SDetector
+from pythiautils import launch_pythia, pythia_worker

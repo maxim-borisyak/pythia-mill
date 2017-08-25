@@ -1,56 +1,57 @@
 from pythiautils cimport Pythia, Particle, FLOAT
-from detector cimport Detector
+from sdetector cimport view
 from libcpp.string cimport string as cstring
 
-import time
 import cython
 cimport cython
-
-import numpy as np
-cimport numpy as cnp
 
 from cpython.string cimport PyString_AsString
 
 from libc.stdlib cimport malloc, free
 
-stuff = 'hi!'
+ctypedef cnp.uint8_t uint8
 
-def launch_pythia(list options, Detector detector, int n_samples):
-  cdef int opt_len = len(options)
-  cdef char ** c_options = <char **>malloc(opt_len * sizeof(char*))
-  cdef FLOAT[:, :, :] buffer = np.ndarray(shape=(n_samples, 256, 64), dtype=np.float32)
+cdef class PyPythia:
+  cdef Pythia * pythia
+  def __cinit__(self):
+    self.pythia = new Pythia()
 
-  for i in range(opt_len):
-    c_options[i] = PyString_AsString(options[i])
+  cdef Pythia * get_pythia(self) nogil:
+    return self.pythia
 
-  with nogil:
-    pythia_worker(opt_len, c_options, detector, buffer)
-    free(c_options)
-
-  return buffer
+  def __dealloc__(self):
+    del self.pythia
 
 @cython.nonecheck(False)
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cdef void pythia_worker(
-  int n_options, char ** options,
-  Detector detector,
-  FLOAT[:, :, :] buffer,
-) nogil:
+cpdef PyPythia launch_pythia(list options):
+  cdef int opt_len = len(options)
+  cdef char ** c_options = <char **> malloc(opt_len * sizeof(char*))
 
-  cdef Pythia pythia
-  cdef Pythia * pythia_prt = &pythia
+  for i in range(opt_len):
+    c_options[i] = PyString_AsString(options[i])
 
-  cdef int i, j
+  cdef PyPythia pypythia = PyPythia()
 
-  for i in range(n_options):
-    pythia.readString(cstring(options[i]))
-  pythia.init()
+  for i in range(opt_len):
+    pypythia.get_pythia().readString(options[i])
+  pypythia.get_pythia().init()
 
-  cdef int nCharged = 0
+  free(c_options)
 
-  for i in range(buffer.shape[0]):
+  return pypythia
+
+@cython.nonecheck(False)
+@cython.boundscheck(False)
+@cython.wraparound(False)
+cpdef void pythia_worker(PyPythia pypythia, FLOAT[:, :, :, :] buffer) nogil:
+  cdef Pythia * pythia = pypythia.get_pythia()
+
+  cdef int i = 0
+  while i < buffer.shape[0]:
     if not pythia.next():
       continue
 
-    detector.view(pythia_prt, buffer[i])
+    view(pythia, buffer[i])
+    i += 1

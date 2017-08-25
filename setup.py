@@ -30,21 +30,14 @@ with open(osp.join(here, 'README.md'), encoding='utf-8') as f:
 extensions = [
   Extension(
     'pythiamill.utils.pythiautils', ['pythiamill/utils/pythiautils.pyx'],
-    libraries = ['pythia8'],
+    libraries = ['pythia8', 'pthread'],
     include_dirs = [np.get_include()] + get_includes(),
-    language = 'c++'
-  ),
-
-Extension(
-    'pythiamill.utils.detector', ['pythiamill/utils/detector.pyx'],
-    libraries = ['pythia8'],
-    include_dirs=[np.get_include()] + get_includes(),
-    language = 'c++'
+    language = 'c++',
   ),
 
   Extension(
     'pythiamill.utils.sdetector', ['pythiamill/utils/sdetector.pyx'],
-    libraries = ['pythia8'],
+    libraries=['pythia8', 'pthread'],
     include_dirs=[np.get_include()] + get_includes(),
     language = 'c++'
   )
@@ -53,7 +46,7 @@ Extension(
 setup(
   name = 'pythia-mill',
 
-  version='0.1.0',
+  version='1.0.0',
 
   description="""Pythia generator for python.""",
 
@@ -102,5 +95,5 @@ setup(
   package_data = {
   },
 
-  ext_modules = cythonize(extensions),
+  ext_modules = cythonize(extensions, gdb_debug=True),
 )
