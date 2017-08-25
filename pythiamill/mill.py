@@ -37,7 +37,7 @@ class PythiaMill(object):
   def __init__(self, options, event_shape=(4, 128, 128), batch_size=16,
                cache_size=128, buffer_size=None, n_workers=4, minimum_size_scale_factor=1.5):
     self.manager = Manager()
-    self.queue = self.manager.Queue(maxsize=cache_size)
+    self.queue = self.manager.JoinableQueue(maxsize=cache_size)
 
     if buffer_size is not None:
       self.X = np.ndarray(shape=(buffer_size, ) + event_shape, dtype='float32')
@@ -123,6 +123,7 @@ class PythiaMill(object):
     i = 0
     while i < X.shape[0]:
       batch = self.queue.get(block=True)
+      self.queue.task_done()
 
       to_i = i + batch.shape[0]
 
