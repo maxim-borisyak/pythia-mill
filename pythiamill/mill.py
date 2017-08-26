@@ -32,6 +32,7 @@ class PythiaBlade(Process):
       c = self.command_queue.get(block=True)
       if c is None:
         self.command_queue.task_done()
+        self.queue.put(None, block=True)
         break
 
       pythia_worker(pythia, buffer)
@@ -41,8 +42,8 @@ class PythiaBlade(Process):
 
 class PythiaMill(object):
   def __init__(self, options, event_shape=(4, 128, 128), batch_size=16,
-               cache_size=128, n_workers=4):
-    self.cache_size = cache_size
+               cache_size=None, n_workers=4):
+    self.cache_size = cache_size if cache_size is not None else n_workers * 2
 
     self.manager = Manager()
     self.command_queue = self.manager.JoinableQueue()
@@ -61,7 +62,7 @@ class PythiaMill(object):
     for p in self.processes:
       p.start()
 
-    for _ in self.processes:
+    for _ in range(self.cache_size):
       self.command_queue.put(1)
 
   def sample(self):
@@ -71,7 +72,34 @@ class PythiaMill(object):
     return batch
 
   def terminate(self):
+    if self.processes is None:
+      return
+
     for p in self.processes:
       p.terminate()
 
+    self.processes = None
+
+  def __del__(self):
+    self.terminate()
+
+  def shutdown(self):
+    if self.processes is None:
+      return
+
+    for _ in self.processes:
+      self.command_queue.send(None)
+
+    stopped = 0
+    for i in range(self.cache_size):
+      c = self.queue.get(block=True)
+      self.queue.task_done()
+
+      if c is None:
+        stopped += 1
+
+      if stopped >= len(self.processes):
+        return
+
+    self.terminate()
     self.processes = None
