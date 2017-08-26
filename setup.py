@@ -30,21 +30,21 @@ with open(osp.join(here, 'README.md'), encoding='utf-8') as f:
 extensions = [
   Extension(
     'pythiamill.utils.pythiautils', ['pythiamill/utils/pythiautils.pyx'],
-    libraries = ['pythia8', 'pthread'],
-    include_dirs = [np.get_include()] + get_includes(),
-    language = 'c++',
+    libraries=['stdc++', 'pythia8'],
+    include_dirs=[np.get_include()] + get_includes(),
+    language='c++',
   ),
 
   Extension(
     'pythiamill.utils.sdetector', ['pythiamill/utils/sdetector.pyx'],
-    libraries=['pythia8', 'pthread'],
+    libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
-    language = 'c++'
+    language='c++'
   )
 ]
 
 setup(
-  name = 'pythia-mill',
+  name='pythia-mill',
 
   version='1.0.0',
 
