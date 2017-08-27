@@ -14,6 +14,7 @@ DEF muon = 13
 DEF pi_plus = 211
 DEF K_0 = 321
 DEF proton = 2212
+DEF photon = 22
 
 cdef inline double abs(double x) nogil:
   return -x if x < 0 else x
@@ -43,8 +44,8 @@ ctypedef cnp.uint8_t uint8
 @cython.wraparound(False)
 @cython.infer_types(True)
 cdef void view(Pythia * pythia, FLOAT[:, :, :] buffer) nogil:
-  cdef double max_pseudorapidity = 10
-  cdef double tracker_threshold = 1.0e+2
+  cdef double max_pseudorapidity = 5
+  cdef double tracker_threshold = 0.0
   cdef double R = 100.0
 
   cdef double max_tanh = tanh(max_pseudorapidity)
@@ -127,13 +128,13 @@ cdef void view(Pythia * pythia, FLOAT[:, :, :] buffer) nogil:
     phi = atan2(iy, ix) + M_PI
     phi_i = <int> floor(phi / phi_step)
 
-    if buffer[tracker_channel, pr_i, phi_i] < 0.5 and pythia.event.at(i).e() > tracker_threshold:
+    if pythia.event.at(i).e() > tracker_threshold:
       buffer[tracker_channel, pr_i, phi_i] = 1.0
 
     if pythia.event.at(i).isCharged():
       buffer[rich_channel, pr_i, phi_i] += pythia.event.at(i).e()
 
-    if (pythia.event.at(i).isCharged() and pythia.event.at(i).idAbs() != muon) or pythia.event.at(i).idAbs() == 22:
+    if (pythia.event.at(i).isCharged() and pythia.event.at(i).idAbs() != muon) or pythia.event.at(i).idAbs() == photon:
       buffer[calo_channel, pr_i, phi_i] += pythia.event.at(i).e()
 
     if pythia.event.at(i).idAbs() == muon:

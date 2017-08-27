@@ -65,6 +65,15 @@ class PythiaMill(object):
     for _ in range(self.cache_size):
       self.command_queue.put(1)
 
+  def __iter__(self):
+    return self
+
+  def __next__(self):
+    return self.sample()
+
+  def next(self):
+    return self.sample()
+
   def sample(self):
     batch = self.queue.get(block=True)
     self.queue.task_done()

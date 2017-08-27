@@ -103,3 +103,4 @@ ENV/
 pythiamill/utils/*.cpp
 
 .idea/
+/cython_debug/
