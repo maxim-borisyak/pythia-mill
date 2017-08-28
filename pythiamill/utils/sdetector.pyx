@@ -44,31 +44,54 @@ ctypedef cnp.uint8_t uint8
 @cython.wraparound(False)
 @cython.infer_types(True)
 cdef void view(Pythia * pythia, FLOAT[:, :, :] buffer) nogil:
+  ### ...
   cdef double max_pseudorapidity = 5
+
+  ### minimal energy required to activate tracker
   cdef double tracker_threshold = 0.0
+  ### detector raduis
   cdef double R = 100.0
 
+  ### utility constant.
   cdef double max_tanh = tanh(max_pseudorapidity)
 
   cdef int n_channels = buffer.shape[0]
+  ### number of steps in pseudorapidity axis
   cdef int pr_steps = buffer.shape[1]
+  ### size of one pseudorapidity step
   cdef double pr_step = 2 * max_pseudorapidity / pr_steps
 
+  ### the same for phi
   cdef int phi_cells = buffer.shape[2]
   cdef double phi_step = 2 * M_PI / phi_cells
 
+  ### momentum
   cdef double px, py, pz
+
+  ### origin coordinates
   cdef double ox, oy, oz
+
+  ### coordinates of intersection with the detector sphere
   cdef double ix, iy, iz
 
+  ### pseudorapidity
   cdef double pr
   cdef double phi
+
+  ### norm of the origin vector, squared
   cdef double o
+  ### norm of the momentum vector, squared
   cdef double p
   cdef double R_sqr = R * R
+
+  ### || o + scale * p || = R
   cdef double scale
+
+  ### tanh of pseudorapidity
+  ### pr = atanh(iz / R), thus th = iz / R
   cdef double th
 
+  ### position of the cells in the grid
   cdef int pr_i, phi_i
 
   cdef int i
@@ -104,6 +127,7 @@ cdef void view(Pythia * pythia, FLOAT[:, :, :] buffer) nogil:
     ### for positive scale
     scale = intersection_scale(o, ox, oy, oz, p, px, py, pz, R_sqr)
 
+    ### coordinates of intersection
     ix = ox + scale * px
     iy = oy + scale * py
     iz = oz + scale * pz
@@ -114,8 +138,10 @@ cdef void view(Pythia * pythia, FLOAT[:, :, :] buffer) nogil:
     ### to avoid expensive atanh call
     ### Note: tanh and atanh are monotonous.
     if th >= max_tanh:
+      ### particle too close to the beam axis
       continue
 
+    ### actual pseudorapidity (abs of it)
     pr = atanh(th)
     pr_i = <int> floor(pr / pr_step)
 
@@ -125,17 +151,22 @@ cdef void view(Pythia * pythia, FLOAT[:, :, :] buffer) nogil:
 
     pr_i += pr_steps / 2
 
+    ### phi is just atan, pi shift is just to compensate for negative angels
     phi = atan2(iy, ix) + M_PI
     phi_i = <int> floor(phi / phi_step)
 
+    ### tracker activation
     if pythia.event.at(i).e() > tracker_threshold:
       buffer[tracker_channel, pr_i, phi_i] = 1.0
 
+    ### rich reacts on all charged particles (why is it so?)
     if pythia.event.at(i).isCharged():
       buffer[rich_channel, pr_i, phi_i] += pythia.event.at(i).e()
 
+    ### calo react on all charged particles except muons or on photons
     if (pythia.event.at(i).isCharged() and pythia.event.at(i).idAbs() != muon) or pythia.event.at(i).idAbs() == photon:
       buffer[calo_channel, pr_i, phi_i] += pythia.event.at(i).e()
 
+    ### muon subsystem
     if pythia.event.at(i).idAbs() == muon:
       buffer[muon_channel, pr_i, phi_i] += pythia.event.at(i).e()
