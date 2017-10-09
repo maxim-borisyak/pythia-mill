@@ -46,7 +46,20 @@ cdef extern from "Pythia8/Pythia.h" namespace "Pythia8":
     bool init() nogil
     bool next() nogil
     void stat() nogil
-    Event event;
+    Event event
+
+cdef extern from "Pythia8/Analysis.h" namespace "Pythia8":
+  cdef cppclass Sphericity:
+    Sphericity() nogil
+    Sphericity(double powerIn, int selectIn) nogil
+    bool analyze(const Event& event) nogil
+    double sphericity() nogil
+
+  cdef cppclass Thrust:
+    Thrust() nogil
+    Thrust(int selectIn) nogil
+    bool analyze(const Event& event) nogil
+    double thrust() nogil
 
 cimport numpy as cnp
 ctypedef cnp.float32_t FLOAT

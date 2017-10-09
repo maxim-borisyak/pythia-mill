@@ -1,5 +1,7 @@
 from pythiamill import PythiaMill
 
+from pythiamill.utils.stdetector import STDetector
+
 options=[
   'Print:quiet = on',
   'Init:showProcesses = off',
@@ -12,18 +14,15 @@ options=[
   "PhaseSpace:pTHatMin = 20.",
 ]
 
-mill = PythiaMill(options, n_workers=4, batch_size=32, cache_size=1024)
+detector = STDetector()
 
-from time import time
-start_time = time()
+mill = PythiaMill(detector, options, event_size=4, n_workers=4, batch_size=32, cache_size=32)
 
-for _ in range(2 ** 10 / 32):
-  mill.sample()
-
-end_time = time()
-
-delta = (end_time - start_time) * 1000.0
-
-print '%.3f millisec per event' % (delta / 1024)
+X = mill.sample()
 
 mill.terminate()
+
+print X.shape
+
+print X[:10, :]
+

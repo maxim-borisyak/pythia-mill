@@ -1,5 +1,10 @@
 cimport numpy as cnp
 
 from pythiautils cimport Pythia, FLOAT
+from detector cimport Detector
 
-cdef void view(Pythia * pythia, FLOAT[:, :, :] buffer) nogil
+cdef class SDetector(Detector):
+  cdef int pr_steps;
+  cdef int phi_steps;
+
+  cpdef void view(self, FLOAT[:] buffer_)

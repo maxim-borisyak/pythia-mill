@@ -9,14 +9,16 @@ __all__ = [
 ]
 
 class PythiaBlade(Process):
-  def __init__(self, command_queue, queue, options, event_shape=(4, 128, 128), batch_size=1):
+  def __init__(self, detector, command_queue, queue, options, event_size=4 * 128 * 128, batch_size=1):
     super(PythiaBlade, self).__init__()
+
+    self.detector = detector
 
     self.command_queue = command_queue
     self.queue = queue
 
     self.options = options
-    self.buffer = np.ndarray(shape=(batch_size, ) + event_shape, dtype='float32')
+    self.buffer = np.ndarray(shape=(batch_size, event_size), dtype='float32')
 
   def run(self):
     import sys
@@ -35,13 +37,13 @@ class PythiaBlade(Process):
         self.queue.put(None, block=True)
         break
 
-      pythia_worker(pythia, buffer)
+      pythia_worker(self.detector, pythia, buffer)
       self.command_queue.task_done()
       self.queue.put(buffer.copy(), block=True)
 
 
 class PythiaMill(object):
-  def __init__(self, options, event_shape=(4, 128, 128), batch_size=16,
+  def __init__(self, detector, options, event_size=3 * 128 * 128, batch_size=16,
                cache_size=None, n_workers=4):
     self.cache_size = cache_size if cache_size is not None else n_workers * 2
 
@@ -53,8 +55,10 @@ class PythiaMill(object):
 
     self.processes = [
       PythiaBlade(
+        detector=detector,
         command_queue=self.command_queue, queue=self.queue,
-        options=options, event_shape=event_shape, batch_size=batch_size
+        options=options, event_size=event_size,
+        batch_size=batch_size
       )
       for _ in range(n_workers)
     ]

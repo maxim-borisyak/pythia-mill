@@ -1,5 +1,5 @@
 from pythiautils cimport Pythia, Particle, FLOAT
-from sdetector cimport view
+from detector cimport Detector
 from libcpp.string cimport string as cstring
 
 import cython
@@ -45,13 +45,14 @@ cpdef PyPythia launch_pythia(list options):
 @cython.nonecheck(False)
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cpdef void pythia_worker(PyPythia pypythia, FLOAT[:, :, :, :] buffer) nogil:
+cpdef void pythia_worker(Detector detector, PyPythia pypythia, FLOAT[:, :] buffer):
   cdef Pythia * pythia = pypythia.get_pythia()
+  detector.bind(pythia)
 
   cdef int i = 0
   while i < buffer.shape[0]:
     if not pythia.next():
       continue
 
-    view(pythia, buffer[i])
+    detector.view(buffer[i])
     i += 1

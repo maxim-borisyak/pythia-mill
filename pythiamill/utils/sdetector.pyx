@@ -1,6 +1,7 @@
 cimport cython
 import cython
 from pythiautils cimport Pythia, Event, FLOAT
+from detector cimport Detector
 
 from libc.math cimport sqrt, atanh, tanh, atan2, M_PI, floor
 
@@ -38,135 +39,139 @@ cdef inline double intersection_scale(
 
 ctypedef cnp.uint8_t uint8
 
-@cython.boundscheck(False)
-@cython.nonecheck(False)
-@cython.overflowcheck(False)
-@cython.wraparound(False)
-@cython.infer_types(True)
-cdef void view(Pythia * pythia, FLOAT[:, :, :] buffer) nogil:
-  ### ...
-  cdef double max_pseudorapidity = 5
+cdef class SDetector(Detector):
+  def __init__(self, int pseudorapidity_steps, int phi_steps):
+    self.pr_steps = pseudorapidity_steps
+    self.phi_steps = phi_steps
 
-  ### minimal energy required to activate tracker
-  cdef double tracker_threshold = 0.0
-  ### detector raduis
-  cdef double R = 100.0
+  @cython.boundscheck(False)
+  @cython.nonecheck(False)
+  @cython.overflowcheck(False)
+  @cython.wraparound(False)
+  @cython.infer_types(True)
+  cpdef void view(self, FLOAT[:] buffer_):
+    cdef Pythia * pythia = self.pythia
+    cdef FLOAT[:, :, :] buffer = buffer_.reshape((4, self.pr_steps, self.phi_steps))
 
-  ### utility constant.
-  cdef double max_tanh = tanh(max_pseudorapidity)
+    ### ...
+    cdef double max_pseudorapidity = 5
 
-  cdef int n_channels = buffer.shape[0]
-  ### number of steps in pseudorapidity axis
-  cdef int pr_steps = buffer.shape[1]
-  ### size of one pseudorapidity step
-  cdef double pr_step = 2 * max_pseudorapidity / pr_steps
+    ### minimal energy required to activate tracker
+    cdef double tracker_threshold = 0.0
+    ### detector raduis
+    cdef double R = 100.0
 
-  ### the same for phi
-  cdef int phi_cells = buffer.shape[2]
-  cdef double phi_step = 2 * M_PI / phi_cells
+    ### utility constant.
+    cdef double max_tanh = tanh(max_pseudorapidity)
 
-  ### momentum
-  cdef double px, py, pz
+    ### number of steps in pseudorapidity axis
+    cdef int pr_steps = self.pr_steps
+    ### size of one pseudorapidity step
+    cdef double pr_step = 2 * max_pseudorapidity / pr_steps
 
-  ### origin coordinates
-  cdef double ox, oy, oz
+    ### the same for phi
+    cdef int phi_cells = self.phi_steps
+    cdef double phi_step = 2 * M_PI / phi_cells
 
-  ### coordinates of intersection with the detector sphere
-  cdef double ix, iy, iz
+    ### momentum
+    cdef double px, py, pz
 
-  ### pseudorapidity
-  cdef double pr
-  cdef double phi
+    ### origin coordinates
+    cdef double ox, oy, oz
 
-  ### norm of the origin vector, squared
-  cdef double o
-  ### norm of the momentum vector, squared
-  cdef double p
-  cdef double R_sqr = R * R
+    ### coordinates of intersection with the detector sphere
+    cdef double ix, iy, iz
 
-  ### || o + scale * p || = R
-  cdef double scale
+    ### pseudorapidity
+    cdef double pr
+    cdef double phi
 
-  ### tanh of pseudorapidity
-  ### pr = atanh(iz / R), thus th = iz / R
-  cdef double th
+    ### norm of the origin vector, squared
+    cdef double o
+    ### norm of the momentum vector, squared
+    cdef double p
+    cdef double R_sqr = R * R
 
-  ### position of the cells in the grid
-  cdef int pr_i, phi_i
+    ### || o + scale * p || = R
+    cdef double scale
 
-  cdef int i
+    ### tanh of pseudorapidity
+    ### pr = atanh(iz / R), thus th = iz / R
+    cdef double th
 
-  buffer[:, :, :] = 0.0
+    ### position of the cells in the grid
+    cdef int pr_i, phi_i
 
-  for i in range(pythia.event.size()):
-    if not pythia.event.at(i).isFinal():
-      continue
+    cdef int i
 
-    px = pythia.event.at(i).px()
-    py = pythia.event.at(i).py()
-    pz = pythia.event.at(i).pz()
+    with nogil:
+      buffer[:, :, :] = 0.0
 
-    p = px * px + py * py + pz * pz
+      for i in range(pythia.event.size()):
+        if not pythia.event.at(i).isFinal():
+          continue
 
-    if p < 1.0e-12:
-      ### I guess, nobody would miss such particles
-      continue
+        px = pythia.event.at(i).px()
+        py = pythia.event.at(i).py()
+        pz = pythia.event.at(i).pz()
 
-    ox = pythia.event.at(i).xProd()
-    oy = pythia.event.at(i).yProd()
-    oz = pythia.event.at(i).zProd()
+        p = px * px + py * py + pz * pz
 
-    o = ox * ox + oy * oy + oz * oz
-    if o > R_sqr:
-      ### Particle originates outside the detector
-      ### could in principle return back,
-      ### but ignoring for now.
-      continue
+        if p < 1.0e-12:
+          ### I guess, nobody would miss such particles
+          continue
 
-    ### solution of ||o + scale * p|| = R for scale
-    ### for positive scale
-    scale = intersection_scale(o, ox, oy, oz, p, px, py, pz, R_sqr)
+        ox = pythia.event.at(i).xProd()
+        oy = pythia.event.at(i).yProd()
+        oz = pythia.event.at(i).zProd()
 
-    ### coordinates of intersection
-    ix = ox + scale * px
-    iy = oy + scale * py
-    iz = oz + scale * pz
+        o = ox * ox + oy * oy + oz * oz
+        if o > R_sqr:
+          ### Particle originates outside the detector
+          ### could in principle return back,
+          ### but ignoring for now.
+          continue
 
-    ### ix ** 2 + iy ** 2 + iz ** 2 must sum to R ** 2
-    th = abs(iz) / R
+        ### solution of ||o + scale * p|| = R for scale
+        ### for positive scale
+        scale = intersection_scale(o, ox, oy, oz, p, px, py, pz, R_sqr)
 
-    ### to avoid expensive atanh call
-    ### Note: tanh and atanh are monotonous.
-    if th >= max_tanh:
-      ### particle too close to the beam axis
-      continue
+        ### coordinates of intersection
+        ix = ox + scale * px
+        iy = oy + scale * py
+        iz = oz + scale * pz
 
-    ### actual pseudorapidity (abs of it)
-    pr = atanh(th)
-    pr_i = <int> floor(pr / pr_step)
+        ### ix ** 2 + iy ** 2 + iz ** 2 must sum to R ** 2
+        th = abs(iz) / R
 
-    ### the negative semi-sphere.
-    if iz < 0:
-      pr_i = -pr_i - 1
+        ### to avoid expensive atanh call
+        ### Note: tanh and atanh are monotonous.
+        if th >= max_tanh:
+          ### particle too close to the beam axis
+          continue
 
-    pr_i += pr_steps / 2
+        ### actual pseudorapidity (abs of it)
+        pr = atanh(th)
+        pr_i = <int> floor(pr / pr_step)
 
-    ### phi is just atan, pi shift is just to compensate for negative angels
-    phi = atan2(iy, ix) + M_PI
-    phi_i = <int> floor(phi / phi_step)
+        ### the negative semi-sphere.
+        if iz < 0:
+          pr_i = -pr_i - 1
 
-    ### tracker activation
-    if pythia.event.at(i).e() > tracker_threshold:
-      buffer[tracker_channel, pr_i, phi_i] = 1.0
+        pr_i += pr_steps / 2
 
-    ### rich reacts on all charged particles (why is it so?)
-    if pythia.event.at(i).isCharged():
-      buffer[rich_channel, pr_i, phi_i] += pythia.event.at(i).e()
+        ### phi is just atan, pi shift is just to compensate for negative angels
+        phi = atan2(iy, ix) + M_PI
+        phi_i = <int> floor(phi / phi_step)
 
-    ### calo react on all charged particles except muons or on photons
-    if (pythia.event.at(i).isCharged() and pythia.event.at(i).idAbs() != muon) or pythia.event.at(i).idAbs() == photon:
-      buffer[calo_channel, pr_i, phi_i] += pythia.event.at(i).e()
+        ### tracker activation
+        if pythia.event.at(i).e() > tracker_threshold:
+          buffer[tracker_channel, pr_i, phi_i] = 1.0
 
-    ### muon subsystem
-    if pythia.event.at(i).idAbs() == muon:
-      buffer[muon_channel, pr_i, phi_i] += pythia.event.at(i).e()
+        ### rich reacts on all charged particles (why is it so?)
+        if pythia.event.at(i).isCharged():
+          buffer[rich_channel, pr_i, phi_i] += pythia.event.at(i).e()
+
+        ### calo react on all charged particles except muons or on photons
+        if (pythia.event.at(i).isCharged() and pythia.event.at(i).idAbs() != muon) or pythia.event.at(i).idAbs() == photon:
+          buffer[calo_channel, pr_i, phi_i] += pythia.event.at(i).e()
