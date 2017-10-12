@@ -12,17 +12,29 @@ options=[
   'Init:showMultipartonInteractions = off',
   'Init:showChangedSettings = off',
   'Init:showChangedParticleData = off',
-  'Stat:showPartonLevel = off',
-  "Beams:eCM = 18000",
-  "HardQCD:all = on",
-  "PhaseSpace:pTHatMin = 20.",
+  'Beams:idA =  11',
+  "Beams:idB = -11",
+  "Beams:eCM = 91.188",
+  '23:onMode = off',
+  '23:onIfAny = 1 2 3 4 5',
+  'WeakSingleBoson:ffbar2gmZ = on',
+  'PDF:lepton = off',
+  'StringFlav:thetaPS = 40.4',
+  'StringFlav:thetaV = 3.32',
+  'StringZ:usePetersonC=off',
+  'StringZ:usePetersonB=off',
+  'StringZ:usePetersonH=off',
+  'ParticleDecays:multIncrease=4.5',
+  'ParticleDecays:multIncreaseWeak=2.0',
+  'ParticleDecays:FSRinDecays=on',
+  'TimeShower:QEDshowerByQ=on'
 ]
 
 if __name__ == '__main__':
 
   buffer = np.ndarray(shape=(8, 3), dtype='float32')
 
-  mill = PythiaMill(STDetector(), options, cache_size=16)
+  mill = PythiaMill(STDetector(), options, cache_size=16, batch_size=16)
 
   #pythia_worker(detector, pythia, buffer)
 
