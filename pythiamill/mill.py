@@ -1,46 +1,42 @@
-from utils import launch_pythia, pythia_worker
+from pythiamill.utils import launch_pythia, pythia_worker
 
 import numpy as np
-from multiprocessing import Process, Queue, Event
-from multiprocessing import Manager
+import multiprocessing as mp
+from multiprocessing import Process
 
 __all__ = [
   'PythiaMill'
 ]
 
-class PythiaBlade(Process):
-  def __init__(self, detector, command_queue, queue, options, batch_size=1):
-    super(PythiaBlade, self).__init__()
+def pythia_blade(detector, command_queue, queue, options, batch_size=1):
+  import sys
+  import os
+  sys.stdout = open(os.devnull, 'w')
+  sys.stderr = open(os.devnull, 'w')
 
-    self.detector = detector
+  detector = detector
 
-    self.command_queue = command_queue
-    self.queue = queue
+  event_size = detector.event_size()
+  buffer = np.ndarray(shape=(batch_size, event_size), dtype='float32')
 
-    self.options = options
-    event_size = detector.event_size()
-    self.buffer = np.ndarray(shape=(batch_size, event_size), dtype='float32')
+  pythia = launch_pythia(options)
 
-  def run(self):
-    import sys
-    import os
+  while True:
+    c = command_queue.get(block=True)
+    if c is None:
+      command_queue.task_done()
+      queue.put(None, block=True)
+      break
 
-    sys.stdout = open(os.devnull, 'w')
-    sys.stderr = open(os.devnull, 'w')
+    pythia_worker(detector, pythia, buffer)
+    command_queue.task_done()
+    queue.put(buffer.copy(), block=True)
 
-    buffer = self.buffer
-    pythia = launch_pythia(self.options)
-
-    while True:
-      c = self.command_queue.get(block=True)
-      if c is None:
-        self.command_queue.task_done()
-        self.queue.put(None, block=True)
-        break
-
-      pythia_worker(self.detector, pythia, buffer)
-      self.command_queue.task_done()
-      self.queue.put(buffer.copy(), block=True)
+def PythiaBlade(detector, command_queue, queue, options, batch_size=1):
+  return Process(
+    target=pythia_blade,
+    args=(detector, command_queue, queue, options, batch_size)
+  )
 
 
 class PythiaMill(object):
@@ -48,18 +44,23 @@ class PythiaMill(object):
                cache_size=None, n_workers=4):
     self.cache_size = cache_size if cache_size is not None else n_workers * 2
 
-    self.manager = Manager()
-    self.command_queue = self.manager.JoinableQueue()
-    self.queue = self.manager.JoinableQueue()
+    ctx = mp.get_context('spawn')
+
+    self.command_queue = ctx.JoinableQueue()
+    self.queue = ctx.JoinableQueue()
 
     self.fill_size = 0
 
     self.processes = [
-      PythiaBlade(
-        detector=detector,
-        command_queue=self.command_queue, queue=self.queue,
-        options=options,
-        batch_size=batch_size
+      ctx.Process(
+        target=pythia_blade,
+        kwargs=dict(
+          detector=detector,
+          command_queue=self.command_queue,
+          queue=self.queue,
+          options=options,
+          batch_size=batch_size
+        )
       )
       for _ in range(n_workers)
     ]

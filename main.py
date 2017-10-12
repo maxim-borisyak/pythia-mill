@@ -18,16 +18,17 @@ options=[
   "PhaseSpace:pTHatMin = 20.",
 ]
 
-detector = STDetector()
+if __name__ == '__main__':
+  detector = STDetector()
 
-buffer = np.ndarray(shape=(8, 3), dtype='float32')
+  buffer = np.ndarray(shape=(8, 3), dtype='float32')
 
-pythia = launch_pythia(options)
+  pythia = launch_pythia(options)
 
-#pythia_worker(detector, pythia, buffer)
+  #pythia_worker(detector, pythia, buffer)
 
-start = time()
-pythia_worker(detector, pythia, buffer)
-end = time()
+  start = time()
+  pythia_worker(detector, pythia, buffer)
+  end = time()
 
-print 'Time %.3lf millisec' % ((end - start) * 1000.0)
+  print('Time %.3lf millisec' % ((end - start) * 1000.0))
