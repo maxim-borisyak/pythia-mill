@@ -9,7 +9,7 @@ __all__ = [
 ]
 
 class PythiaBlade(Process):
-  def __init__(self, detector, command_queue, queue, options, event_size=4 * 128 * 128, batch_size=1):
+  def __init__(self, detector, command_queue, queue, options, batch_size=1):
     super(PythiaBlade, self).__init__()
 
     self.detector = detector
@@ -18,6 +18,7 @@ class PythiaBlade(Process):
     self.queue = queue
 
     self.options = options
+    event_size = detector.event_size()
     self.buffer = np.ndarray(shape=(batch_size, event_size), dtype='float32')
 
   def run(self):
@@ -43,7 +44,7 @@ class PythiaBlade(Process):
 
 
 class PythiaMill(object):
-  def __init__(self, detector, options, event_size=3 * 128 * 128, batch_size=16,
+  def __init__(self, detector, options, batch_size=16,
                cache_size=None, n_workers=4):
     self.cache_size = cache_size if cache_size is not None else n_workers * 2
 
@@ -57,7 +58,7 @@ class PythiaMill(object):
       PythiaBlade(
         detector=detector,
         command_queue=self.command_queue, queue=self.queue,
-        options=options, event_size=event_size,
+        options=options,
         batch_size=batch_size
       )
       for _ in range(n_workers)

@@ -1,6 +1,10 @@
+import numpy as np
 from pythiamill import PythiaMill
 
-from pythiamill.utils.stdetector import STDetector
+from pythiamill.utils import *
+
+from time import time
+import cProfile, pstats
 
 options=[
   'Print:quiet = on',
@@ -16,13 +20,14 @@ options=[
 
 detector = STDetector()
 
-mill = PythiaMill(detector, options, event_size=4, n_workers=4, batch_size=32, cache_size=32)
+buffer = np.ndarray(shape=(8, 3), dtype='float32')
 
-X = mill.sample()
+pythia = launch_pythia(options)
 
-mill.terminate()
+#pythia_worker(detector, pythia, buffer)
 
-print X.shape
+start = time()
+pythia_worker(detector, pythia, buffer)
+end = time()
 
-print X[:10, :]
-
+print 'Time %.3lf millisec' % ((end - start) * 1000.0)

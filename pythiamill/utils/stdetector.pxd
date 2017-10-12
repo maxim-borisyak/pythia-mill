@@ -1,3 +1,5 @@
+# cython: profile=True
+
 cimport numpy as cnp
 
 from pythiautils cimport Pythia, FLOAT, Sphericity, Thrust

@@ -1,3 +1,6 @@
+# cython: profile=True
+# cython: linetrace=True
+
 cimport cython
 import cython
 from pythiautils cimport Pythia, Event, Sphericity, Thrust, FLOAT
@@ -11,6 +14,10 @@ cdef class STDetector(Detector):
     self.lin = Sphericity(1.0, 2)
     self.thr = Thrust(2)
 
+  def event_size(self):
+    return 3
+
+  @cython.profile(True)
   @cython.boundscheck(False)
   @cython.nonecheck(False)
   @cython.overflowcheck(False)
@@ -19,12 +26,12 @@ cdef class STDetector(Detector):
   cpdef void view(self, FLOAT[:] buffer):
     cdef Pythia * pythia = self.pythia
 
-    with nogil:
-      self.sph.analyze(pythia.event)
-      buffer[0] = self.sph.sphericity()
+    #with nogil:
+    self.sph.analyze(pythia.event)
+    buffer[0] = self.sph.sphericity()
 
-      self.lin.analyze(pythia.event)
-      buffer[1] = self.lin.sphericity()
+    self.lin.analyze(pythia.event)
+    buffer[1] = self.lin.sphericity()
 
-      self.thr.analyze(pythia.event)
-      buffer[2] = self.thr.thrust()
+    self.thr.analyze(pythia.event)
+    buffer[2] = self.thr.thrust()

@@ -8,7 +8,6 @@ from libc.math cimport sqrt, atanh, tanh, atan2, M_PI, floor
 DEF tracker_channel = 0
 DEF rich_channel = 1
 DEF calo_channel = 2
-DEF muon_channel = 3
 
 DEF electron = 11
 DEF muon = 13
@@ -40,26 +39,33 @@ cdef inline double intersection_scale(
 ctypedef cnp.uint8_t uint8
 
 cdef class SDetector(Detector):
-  def __init__(self, int pseudorapidity_steps, int phi_steps):
+  def __init__(self, int pseudorapidity_steps, int phi_steps,
+               double max_pseudorapidity = 5, double R = 100.0, double tracker_threshold=0.0):
     self.pr_steps = pseudorapidity_steps
     self.phi_steps = phi_steps
+
+    self.max_pseudorapidity = max_pseudorapidity
+    self.R = R
+    self.tracker_threshold = tracker_threshold
+
+  def event_size(self):
+    return 3 * self.pr_steps * self.phi_steps
 
   @cython.boundscheck(False)
   @cython.nonecheck(False)
   @cython.overflowcheck(False)
   @cython.wraparound(False)
   @cython.infer_types(True)
-  cpdef void view(self, FLOAT[:] buffer_):
+  cpdef void view(self, FLOAT[:] buffer):
     cdef Pythia * pythia = self.pythia
-    cdef FLOAT[:, :, :] buffer = buffer_.reshape((4, self.pr_steps, self.phi_steps))
 
     ### ...
-    cdef double max_pseudorapidity = 5
+    cdef double max_pseudorapidity = self.max_pseudorapidity
 
     ### minimal energy required to activate tracker
-    cdef double tracker_threshold = 0.0
+    cdef double tracker_threshold = self.tracker_threshold
     ### detector raduis
-    cdef double R = 100.0
+    cdef double R = self.R
 
     ### utility constant.
     cdef double max_tanh = tanh(max_pseudorapidity)
@@ -103,9 +109,10 @@ cdef class SDetector(Detector):
     cdef int pr_i, phi_i
 
     cdef int i
+    cdef int indx
 
     with nogil:
-      buffer[:, :, :] = 0.0
+      buffer[:] = 0.0
 
       for i in range(pythia.event.size()):
         if not pythia.event.at(i).isFinal():
@@ -166,12 +173,15 @@ cdef class SDetector(Detector):
 
         ### tracker activation
         if pythia.event.at(i).e() > tracker_threshold:
-          buffer[tracker_channel, pr_i, phi_i] = 1.0
+          indx = pr_i * self.phi_steps + phi_i
+          buffer[indx] = 1.0
 
         ### rich reacts on all charged particles (why is it so?)
         if pythia.event.at(i).isCharged():
-          buffer[rich_channel, pr_i, phi_i] += pythia.event.at(i).e()
+          indx = self.phi_steps * self.pr_steps + pr_i * self.phi_steps + phi_i
+          buffer[indx] += pythia.event.at(i).e()
 
         ### calo react on all charged particles except muons or on photons
         if (pythia.event.at(i).isCharged() and pythia.event.at(i).idAbs() != muon) or pythia.event.at(i).idAbs() == photon:
-          buffer[calo_channel, pr_i, phi_i] += pythia.event.at(i).e()
+          indx = 2 * self.phi_steps * self.pr_steps + pr_i * self.phi_steps + phi_i
+          buffer[indx] += pythia.event.at(i).e()

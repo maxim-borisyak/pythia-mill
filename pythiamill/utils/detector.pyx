@@ -10,3 +10,6 @@ cdef class Detector:
 
   cpdef void view(self, FLOAT[:] buffer):
     pass
+
+  def event_size(self):
+    return 0

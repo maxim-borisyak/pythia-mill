@@ -45,6 +45,20 @@ cpdef PyPythia launch_pythia(list options):
 @cython.nonecheck(False)
 @cython.boundscheck(False)
 @cython.wraparound(False)
+cpdef void bind_detector(Detector detector, PyPythia pypythia):
+  cdef Pythia * pythia = pypythia.get_pythia()
+  detector.bind(pythia)
+
+@cython.nonecheck(False)
+@cython.boundscheck(False)
+@cython.wraparound(False)
+cpdef bool check_pythia(PyPythia pypythia):
+  cdef Pythia * pythia = pypythia.get_pythia()
+  return not pythia.next()
+
+@cython.nonecheck(False)
+@cython.boundscheck(False)
+@cython.wraparound(False)
 cpdef void pythia_worker(Detector detector, PyPythia pypythia, FLOAT[:, :] buffer):
   cdef Pythia * pythia = pypythia.get_pythia()
   detector.bind(pythia)
