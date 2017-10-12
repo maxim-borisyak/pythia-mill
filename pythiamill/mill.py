@@ -1,22 +1,24 @@
 from pythiamill.utils import launch_pythia, pythia_worker
+from pythiamill.utils import STDetector, SDetector
 
 import numpy as np
 import multiprocessing as mp
 from multiprocessing import Process
 
 __all__ = [
-  'PythiaMill'
+  'PythiaMill',
+  'pythia_blade'
 ]
 
-def pythia_blade(detector, command_queue, queue, options, batch_size=1):
+def pythia_blade(detector_factory, command_queue, queue, options, batch_size=1):
   import sys
   import os
   sys.stdout = open(os.devnull, 'w')
   sys.stderr = open(os.devnull, 'w')
 
-  detector = detector
+  detector_instance = detector_factory()
 
-  event_size = detector.event_size()
+  event_size = detector_instance.event_size()
   buffer = np.ndarray(shape=(batch_size, event_size), dtype='float32')
 
   pythia = launch_pythia(options)
@@ -28,19 +30,19 @@ def pythia_blade(detector, command_queue, queue, options, batch_size=1):
       queue.put(None, block=True)
       break
 
-    pythia_worker(detector, pythia, buffer)
+    pythia_worker(detector_instance, pythia, buffer)
     command_queue.task_done()
     queue.put(buffer.copy(), block=True)
 
-def PythiaBlade(detector, command_queue, queue, options, batch_size=1):
+def PythiaBlade(detector_factory, command_queue, queue, options, batch_size=1):
   return Process(
     target=pythia_blade,
-    args=(detector, command_queue, queue, options, batch_size)
+    args=(detector_factory, command_queue, queue, options, batch_size)
   )
 
 
 class PythiaMill(object):
-  def __init__(self, detector, options, batch_size=16,
+  def __init__(self, detector_factory, options, batch_size=16,
                cache_size=None, n_workers=4):
     self.cache_size = cache_size if cache_size is not None else n_workers * 2
 
@@ -55,7 +57,7 @@ class PythiaMill(object):
       ctx.Process(
         target=pythia_blade,
         kwargs=dict(
-          detector=detector,
+          detector_factory=detector_factory,
           command_queue=self.command_queue,
           queue=self.queue,
           options=options,
