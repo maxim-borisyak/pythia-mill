@@ -38,6 +38,23 @@ cdef inline double intersection_scale(
 
 ctypedef cnp.uint8_t uint8
 
+class SDetectorWrapper(object):
+  """
+  For pickle.
+  """
+  def __init__(self, pseudorapidity_steps, phi_steps,
+               max_pseudorapidity = 5, R = 100.0, tracker_threshold=0.0):
+    self.args = (
+      pseudorapidity_steps,
+      phi_steps,
+      max_pseudorapidity,
+      R,
+      tracker_threshold
+    )
+
+  def __call__(self):
+    return SDetector(*self.args)
+
 cdef class SDetector(Detector):
   def __init__(self, int pseudorapidity_steps, int phi_steps,
                double max_pseudorapidity = 5, double R = 100.0, double tracker_threshold=0.0):

@@ -8,6 +8,16 @@ from stdetector cimport STDetector
 
 ctypedef cnp.uint8_t uint8
 
+class STDetectorWrapper(object):
+  """
+  For pickle.
+  """
+  def __init__(self):
+    self.args = tuple()
+
+  def __call__(self):
+    return STDetector(*self.args)
+
 cdef class STDetector(Detector):
   def __init__(self):
     self.sph = Sphericity(2.0, 2)

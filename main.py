@@ -1,5 +1,5 @@
 import numpy as np
-from pythiamill import PythiaMill, pythia_blade
+from pythiamill import PythiaMill
 
 from pythiamill.utils import *
 
@@ -18,16 +18,11 @@ options=[
   "PhaseSpace:pTHatMin = 20.",
 ]
 
-
-def sdetector():
-  return SDetector(32, 32)
-
 if __name__ == '__main__':
-  detector = STDetector()
 
   buffer = np.ndarray(shape=(8, 3), dtype='float32')
 
-  mill = PythiaMill(sdetector, options, cache_size=16)
+  mill = PythiaMill(STDetector(), options, cache_size=16)
 
   #pythia_worker(detector, pythia, buffer)
 
