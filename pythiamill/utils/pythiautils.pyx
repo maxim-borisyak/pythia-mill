@@ -38,7 +38,7 @@ cdef char * _chars(s):
   for i in range(len(s)):
     str[i] = s[i]
 
-  str[len(s) + 1] = '\0'
+  str[len(s)] = '\0'
   return str
 
 @cython.nonecheck(False)
