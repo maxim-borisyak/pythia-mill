@@ -97,7 +97,10 @@ class PythiaMill(object):
       return
 
     for p in self.processes:
-      os.kill(p.pid, signal.SIGKILL)
+      try:
+        os.kill(p.pid, signal.SIGKILL)
+      except Exception as e:
+        print('Failed to stop pythia blade (pid %d), reason: %s' % (p.pid, e))
 
     self.processes = None
 
