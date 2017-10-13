@@ -5,6 +5,10 @@ import numpy as np
 import multiprocessing as mp
 from multiprocessing import Process
 
+import os
+import sys
+import signal
+
 __all__ = [
   'PythiaMill',
   'pythia_blade'
@@ -93,7 +97,7 @@ class PythiaMill(object):
       return
 
     for p in self.processes:
-      p.terminate()
+      os.kill(p.pid, signal.SIGKILL)
 
     self.processes = None
 
