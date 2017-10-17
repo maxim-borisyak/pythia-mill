@@ -27,20 +27,22 @@ here = osp.abspath(osp.dirname(__file__))
 with open(osp.join(here, 'README.md'), encoding='utf-8') as f:
   long_description = f.read()
 
+extra_compile_args=['-std=c++11', '-O3', '-D_GLIBCXX_USE_CXX11_ABI=0']
+
 extensions = [
   Extension(
     'pythiamill.utils.detector', ['pythiamill/utils/detector.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     language='c++',
-    extra_compile_args=['-std=c++11']
+    extra_compile_args=extra_compile_args
   ),
   Extension(
     'pythiamill.utils.pythiautils', ['pythiamill/utils/pythiautils.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     language='c++',
-    extra_compile_args=['-std=c++11']
+    extra_compile_args=extra_compile_args
   ),
 
   Extension(
@@ -48,7 +50,7 @@ extensions = [
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     language='c++',
-    extra_compile_args =['-std=c++11']
+    extra_compile_args=extra_compile_args
   ),
 
   Extension(
@@ -56,7 +58,7 @@ extensions = [
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     language='c++',
-    extra_compile_args=['-std=c++11']
+    extra_compile_args=extra_compile_args
   )
 ]
 
