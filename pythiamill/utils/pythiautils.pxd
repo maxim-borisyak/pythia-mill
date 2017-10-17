@@ -1,7 +1,12 @@
 from libcpp cimport bool
-from libcpp.string cimport string as cstring
 
-cdef extern from "Pythia8/Event.h" namespace "Pythia8":
+cdef extern from '<string>' namespace 'std' nogil:
+  cdef cppclass string:
+    string(char *) except +
+
+ctypedef string cppstring
+
+cdef extern from "Pythia8/Event.h" namespace "Pythia8" nogil:
   cdef cppclass Particle:
     int    id()        nogil
     int    status()    nogil
@@ -39,16 +44,16 @@ cdef extern from "Pythia8/Event.h" namespace "Pythia8":
 
     int size() nogil;
 
-cdef extern from "Pythia8/Pythia.h" namespace "Pythia8":
+cdef extern from "Pythia8/Pythia.h" namespace "Pythia8" nogil:
   cdef cppclass Pythia:
     Pythia() nogil
-    bool readString(cstring, bool warn = true) nogil
+    bool readString(cppstring, bool warn = true) nogil
     bool init() nogil
     bool next() nogil
     void stat() nogil
     Event event
 
-cdef extern from "Pythia8/Analysis.h" namespace "Pythia8":
+cdef extern from "Pythia8/Analysis.h" namespace "Pythia8" nogil:
   cdef cppclass Sphericity:
     Sphericity() nogil
     Sphericity(double powerIn, int selectIn) nogil

@@ -1,6 +1,5 @@
-from pythiautils cimport Pythia, Particle, FLOAT
+from pythiautils cimport Pythia, Particle, FLOAT, cppstring
 from detector cimport Detector
-from libcpp.string cimport string as cstring
 
 import cython
 cimport cython
@@ -21,9 +20,6 @@ cdef class PyPythia:
 
   def __dealloc__(self):
     del self.pythia
-
-# define a global name for whatever char type is used in the module
-ctypedef unsigned char char_type
 
 cdef char * _chars(s):
   cdef char * str
@@ -57,7 +53,7 @@ cpdef PyPythia launch_pythia(list options):
   cdef PyPythia pypythia = PyPythia()
 
   for i in range(opt_len):
-    pypythia.get_pythia().readString(cstring(c_options[i]))
+    pypythia.get_pythia().readString(cppstring(c_options[i]))
   pypythia.get_pythia().init()
 
   for i in range(opt_len):

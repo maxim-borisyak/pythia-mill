@@ -28,31 +28,35 @@ with open(osp.join(here, 'README.md'), encoding='utf-8') as f:
   long_description = f.read()
 
 extensions = [
-Extension(
+  Extension(
     'pythiamill.utils.detector', ['pythiamill/utils/detector.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     language='c++',
+    extra_compile_args=['-std=c++11']
   ),
   Extension(
     'pythiamill.utils.pythiautils', ['pythiamill/utils/pythiautils.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     language='c++',
+    extra_compile_args=['-std=c++11']
   ),
 
   Extension(
     'pythiamill.utils.sdetector', ['pythiamill/utils/sdetector.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
-    language='c++'
+    language='c++',
+    extra_compile_args =['-std=c++11']
   ),
 
-Extension(
+  Extension(
     'pythiamill.utils.stdetector', ['pythiamill/utils/stdetector.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
-    language='c++'
+    language='c++',
+    extra_compile_args=['-std=c++11']
   )
 ]
 

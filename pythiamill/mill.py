@@ -87,6 +87,9 @@ class PythiaMill(object):
     return self.sample()
 
   def sample(self):
+    if self.processes is None:
+      raise ValueError('Mill has already been stopped!')
+
     batch = self.queue.get(block=True)
     self.queue.task_done()
     self.command_queue.put(1)
