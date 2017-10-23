@@ -55,6 +55,9 @@ class SDetectorWrapper(object):
   def __call__(self):
     return SDetector(*self.args)
 
+  def event_size(self,):
+    return 3 * self.args[0] * self.args[1]
+
 cdef class SDetector(Detector):
   def __init__(self, int pseudorapidity_steps, int phi_steps,
                double max_pseudorapidity = 5, double R = 100.0, double tracker_threshold=0.0):

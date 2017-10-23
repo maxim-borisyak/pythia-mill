@@ -14,11 +14,22 @@ def get_includes():
 
   includes = []
 
-  for k in ['CPATH', 'C_INCLUDE_PATH', 'INCLUDE_PATH']:
+  for k in ['CPATH', 'C_INCLUDE_PATH', 'INCLUDE_PATH', 'PYTHIA_INCLUDE']:
     if k in env:
       includes.append(env[k])
 
   return includes
+
+def get_library_dirs():
+  env = os.environ
+
+  libs = []
+
+  for k in ['LD_LIBRARY_PATH', 'PYTHIA_LIB']:
+    if k in env:
+      libs.append(env[k])
+
+  return libs
 
 from Cython.Build import cythonize
 
@@ -34,13 +45,16 @@ extensions = [
     'pythiamill.utils.detector', ['pythiamill/utils/detector.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
+    library_dirs=get_library_dirs(),
     language='c++',
     extra_compile_args=extra_compile_args
   ),
+
   Extension(
     'pythiamill.utils.pythiautils', ['pythiamill/utils/pythiautils.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
+    library_dirs=get_library_dirs(),
     language='c++',
     extra_compile_args=extra_compile_args
   ),
@@ -49,6 +63,7 @@ extensions = [
     'pythiamill.utils.sdetector', ['pythiamill/utils/sdetector.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
+    library_dirs=get_library_dirs(),
     language='c++',
     extra_compile_args=extra_compile_args
   ),
@@ -57,6 +72,7 @@ extensions = [
     'pythiamill.utils.stdetector', ['pythiamill/utils/stdetector.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
+    library_dirs=get_library_dirs(),
     language='c++',
     extra_compile_args=extra_compile_args
   )

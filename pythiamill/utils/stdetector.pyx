@@ -18,6 +18,9 @@ class STDetectorWrapper(object):
   def __call__(self):
     return STDetector(*self.args)
 
+  def event_size(self):
+    return 3
+
 cdef class STDetector(Detector):
   def __init__(self):
     self.sph = Sphericity(2.0, 2)
