@@ -107,6 +107,10 @@ There are currently 3 pre-installed detectors:
   Extracts features analogous to the ones from "Event generator tuning using Bayesian optimization Philip Ilten, Mike Williams, Yunjie Yang arXiv:1610.08328" paper.
   The major difference is that all histograms are computed for only 1 event, i.e. features from the paper can be obtained as sum of feature vectors for a number of events.
 
+### Seed
+
+Don't forget option `'Random:seed=0'`!
+For more information: [Pythia Manual](http://home.thep.lu.se/Pythia/pythia82html/RandomNumberSeed.html)
 
 ## Docker
 

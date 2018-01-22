@@ -17,6 +17,9 @@ __all__ = [
 def pythia_blade(detector_factory, command_queue, queue, options, batch_size=1):
   import sys
   import os
+
+  ### These two lines can be very dangerous
+  ### if this function is executed in the main process.
   sys.stdout = open(os.devnull, 'w')
   sys.stderr = open(os.devnull, 'w')
 
@@ -24,7 +27,6 @@ def pythia_blade(detector_factory, command_queue, queue, options, batch_size=1):
 
   event_size = detector_instance.event_size()
   buffer = np.ndarray(shape=(batch_size, event_size), dtype='float32')
-  buffer.fill(12.345)
 
   pythia = launch_pythia(options)
 

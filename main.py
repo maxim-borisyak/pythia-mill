@@ -23,7 +23,8 @@ options=[
   'ParticleDecays:multIncrease=4.5',
   'ParticleDecays:multIncreaseWeak=2.0',
   'ParticleDecays:FSRinDecays=on',
-  'TimeShower:QEDshowerByQ=on'
+  'TimeShower:QEDshowerByQ=on',
+  'Random:seed=0'
 ]
 
 if __name__ == '__main__':
