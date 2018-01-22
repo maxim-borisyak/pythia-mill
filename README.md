@@ -11,7 +11,7 @@ Pythia8 can be downloaded at [Pythia web site](http://home.thep.lu.se/Pythia/).
 In order to get a build compatible with PythiaMill, Pythia8 should be compiled with some specific flags (alternatively, change PythiaMill compile flags in `setup.py`);
 The following `configure` options are, most probably, do the trick:
 
-```
+```sh
 ./configure --cxx-common='-Ofast -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++98 -pedantic -W -Wall -Wshadow -fPIC' \
   --cxx-shared='-Ofast -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++98 -pedantic -W -Wall -Wshadow -fPIC -shared' \
   --enable-shared --prefix=<place to install pythia>
@@ -31,7 +31,7 @@ Pythia8::Pythia::readString(std::string, bool)
 
 while the signature of the actual function in `Pythia8.so` (`-D_GLIBCXX_USE_CXX11_ABI=1`) might look like:
 
-```
+```c++
 Pythia8::Pythia::readString(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, bool)
 ```
 
@@ -45,19 +45,19 @@ After configuration step, as usual:
 
 There are two options for installation:
 - locally (recommended for development):
-  ```
-  python setup.py build_ext --locally
+  ```sh
+  python setup.py build_ext --inplace
   ```
 
   This will just compile `cython` and `C` files.
   To clean all: `python setup.py clean --all`
 
 - as a pip package:
-  ```
+  ```sh
   pip install git+https://github.com/maxim-borisyak/pythia-mill.git@master
   ```
   or, to quickly update (e.g. to pull some changes):
-  ```
+  ```sh
   pip install --upgrade --no-deps --force-reinstall git+https://github.com/maxim-borisyak/pythia-mill.git@master
   ```
 
