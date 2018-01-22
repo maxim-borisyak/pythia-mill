@@ -19,14 +19,30 @@ class TuneMCDetectorWrapper(object):
     return TuneMCDetector(*self.args)
 
   def event_size(self):
-    return 17 * 2 + 20 * 2 + 25 * 2 + 19 * 4 + 28 * 2 + 40 * 2 + 20 * 2 + 10 + 9 + 9 + 8 + 1
+    return 17 * 2 + 2 \
+           + 20 * 2 + 2 \
+           + 25 * 2 + 2 \
+           + 19 * 4 + 2 \
+           + 28 * 2 + 2 \
+           + 40 * 2 + 2 \
+           + 20 * 2 + 2 \
+           + 10 + 9 + 9 + 8 \
+           + 1
 
 cdef class TuneMCDetector(Detector):
   def __init__(self, *args):
     pass
 
   def event_size(self):
-    return 17 * 2 + 20 * 2 + 25 * 2 + 19 * 4 + 28 * 2 + 40 * 2 + 20 * 2 + 10 + 9 + 9 + 8 + 1
+    return 17 * 2 + 2 \
+           + 20 * 2 + 2 \
+           + 25 * 2 + 2 \
+           + 19 * 4 + 2 \
+           + 28 * 2 + 2 \
+           + 40 * 2 + 2 \
+           + 20 * 2 + 2 \
+           + 10 + 9 + 9 + 8 \
+           + 1
 
   @cython.profile(True)
   @cython.boundscheck(False)

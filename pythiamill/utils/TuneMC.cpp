@@ -358,7 +358,8 @@ void tune_mc_features(Pythia * pythia, float * buffer) {
   int feature_index = 0;
 
   for (unsigned int iHist = 0 ; iHist < Hists.size() ; ++iHist) {
-    for (int iBin = 0 ; iBin < Nbins[iHist] ; ++iBin) {
+    // not to forget underflow and overflow bins
+    for (int iBin = 0 ; iBin < Nbins[iHist] + 2 ; ++iBin) {
       buffer[feature_index] = Hists[iHist].getBinContent(iBin);
       ++feature_index;
     }
