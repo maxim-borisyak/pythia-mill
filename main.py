@@ -1,10 +1,6 @@
-import numpy as np
 from pythiamill import PythiaMill
-
 from pythiamill.utils import *
-
 from time import time
-import cProfile, pstats
 
 options=[
   'Print:quiet = on',
@@ -31,17 +27,19 @@ options=[
 ]
 
 if __name__ == '__main__':
+  n_batches = 100
+  batch_size = 1024
+  n_workers = 4
 
-  buffer = np.ndarray(shape=(8, 3), dtype='float32')
-
-  mill = PythiaMill(STDetector(), options, cache_size=16, batch_size=16)
-
-  #pythia_worker(detector, pythia, buffer)
+  mill = PythiaMill(TuneMCDetector(), options, cache_size=16, batch_size=batch_size, n_workers=n_workers)
 
   start = time()
-  mill.sample()
+  for i in range(n_batches):
+    a = mill.sample()
   end = time()
 
+  delta = end - start
   mill.terminate()
-
-  print('Time %.3lf millisec' % ((end - start) * 1000.0))
+  print('Total wall time: %.3lf sec' % delta)
+  print('Per batch: %.3lf millisec' % (delta / n_batches * n_workers * 1000))
+  print('Per sample: %.3lf millisec' % (delta / n_batches / batch_size * n_workers * 1000))

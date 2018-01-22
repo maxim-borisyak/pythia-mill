@@ -11,7 +11,7 @@ import signal
 
 __all__ = [
   'PythiaMill',
-  'pythia_blade'
+  'pythia_blade',
 ]
 
 def pythia_blade(detector_factory, command_queue, queue, options, batch_size=1):
@@ -24,6 +24,7 @@ def pythia_blade(detector_factory, command_queue, queue, options, batch_size=1):
 
   event_size = detector_instance.event_size()
   buffer = np.ndarray(shape=(batch_size, event_size), dtype='float32')
+  buffer.fill(12.345)
 
   pythia = launch_pythia(options)
 
@@ -37,6 +38,7 @@ def pythia_blade(detector_factory, command_queue, queue, options, batch_size=1):
     pythia_worker(detector_instance, pythia, buffer)
     command_queue.task_done()
     queue.put(buffer.copy(), block=True)
+
 
 def PythiaBlade(detector_factory, command_queue, queue, options, batch_size=1):
   return Process(

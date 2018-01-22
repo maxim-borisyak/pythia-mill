@@ -23,7 +23,7 @@ RUN tar xvfz pythia8230.tgz
 WORKDIR /usr/opt/pythia8230
 
 ### compilation
-RUN ./configure --cxx-common="-Ofast -O3 -fPIC $PYTHIA_ADDITIONAL_FLAGS" --cxx-shared="-Ofast -O3 -fPIC -shared $PYTHIA_ADDITIONAL_FLAGS" --prefix=/usr/opt/pythia --enable-64bit --enable-shared
+RUN ./configure --cxx-common="-Ofast -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++98 -pedantic -W -Wall -Wshadow -fPIC $PYTHIA_ADDITIONAL_FLAGS" --cxx-shared="-Ofast -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++98 -pedantic -W -Wall -Wshadow -fPIC -shared $PYTHIA_ADDITIONAL_FLAGS" --prefix=/usr/opt/pythia --enable-64bit --enable-shared
 RUN make -j4
 RUN make install
 

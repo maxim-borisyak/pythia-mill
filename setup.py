@@ -8,6 +8,7 @@ from codecs import open
 import os
 import os.path as osp
 import numpy as np
+import subprocess as sp
 
 def get_includes():
   env = os.environ
@@ -38,7 +39,7 @@ here = osp.abspath(osp.dirname(__file__))
 with open(osp.join(here, 'README.md'), encoding='utf-8') as f:
   long_description = f.read()
 
-extra_compile_args=['-std=c++11', '-O3', '-D_GLIBCXX_USE_CXX11_ABI=0']
+extra_compile_args=['-std=c++98', '-Ofast', '-D_GLIBCXX_USE_CXX11_ABI=0']
 
 extensions = [
   Extension(
@@ -70,6 +71,18 @@ extensions = [
 
   Extension(
     'pythiamill.utils.stdetector', ['pythiamill/utils/stdetector.pyx'],
+    libraries=['stdc++', 'pythia8'],
+    include_dirs=[np.get_include()] + get_includes(),
+    library_dirs=get_library_dirs(),
+    language='c++',
+    extra_compile_args=extra_compile_args
+  ),
+
+  Extension(
+    'pythiamill.utils.TuneMCDetector', [
+      'pythiamill/utils/TuneMCDetector.pyx',
+      'pythiamill/utils/TuneMC.cpp',
+    ],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     library_dirs=get_library_dirs(),

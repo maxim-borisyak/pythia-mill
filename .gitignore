@@ -104,3 +104,6 @@ pythiamill/utils/*.cpp
 
 .idea/
 /cython_debug/
+
+!pythiamill/utils/TuneMC.cpp
+!pythiamill/utils/TuneMC.h
