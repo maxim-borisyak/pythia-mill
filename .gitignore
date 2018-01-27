@@ -107,3 +107,8 @@ pythiamill/utils/*.cpp
 
 !pythiamill/utils/TuneMC.cpp
 !pythiamill/utils/TuneMC.h
+
+
+# NumPy files
+*.npy
+*.npz

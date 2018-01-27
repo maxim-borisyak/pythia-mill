@@ -28,6 +28,12 @@ cdef extern from "Pythia8/Event.h" namespace "Pythia8" nogil:
     double yProd()     nogil
     double zProd()     nogil
     double tProd()     nogil
+
+    double xDec()      nogil
+    double yDec()      nogil
+    double zDec()      nogil
+    double tDec()      nogil
+
     double tau()       nogil
 
     int    idAbs()     nogil
@@ -68,3 +74,5 @@ cdef extern from "Pythia8/Analysis.h" namespace "Pythia8" nogil:
 
 cimport numpy as cnp
 ctypedef cnp.float32_t FLOAT
+ctypedef cnp.float32_t float32
+ctypedef cnp.float64_t float64

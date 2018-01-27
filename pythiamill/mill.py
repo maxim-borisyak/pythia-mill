@@ -51,7 +51,19 @@ def PythiaBlade(detector_factory, command_queue, queue, options, batch_size=1):
 
 class PythiaMill(object):
   def __init__(self, detector_factory, options, batch_size=16,
-               cache_size=None, n_workers=4):
+               cache_size=None, n_workers=4, seed=None):
+
+    if seed is not None:
+      if any([ 'Random:seed' in option for option in options ]):
+        import warnings
+        warnings.warn('randomize_seed is turned off as Pythia option contain seed settings.')
+        seed = None
+
+    if seed is not None:
+      import random
+      random.seed(seed)
+      seeds = [ random.randrange(0, 100000000) for _ in range(n_workers)]
+
     self.cache_size = cache_size if cache_size is not None else n_workers * 2
 
     ctx = mp.get_context('spawn')
@@ -68,11 +80,11 @@ class PythiaMill(object):
           detector_factory=detector_factory,
           command_queue=self.command_queue,
           queue=self.queue,
-          options=options,
+          options=options if seed is None else (options + [ 'Random:seed=%d' %  seeds[i] ]),
           batch_size=batch_size
         )
       )
-      for _ in range(n_workers)
+      for i in range(n_workers)
     ]
 
     for p in self.processes:

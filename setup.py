@@ -79,6 +79,15 @@ extensions = [
   ),
 
   Extension(
+    'pythiamill.utils.svelo', ['pythiamill/utils/svelo.pyx'],
+    libraries=['stdc++', 'pythia8'],
+    include_dirs=[np.get_include()] + get_includes(),
+    library_dirs=get_library_dirs(),
+    language='c++',
+    extra_compile_args=extra_compile_args
+  ),
+
+  Extension(
     'pythiamill.utils.TuneMCDetector', [
       'pythiamill/utils/TuneMCDetector.pyx',
       'pythiamill/utils/TuneMC.cpp',

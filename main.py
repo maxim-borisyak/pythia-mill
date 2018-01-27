@@ -2,42 +2,51 @@ from pythiamill import PythiaMill
 from pythiamill.utils import *
 from time import time
 
+import numpy as np
+
+from tqdm import tqdm
+
 options=[
   'Print:quiet = on',
   'Init:showProcesses = off',
   'Init:showMultipartonInteractions = off',
   'Init:showChangedSettings = off',
   'Init:showChangedParticleData = off',
-  'Beams:idA =  11',
-  "Beams:idB = -11",
-  "Beams:eCM = 91.188",
-  '23:onMode = off',
-  '23:onIfAny = 1 2 3 4 5',
-  'WeakSingleBoson:ffbar2gmZ = on',
-  'PDF:lepton = off',
-  'StringFlav:thetaPS = 40.4',
-  'StringFlav:thetaV = 3.32',
-  'StringZ:usePetersonC=off',
-  'StringZ:usePetersonB=off',
-  'StringZ:usePetersonH=off',
-  'ParticleDecays:multIncrease=4.5',
-  'ParticleDecays:multIncreaseWeak=2.0',
-  'ParticleDecays:FSRinDecays=on',
-  'TimeShower:QEDshowerByQ=on',
-  'Random:seed=0'
+  'Next:numberCount=0',
+  'Next:numberShowInfo=0',
+  'Next:numberShowEvent=0',
+  'Stat:showProcessLevel=off',
+  'Stat:showErrors=off',
+  'Beams:idA =  2212',
+  "Beams:idB = 2212",
+  "Beams:eCM = 8000",
+  'HardQCD:all = on',
+  'PromptPhoton:all = on',
+  "PhaseSpace:pTHatMin = 20"
+  #'Random:seed=0'
 ]
 
 if __name__ == '__main__':
-  n_batches = 100
-  batch_size = 1024
-  n_workers = 4
+  n_batches = 1024
+  batch_size = 128
+  n_workers = 8
 
-  mill = PythiaMill(TuneMCDetector(), options, cache_size=16, batch_size=batch_size, n_workers=n_workers)
+  detector = SVELO(
+    pseudorapidity_steps = 32, phi_steps = 32,
+    n_layers = 10, R_min=1, R_max = 21,
+    activation_probability=0.5
+  )
+  mill = PythiaMill(detector, options, cache_size=16, batch_size=batch_size, n_workers=n_workers, seed=123)
 
   start = time()
-  for i in range(n_batches):
-    a = mill.sample()
+  data = np.vstack([
+    mill.sample().reshape(-1, 10, 32, 32)
+    for _ in tqdm(range(n_batches))
+  ])
   end = time()
+  mill.terminate()
+
+  np.save('events.npy', data)
 
   delta = end - start
   mill.terminate()
