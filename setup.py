@@ -88,8 +88,8 @@ extensions = [
   ),
 
   Extension(
-    'pythiamill.utils.TuneMCDetector', [
-      'pythiamill/utils/TuneMCDetector.pyx',
+    'pythiamill.utils.tunemcdetector', [
+      'pythiamill/utils/tunemcdetector.pyx',
       'pythiamill/utils/TuneMC.cpp',
     ],
     libraries=['stdc++', 'pythia8'],

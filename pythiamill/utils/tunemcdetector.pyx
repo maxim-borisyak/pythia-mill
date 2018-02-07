@@ -4,7 +4,7 @@
 cimport cython
 import cython
 from pythiautils cimport Pythia, FLOAT
-from TuneMCDetector cimport tune_mc_features, TuneMCDetector
+from .tunemcdetector cimport tune_mc_features, TuneMCDetector
 
 ctypedef cnp.uint8_t uint8
 

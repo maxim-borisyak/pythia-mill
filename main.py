@@ -27,29 +27,32 @@ options=[
 ]
 
 if __name__ == '__main__':
-  n_batches = 1024
-  batch_size = 128
+  n_batches = 128
+  batch_size = 1
   n_workers = 8
 
-  detector = SVELO(
-    pseudorapidity_steps = 32, phi_steps = 32,
-    n_layers = 10, R_min=1, R_max = 21,
-    activation_probability=0.5
-  )
+  # detector = SVELO(
+  #   pseudorapidity_steps = 32, phi_steps = 32,
+  #   n_layers = 10, R_min=1, R_max = 21,
+  #   activation_probability=0.5
+  # )
+  detector = TuneMCDetector()
+  print(detector)
   mill = PythiaMill(detector, options, cache_size=16, batch_size=batch_size, n_workers=n_workers, seed=123)
 
-  start = time()
-  data = np.vstack([
-    mill.sample().reshape(-1, 10, 32, 32)
+  data1 = np.vstack([
+    mill.sample()
     for _ in tqdm(range(n_batches))
   ])
-  end = time()
   mill.terminate()
 
-  np.save('events.npy', data)
+  np.save('events1.npy', data1)
 
-  delta = end - start
+  mill = PythiaMill(detector, options, cache_size=16, batch_size=batch_size, n_workers=n_workers, seed=124)
+
+  data2 = np.vstack([
+    mill.sample()
+    for _ in tqdm(range(n_batches))
+  ])
   mill.terminate()
-  print('Total wall time: %.3lf sec' % delta)
-  print('Per batch: %.3lf millisec' % (delta / n_batches * n_workers * 1000))
-  print('Per sample: %.3lf millisec' % (delta / n_batches / batch_size * n_workers * 1000))
+  np.save('events2.npy', data2)

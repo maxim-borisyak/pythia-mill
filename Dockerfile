@@ -29,7 +29,7 @@ RUN make install
 
 ### the only python dependencies
 ### should be installed beforehand
-RUN pip install numpy cython
+RUN pip install numpy cython tqdm
 
 WORKDIR /usr/app
 
@@ -38,6 +38,4 @@ COPY . /usr/app/
 ### compiling all cython extensions
 RUN python setup.py build_ext --inplace
 
-ENTRYPOINT ["python", "blade.py"]
-
-CMD ["events.npy", "32", "SDetector", "32", "32", "Beams:idA =  11", "Beams:idB = -11", "Beams:eCM = 91.188", "23:onMode = off", "23:onIfAny = 1 2 3 4 5", "WeakSingleBoson:ffbar2gmZ = on", "StringZ:usePetersonC=off", "StringZ:usePetersonB=off", "StringZ:usePetersonH=off", "ParticleDecays:FSRinDecays=on", "TimeShower:QEDshowerByQ=on"]
+ENTRYPOINT ["python", "main.py"]
