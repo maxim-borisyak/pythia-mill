@@ -1,7 +1,7 @@
 cimport cython
 import cython
-from pythiautils cimport Pythia, Event, FLOAT
-from detector cimport Detector
+from .pythiautils cimport Pythia, Event, FLOAT
+from .detector cimport Detector
 
 from libc.math cimport sqrt, atanh, tanh, atan2, M_PI, floor
 
@@ -72,11 +72,10 @@ cdef class SDetector(Detector):
     return 3 * self.pr_steps * self.phi_steps
 
   @cython.boundscheck(False)
-  @cython.nonecheck(False)
   @cython.overflowcheck(False)
   @cython.wraparound(False)
   @cython.infer_types(True)
-  cpdef void view(self, FLOAT[:] buffer):
+  cpdef void view(self, FLOAT[:] buffer, tuple args):
     cdef Pythia * pythia = self.pythia
 
     ### ...

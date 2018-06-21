@@ -112,3 +112,7 @@ pythiamill/utils/*.cpp
 # NumPy files
 *.npy
 *.npz
+
+*.png
+
+.pytest_cache/

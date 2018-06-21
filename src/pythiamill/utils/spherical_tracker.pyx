@@ -1,7 +1,7 @@
 cimport cython
 import cython
-from pythiautils cimport Pythia, Event, FLOAT
-from detector cimport Detector
+from .pythiautils cimport Pythia, Event, FLOAT
+from .detector cimport Detector
 
 cimport numpy as cnp
 import numpy as np
@@ -38,47 +38,45 @@ cdef inline double intersection_scale(
 
 ctypedef cnp.uint8_t uint8
 
-class SVELOWrapper(object):
+class SphericalTrackerWrapper(object):
   """
   For pickle.
   """
-  def __init__(self,
-    pseudorapidity_steps, phi_steps,
-    n_layers,
-    max_pseudorapidity = 5,
-    R_min = 1.0, R_max = 100.0,
-    energy_threshold=0.0,
-    activation_probability=0.5, seed=None
-  ):
+  def __init__(self, is_binary=True,
+               pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
+               energy_threshold=0.0, seed=None):
     if seed is None:
       import time
       seed = int(time.time() * 100)
 
     self.args = (
-       pseudorapidity_steps, phi_steps,
-       n_layers,
-       max_pseudorapidity,
-       R_min, R_max,
-       energy_threshold,
-       activation_probability,
-       seed
+      (1 if is_binary else 0),
+      pseudorapidity_steps, phi_steps,
+      n_layers,
+      max_pseudorapidity,
+      R_min, R_max,
+      energy_threshold,
+      seed
     )
 
   def __call__(self):
-    return SVELO(*self.args)
+    return SphericalTracker(*self.args)
 
   def event_size(self,):
-    return self.args[2] * self.args[0] * self.args[1]
+    return self.args[1] * self.args[2] * self.args[3]
 
-cdef class SVELO(Detector):
-  def __init__(self, int pseudorapidity_steps, int phi_steps, int n_layers,
-               double max_pseudorapidity = 5, double R_min = 1.0, double R_max=100.0,
-               double energy_threshold=0.0, double activation_probability=0.5, long seed=1):
+cdef class SphericalTracker(Detector):
+  def __init__(self, int is_binary, int pseudorapidity_steps, int phi_steps, int n_layers,
+               double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0, long seed=1):
     self.pr_steps = pseudorapidity_steps
     self.phi_steps = phi_steps
     self.n_layers = n_layers
     self.R_min = R_min
     self.R_max = R_max
+
+    self.energy_threshold = energy_threshold
+
+    self.is_binary = is_binary
 
     self.layers_R = np.linspace(R_min, R_max, num=self.n_layers, dtype='float64')
     self.layers_Rsqr = np.ndarray(shape=(self.n_layers, ), dtype='float64')
@@ -87,8 +85,6 @@ cdef class SVELO(Detector):
       self.layers_Rsqr[i] = self.layers_R[i] * self.layers_R[i]
 
     self.max_pseudorapidity = max_pseudorapidity
-    self.energy_threshold = energy_threshold
-    self.activation_probability = activation_probability
 
     srand(seed)
 
@@ -96,11 +92,15 @@ cdef class SVELO(Detector):
     return self.n_layers * self.pr_steps * self.phi_steps
 
   @cython.boundscheck(False)
-  @cython.nonecheck(False)
   @cython.overflowcheck(False)
   @cython.wraparound(False)
   @cython.infer_types(True)
-  cpdef void view(self, FLOAT[:] buffer):
+  cpdef void view(self, FLOAT[:] buffer, tuple args):
+    cdef double offset = 0.0
+    if len(args) > 0:
+      offset = args[0]
+
+
     cdef Pythia * pythia = self.pythia
 
     ### ...
@@ -117,8 +117,6 @@ cdef class SVELO(Detector):
     ### the same for phi
     cdef int phi_steps = self.phi_steps
     cdef double phi_step = 2 * M_PI / phi_steps
-
-    cdef double activation_probability = self.activation_probability
 
     ### momentum
     cdef double px, py, pz
@@ -186,11 +184,11 @@ cdef class SVELO(Detector):
 
         ox = pythia.event.at(i).xProd()
         oy = pythia.event.at(i).yProd()
-        oz = pythia.event.at(i).zProd()
+        oz = pythia.event.at(i).zProd() + offset
 
         dx = pythia.event.at(i).xDec()
         dy = pythia.event.at(i).yDec()
-        dz = pythia.event.at(i).zDec()
+        dz = pythia.event.at(i).zDec() + offset
 
         ax = dx - ox
         ay = dy - oy
@@ -245,8 +243,11 @@ cdef class SVELO(Detector):
         phi_i = <int> floor(phi / phi_step)
 
         ### tracker activation
-        if pythia.event.at(i).e() > self.energy_threshold:
-          ### rolling the dice
-          if uniform() < activation_probability:
-            indx = j * (phi_steps * pr_steps) + pr_i * phi_steps + phi_i
-            buffer[indx] = 1.0
+        if pythia.event.at(i).isCharged():
+          indx = j * (phi_steps * pr_steps) + pr_i * phi_steps + phi_i
+
+          if self.is_binary:
+            if pythia.event.at(i).e() > self.energy_threshold:
+              buffer[indx] = 1.0
+          else:
+            buffer[indx] += pythia.event.at(i).e()

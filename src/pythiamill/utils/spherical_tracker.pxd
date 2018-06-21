@@ -1,12 +1,14 @@
 cimport numpy as cnp
 
-from pythiautils cimport Pythia, float32, float64, FLOAT
-from detector cimport Detector
+from .pythiautils cimport Pythia, float32, float64, FLOAT
+from .detector cimport Detector
 
-cdef class SVELO(Detector):
+cdef class SphericalTracker(Detector):
   cdef int pr_steps
   cdef int phi_steps
   cdef int n_layers
+
+  cdef int is_binary
 
   cdef float64 R_min, R_max
   cdef float64[:] layers_R
@@ -14,6 +16,5 @@ cdef class SVELO(Detector):
 
   cdef float64 max_pseudorapidity
   cdef float64 energy_threshold
-  cdef float64 activation_probability
 
-  cpdef void view(self, FLOAT[:] buffer_)
+  cpdef void view(self, FLOAT[:] buffer, tuple args)

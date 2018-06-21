@@ -3,12 +3,12 @@
 
 cimport cython
 import cython
-from pythiautils cimport Pythia, Event, Sphericity, Thrust, FLOAT
-from stdetector cimport STDetector
+from .pythiautils cimport Pythia, Event, Sphericity, Thrust, FLOAT
+from .stdetector cimport SphericityThrustDetector
 
 ctypedef cnp.uint8_t uint8
 
-class STDetectorWrapper(object):
+class SphericityThrustDetectorWrapper(object):
   """
   For pickle.
   """
@@ -16,12 +16,12 @@ class STDetectorWrapper(object):
     self.args = tuple()
 
   def __call__(self):
-    return STDetector(*self.args)
+    return SphericityThrustDetector(*self.args)
 
   def event_size(self):
     return 3
 
-cdef class STDetector(Detector):
+cdef class SphericityThrustDetector(Detector):
   def __init__(self):
     self.sph = Sphericity(2.0, 2)
     self.lin = Sphericity(1.0, 2)
@@ -30,13 +30,11 @@ cdef class STDetector(Detector):
   def event_size(self):
     return 3
 
-  @cython.profile(True)
   @cython.boundscheck(False)
-  @cython.nonecheck(False)
   @cython.overflowcheck(False)
   @cython.wraparound(False)
   @cython.infer_types(True)
-  cpdef void view(self, FLOAT[:] buffer):
+  cpdef void view(self, FLOAT[:] buffer, tuple args):
     cdef Pythia * pythia = self.pythia
 
     #with nogil:

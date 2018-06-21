@@ -1,7 +1,7 @@
 cimport numpy as cnp
 
-from pythiautils cimport Pythia, FLOAT
-from detector cimport Detector
+from .pythiautils cimport Pythia, FLOAT
+from .detector cimport Detector
 
 cdef class SDetector(Detector):
   cdef int pr_steps
@@ -11,4 +11,4 @@ cdef class SDetector(Detector):
   cdef double R
   cdef double tracker_threshold
 
-  cpdef void view(self, FLOAT[:] buffer_)
+  cpdef void view(self, FLOAT[:] buffer, tuple args)

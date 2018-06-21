@@ -39,64 +39,103 @@ here = osp.abspath(osp.dirname(__file__))
 with open(osp.join(here, 'README.md'), encoding='utf-8') as f:
   long_description = f.read()
 
-extra_compile_args=['-std=c++98', '-Ofast', '-D_GLIBCXX_USE_CXX11_ABI=0']
+extra_compile_args=['-std=c++98', '-Ofast', '-D_GLIBCXX_USE_CXX11_ABI=0', '-g']
+extra_link_args=['-g']
+
+def discover_cython(root):
+  import os
+  import os.path as osp
+
+  def path_to_module(path: str, filename: str):
+    rpath = osp.relpath(path, root)
+    module = filename.split('.')[0]
+    return '%s.%s' % (rpath.replace(osp.sep, '.'), module)
+
+  for path, _, files in os.walk('src'):
+    for file in files:
+      if file.endswith('.pyx'):
+        yield Extension(
+          path_to_module(path, file), [osp.join(path, file)],
+          libraries=['stdc++', 'pythia8'],
+          include_dirs=[np.get_include()] + get_includes(),
+          library_dirs=get_library_dirs(),
+          language='c++',
+          extra_compile_args=extra_compile_args
+        )
+
 
 extensions = [
   Extension(
-    'pythiamill.utils.detector', ['pythiamill/utils/detector.pyx'],
+    'pythiamill.utils.pythiautils', ['src/pythiamill/utils/pythiautils.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     library_dirs=get_library_dirs(),
     language='c++',
-    extra_compile_args=extra_compile_args
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args
   ),
 
   Extension(
-    'pythiamill.utils.pythiautils', ['pythiamill/utils/pythiautils.pyx'],
+    'pythiamill.utils.detector', ['src/pythiamill/utils/detector.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     library_dirs=get_library_dirs(),
     language='c++',
-    extra_compile_args=extra_compile_args
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args
   ),
 
   Extension(
-    'pythiamill.utils.sdetector', ['pythiamill/utils/sdetector.pyx'],
+    'pythiamill.utils.sdetector', ['src/pythiamill/utils/sdetector.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     library_dirs=get_library_dirs(),
     language='c++',
-    extra_compile_args=extra_compile_args
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args
   ),
 
   Extension(
-    'pythiamill.utils.stdetector', ['pythiamill/utils/stdetector.pyx'],
+    'pythiamill.utils.stdetector', ['src/pythiamill/utils/stdetector.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     library_dirs=get_library_dirs(),
     language='c++',
-    extra_compile_args=extra_compile_args
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args
   ),
 
   Extension(
-    'pythiamill.utils.svelo', ['pythiamill/utils/svelo.pyx'],
+    'pythiamill.utils.spherical_tracker', ['src/pythiamill/utils/spherical_tracker.pyx'],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     library_dirs=get_library_dirs(),
     language='c++',
-    extra_compile_args=extra_compile_args
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args
+  ),
+
+  Extension(
+    'pythiamill.utils.pseudo_velo', ['src/pythiamill/utils/pseudo_velo.pyx'],
+    libraries=['stdc++', 'pythia8'],
+    include_dirs=[np.get_include()] + get_includes(),
+    library_dirs=get_library_dirs(),
+    language='c++',
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args
   ),
 
   Extension(
     'pythiamill.utils.tunemcdetector', [
-      'pythiamill/utils/tunemcdetector.pyx',
-      'pythiamill/utils/TuneMC.cpp',
+      'src/pythiamill/utils/tunemcdetector.pyx',
+      'src/pythiamill/utils/TuneMC.cpp',
     ],
     libraries=['stdc++', 'pythia8'],
     include_dirs=[np.get_include()] + get_includes(),
     library_dirs=get_library_dirs(),
     language='c++',
-    extra_compile_args=extra_compile_args
+    extra_compile_args=extra_compile_args,
+    extra_link_args=extra_link_args
   )
 ]
 
@@ -133,7 +172,8 @@ setup(
 
   keywords='Pythia',
 
-  packages=find_packages(exclude=['contrib', 'examples', 'docs', 'tests']),
+  packages=find_packages('src'),
+  package_dir={'': 'src'},
 
   extras_require={
     'dev': ['check-manifest'],
@@ -150,5 +190,11 @@ setup(
   package_data = {
   },
 
-  ext_modules = cythonize(extensions, gdb_debug=True),
+  ext_modules = cythonize(
+    extensions,
+    gdb_debug=True,
+    compiler_directives={
+      'embedsignature': True
+    }
+  ),
 )

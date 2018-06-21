@@ -1,5 +1,5 @@
-from pythiautils cimport Pythia, Particle, FLOAT, cppstring
-from detector cimport Detector
+from .pythiautils cimport Pythia, Particle, FLOAT, cppstring
+from .detector cimport Detector
 
 import cython
 cimport cython
@@ -40,7 +40,7 @@ cdef char * _chars(s):
 @cython.nonecheck(False)
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cpdef PyPythia launch_pythia(list options):
+cpdef void configure_pythia(PyPythia pypythia, list options):
   cdef int opt_len = len(options)
   cdef char ** c_options = <char **> malloc(opt_len * sizeof(char*))
   cdef char * c_str
@@ -49,8 +49,6 @@ cpdef PyPythia launch_pythia(list options):
   for i in range(opt_len):
     c_str = _chars(options[i])
     c_options[i] = c_str
-
-  cdef PyPythia pypythia = PyPythia()
 
   for i in range(opt_len):
     pypythia.get_pythia().readString(cppstring(c_options[i]))
@@ -61,7 +59,16 @@ cpdef PyPythia launch_pythia(list options):
 
   free(c_options)
 
+@cython.nonecheck(False)
+@cython.boundscheck(False)
+@cython.wraparound(False)
+cpdef PyPythia launch_pythia(list options):
+
+  cdef PyPythia pypythia = PyPythia()
+  configure_pythia(pypythia, options)
+
   return pypythia
+
 
 @cython.nonecheck(False)
 @cython.boundscheck(False)
@@ -77,10 +84,9 @@ cpdef bool check_pythia(PyPythia pypythia):
   cdef Pythia * pythia = pypythia.get_pythia()
   return not pythia.next()
 
-@cython.nonecheck(False)
 @cython.boundscheck(False)
 @cython.wraparound(False)
-cpdef void pythia_worker(Detector detector, PyPythia pypythia, FLOAT[:, :] buffer):
+cpdef void pythia_worker(Detector detector, PyPythia pypythia, FLOAT[:, :] buffer, tuple args):
   cdef Pythia * pythia = pypythia.get_pythia()
   detector.bind(pythia)
 
@@ -89,5 +95,5 @@ cpdef void pythia_worker(Detector detector, PyPythia pypythia, FLOAT[:, :] buffe
     if not pythia.next():
       continue
 
-    detector.view(buffer[i])
+    detector.view(buffer[i], args)
     i += 1

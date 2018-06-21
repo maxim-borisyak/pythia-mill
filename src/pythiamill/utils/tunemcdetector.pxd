@@ -3,11 +3,11 @@
 
 cimport numpy as cnp
 
-from pythiautils cimport Pythia, FLOAT
-from detector cimport Detector
+from .pythiautils cimport Pythia, FLOAT
+from .detector cimport Detector
 
 cdef class TuneMCDetector(Detector):
-  cpdef void view(self, FLOAT[:] buffer)
+  cpdef void view(self, FLOAT[:] buffer, tuple args)
 
 cdef extern from "TuneMC.h" nogil:
   void tune_mc_features(Pythia * pythia, float * buffer) nogil
