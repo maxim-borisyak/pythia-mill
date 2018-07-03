@@ -11,7 +11,7 @@ def test_cached_mill():
   for i in range(100):
     sample = mill.sample()
 
-  mill.terminate()
+  mill.shutdown()
 
 def test_parametrized_mill():
   from pythiamill import ParametrizedPythiaMill
@@ -27,4 +27,4 @@ def test_parametrized_mill():
   for i in range(10):
     args, sample = mill.retrieve()
 
-  mill.terminate()
+  mill.shutdown()

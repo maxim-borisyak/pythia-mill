@@ -120,25 +120,29 @@ class PythiaMillBase(object):
     self.terminate()
 
   def shutdown(self):
-    if self.processes is None:
-      return
+    try:
+      if self.processes is None:
+        return
 
-    for _ in self.processes:
-      self.command_queue.send(None)
+      for _ in self.processes:
+        self.command_queue.put(None)
 
-    stopped = 0
-    while True:
-      c = self.queue.get(block=True)
-      self.queue.task_done()
+      stopped = 0
+      while True:
+        c = self.queue.get(block=True)
 
-      if c is None:
-        stopped += 1
+        if c is None:
+          stopped += 1
 
-      if stopped >= len(self.processes):
-        break
-
-    self.terminate()
-    self.processes = None
+        if stopped >= len(self.processes):
+          break
+    except Exception as e:
+      import warnings
+      warnings.warn('Failed to stop mill gracefully. Killing brutally.')
+      warnings.warn('%s' % e)
+    finally:
+      self.terminate()
+      self.processes = None
 
 
 class CachedPythiaMill(PythiaMillBase):
