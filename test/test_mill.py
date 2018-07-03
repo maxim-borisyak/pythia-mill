@@ -11,13 +11,6 @@ def test_cached_mill():
   for i in range(100):
     sample = mill.sample()
 
-    if i == 0:
-      plt.figure()
-      plt.imshow(sample.reshape(-1, 1, 32, 32)[0, 0])
-      plt.colorbar()
-      plt.savefig('event.png')
-      plt.close()
-
   mill.terminate()
 
 def test_parametrized_mill():
@@ -33,10 +26,5 @@ def test_parametrized_mill():
 
   for i in range(10):
     args, sample = mill.retrieve()
-    plt.figure()
-    plt.imshow(sample.reshape(-1, 1, 32, 32)[0, 0])
-    plt.colorbar()
-    plt.savefig('event_%.3lf.png' % args[0])
-    plt.close()
 
   mill.terminate()

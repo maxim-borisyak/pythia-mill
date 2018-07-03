@@ -39,9 +39,14 @@ def pythia_blade(detector_factory, command_queue, queue, options, batch_size=1):
       queue.put(None, block=True)
       break
 
-    pythia_worker(detector_instance, pythia, buffer, args)
-    command_queue.task_done()
-    queue.put((args, buffer.copy()), block=True)
+    try:
+      pythia_worker(detector_instance, pythia, buffer, args)
+      command_queue.task_done()
+      queue.put((args, buffer.copy()), block=True)
+    except Exception as e:
+      command_queue.task_done()
+      queue.put((args, e), block=True)
+
 
 
 def PythiaBlade(detector_factory, command_queue, queue, options, batch_size=1):
@@ -200,12 +205,21 @@ class ParametrizedPythiaMill(PythiaMillBase):
     if self.n_requests <= 0:
       raise ValueError('Attempt to retrieve without request! Consider calling `request` method first.')
 
-    args, batch = self.queue.get(block=True)
-    self.queue.task_done()
+    try:
+      args, batch = self.queue.get(block=True)
+      self.queue.task_done()
 
-    self.n_requests -= 1
+      self.n_requests -= 1
 
-    return args, batch
+      return args, batch
+    except:
+      import warnings
+      warnings.warn('An exception occurred while retrieving. Cleaning queue.')
+      while not self.queue.empty():
+        self.queue.get()
+        self.queue.task_done()
+
+      raise ...
 
 PythiaMill = CachedPythiaMill
 

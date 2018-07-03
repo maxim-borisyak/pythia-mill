@@ -44,11 +44,7 @@ class SphericalTrackerWrapper(object):
   """
   def __init__(self, is_binary=True,
                pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
-               energy_threshold=0.0, seed=None):
-    if seed is None:
-      import time
-      seed = int(time.time() * 100)
-
+               energy_threshold=0.0):
     self.args = (
       (1 if is_binary else 0),
       pseudorapidity_steps, phi_steps,
@@ -56,7 +52,6 @@ class SphericalTrackerWrapper(object):
       max_pseudorapidity,
       R_min, R_max,
       energy_threshold,
-      seed
     )
 
   def __call__(self):
@@ -67,7 +62,7 @@ class SphericalTrackerWrapper(object):
 
 cdef class SphericalTracker(Detector):
   def __init__(self, int is_binary, int pseudorapidity_steps, int phi_steps, int n_layers,
-               double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0, long seed=1):
+               double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0):
     self.pr_steps = pseudorapidity_steps
     self.phi_steps = phi_steps
     self.n_layers = n_layers
@@ -85,8 +80,6 @@ cdef class SphericalTracker(Detector):
       self.layers_Rsqr[i] = self.layers_R[i] * self.layers_R[i]
 
     self.max_pseudorapidity = max_pseudorapidity
-
-    srand(seed)
 
   def event_size(self):
     return self.n_layers * self.pr_steps * self.phi_steps
