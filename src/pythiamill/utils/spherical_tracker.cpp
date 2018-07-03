@@ -1398,12 +1398,12 @@ struct __pyx_vtabstruct_10pythiamill_5utils_8detector_Detector {
 static struct __pyx_vtabstruct_10pythiamill_5utils_8detector_Detector *__pyx_vtabptr_10pythiamill_5utils_8detector_Detector;
 
 
-/* "pythiamill/utils/spherical_tracker.pyx":68
+/* "pythiamill/utils/spherical_tracker.pyx":63
  *     return self.args[1] * self.args[2] * self.args[3]
  * 
  * cdef class SphericalTracker(Detector):             # <<<<<<<<<<<<<<
  *   def __init__(self, int is_binary, int pseudorapidity_steps, int phi_steps, int n_layers,
- *                double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0, long seed=1):
+ *                double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0):
  */
 
 struct __pyx_vtabstruct_10pythiamill_5utils_17spherical_tracker_SphericalTracker {
@@ -1586,49 +1586,6 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
 
-/* Import.proto */
-static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
-
-/* PyCFunctionFastCall.proto */
-#if CYTHON_FAST_PYCCALL
-static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
-#else
-#define __Pyx_PyCFunction_FastCall(func, args, nargs)  (assert(0), NULL)
-#endif
-
-/* PyFunctionFastCall.proto */
-#if CYTHON_FAST_PYCALL
-#define __Pyx_PyFunction_FastCall(func, args, nargs)\
-    __Pyx_PyFunction_FastCallDict((func), (args), (nargs), NULL)
-#if 1 || PY_VERSION_HEX < 0x030600B1
-static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, int nargs, PyObject *kwargs);
-#else
-#define __Pyx_PyFunction_FastCallDict(func, args, nargs, kwargs) _PyFunction_FastCallDict(func, args, nargs, kwargs)
-#endif
-#endif
-
-/* PyObjectCall.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
-#else
-#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
-#endif
-
-/* PyObjectCallMethO.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
-#endif
-
-/* PyObjectCallOneArg.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
-
-/* PyObjectCallNoArg.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
-#else
-#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
-#endif
-
 /* PyObjectSetAttrStr.proto */
 #if CYTHON_USE_TYPE_SLOTS
 #define __Pyx_PyObject_DelAttrStr(o,n) __Pyx_PyObject_SetAttrStr(o, n, NULL)
@@ -1636,6 +1593,13 @@ static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr
 #else
 #define __Pyx_PyObject_DelAttrStr(o,n)   PyObject_DelAttr(o,n)
 #define __Pyx_PyObject_SetAttrStr(o,n,v) PyObject_SetAttr(o,n,v)
+#endif
+
+/* PyObjectCall.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
+#else
+#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
 /* GetItemInt.proto */
@@ -1695,6 +1659,24 @@ static void __Pyx_RaiseBufferIndexError(int axis);
 /* None.proto */
 static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname);
 
+/* PyFunctionFastCall.proto */
+#if CYTHON_FAST_PYCALL
+#define __Pyx_PyFunction_FastCall(func, args, nargs)\
+    __Pyx_PyFunction_FastCallDict((func), (args), (nargs), NULL)
+#if 1 || PY_VERSION_HEX < 0x030600B1
+static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, int nargs, PyObject *kwargs);
+#else
+#define __Pyx_PyFunction_FastCallDict(func, args, nargs, kwargs) _PyFunction_FastCallDict(func, args, nargs, kwargs)
+#endif
+#endif
+
+/* PyCFunctionFastCall.proto */
+#if CYTHON_FAST_PYCCALL
+static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
+#else
+#define __Pyx_PyCFunction_FastCall(func, args, nargs)  (assert(0), NULL)
+#endif
+
 /* None.proto */
 static CYTHON_INLINE long __Pyx_div_long(long, long);
 
@@ -1706,6 +1688,14 @@ static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *nam
 
 /* RaiseException.proto */
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb, PyObject *cause);
+
+/* PyObjectCallMethO.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
+#endif
+
+/* PyObjectCallOneArg.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
 /* DictGetItem.proto */
 #if PY_MAJOR_VERSION >= 3 && !CYTHON_COMPILING_IN_PYPY
@@ -1822,6 +1812,9 @@ static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject *
 #else
 static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value, PyObject **tb);
 #endif
+
+/* Import.proto */
+static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
 
 /* FastTypeChecks.proto */
 #if CYTHON_COMPILING_IN_CPYTHON
@@ -2377,13 +2370,11 @@ static const char __pyx_k_mode[] = "mode";
 static const char __pyx_k_name[] = "name";
 static const char __pyx_k_ndim[] = "ndim";
 static const char __pyx_k_pack[] = "pack";
-static const char __pyx_k_seed[] = "seed";
 static const char __pyx_k_self[] = "self";
 static const char __pyx_k_size[] = "size";
 static const char __pyx_k_step[] = "step";
 static const char __pyx_k_stop[] = "stop";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_time[] = "time";
 static const char __pyx_k_view[] = "view";
 static const char __pyx_k_ASCII[] = "ASCII";
 static const char __pyx_k_R_max[] = "R_max";
@@ -2601,7 +2592,6 @@ static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_reduce;
 static PyObject *__pyx_n_s_reduce_cython;
 static PyObject *__pyx_n_s_reduce_ex;
-static PyObject *__pyx_n_s_seed;
 static PyObject *__pyx_n_s_self;
 static PyObject *__pyx_kp_s_self_pythia_cannot_be_converted;
 static PyObject *__pyx_n_s_setstate;
@@ -2618,17 +2608,16 @@ static PyObject *__pyx_kp_s_strided_and_indirect;
 static PyObject *__pyx_kp_s_stringsource;
 static PyObject *__pyx_n_s_struct;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_n_s_time;
 static PyObject *__pyx_kp_s_unable_to_allocate_array_data;
 static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
 static PyObject *__pyx_kp_u_unknown_dtype_code_in_numpy_pxd;
 static PyObject *__pyx_n_s_unpack;
 static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_n_s_view;
-static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_is_binary, PyObject *__pyx_v_pseudorapidity_steps, PyObject *__pyx_v_phi_steps, PyObject *__pyx_v_n_layers, PyObject *__pyx_v_max_pseudorapidity, PyObject *__pyx_v_R_min, PyObject *__pyx_v_R_max, PyObject *__pyx_v_energy_threshold, PyObject *__pyx_v_seed); /* proto */
+static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_is_binary, PyObject *__pyx_v_pseudorapidity_steps, PyObject *__pyx_v_phi_steps, PyObject *__pyx_v_n_layers, PyObject *__pyx_v_max_pseudorapidity, PyObject *__pyx_v_R_min, PyObject *__pyx_v_R_max, PyObject *__pyx_v_energy_threshold); /* proto */
 static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_2__call__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_4event_size(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker___init__(struct __pyx_obj_10pythiamill_5utils_17spherical_tracker_SphericalTracker *__pyx_v_self, int __pyx_v_is_binary, int __pyx_v_pseudorapidity_steps, int __pyx_v_phi_steps, int __pyx_v_n_layers, double __pyx_v_max_pseudorapidity, double __pyx_v_R_min, double __pyx_v_R_max, double __pyx_v_energy_threshold, long __pyx_v_seed); /* proto */
+static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker___init__(struct __pyx_obj_10pythiamill_5utils_17spherical_tracker_SphericalTracker *__pyx_v_self, int __pyx_v_is_binary, int __pyx_v_pseudorapidity_steps, int __pyx_v_phi_steps, int __pyx_v_n_layers, double __pyx_v_max_pseudorapidity, double __pyx_v_R_min, double __pyx_v_R_max, double __pyx_v_energy_threshold); /* proto */
 static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_2event_size(struct __pyx_obj_10pythiamill_5utils_17spherical_tracker_SphericalTracker *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_4view(struct __pyx_obj_10pythiamill_5utils_17spherical_tracker_SphericalTracker *__pyx_v_self, __Pyx_memviewslice __pyx_v_buffer, PyObject *__pyx_v_args); /* proto */
 static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_6__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_10pythiamill_5utils_17spherical_tracker_SphericalTracker *__pyx_v_self); /* proto */
@@ -2689,7 +2678,6 @@ static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_5;
 static PyObject *__pyx_int_32;
-static PyObject *__pyx_int_100;
 static PyObject *__pyx_int_184977713;
 static PyObject *__pyx_int_neg_1;
 static PyObject *__pyx_tuple_;
@@ -2934,12 +2922,12 @@ static CYTHON_INLINE double __pyx_f_10pythiamill_5utils_17spherical_tracker_inte
  *   """
  *   def __init__(self, is_binary=True,             # <<<<<<<<<<<<<<
  *                pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
- *                energy_threshold=0.0, seed=None):
+ *                energy_threshold=0.0):
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper___init__[] = "SphericalTrackerWrapper.__init__(self, is_binary=True, pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max=100.0, energy_threshold=0.0, seed=None)";
+static char __pyx_doc_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper___init__[] = "SphericalTrackerWrapper.__init__(self, is_binary=True, pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max=100.0, energy_threshold=0.0)";
 static PyMethodDef __pyx_mdef_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_1__init__ = {"__init__", (PyCFunction)__pyx_pw_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_1__init__, METH_VARARGS|METH_KEYWORDS, __pyx_doc_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper___init__};
 static PyObject *__pyx_pw_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
@@ -2951,13 +2939,12 @@ static PyObject *__pyx_pw_10pythiamill_5utils_17spherical_tracker_23SphericalTra
   PyObject *__pyx_v_R_min = 0;
   PyObject *__pyx_v_R_max = 0;
   PyObject *__pyx_v_energy_threshold = 0;
-  PyObject *__pyx_v_seed = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_is_binary,&__pyx_n_s_pseudorapidity_steps,&__pyx_n_s_phi_steps,&__pyx_n_s_n_layers,&__pyx_n_s_max_pseudorapidity,&__pyx_n_s_R_min,&__pyx_n_s_R_max,&__pyx_n_s_energy_threshold,&__pyx_n_s_seed,0};
-    PyObject* values[10] = {0,0,0,0,0,0,0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_self,&__pyx_n_s_is_binary,&__pyx_n_s_pseudorapidity_steps,&__pyx_n_s_phi_steps,&__pyx_n_s_n_layers,&__pyx_n_s_max_pseudorapidity,&__pyx_n_s_R_min,&__pyx_n_s_R_max,&__pyx_n_s_energy_threshold,0};
+    PyObject* values[9] = {0,0,0,0,0,0,0,0,0};
     values[1] = ((PyObject *)((PyObject *)Py_True));
     values[2] = ((PyObject *)((PyObject *)__pyx_int_32));
     values[3] = ((PyObject *)((PyObject *)__pyx_int_32));
@@ -2966,21 +2953,10 @@ static PyObject *__pyx_pw_10pythiamill_5utils_17spherical_tracker_23SphericalTra
     values[6] = ((PyObject *)((PyObject*)__pyx_float_1_0));
     values[7] = ((PyObject *)((PyObject*)__pyx_float_100_0));
     values[8] = ((PyObject *)((PyObject*)__pyx_float_0_0));
-
-    /* "pythiamill/utils/spherical_tracker.pyx":47
- *   def __init__(self, is_binary=True,
- *                pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
- *                energy_threshold=0.0, seed=None):             # <<<<<<<<<<<<<<
- *     if seed is None:
- *       import time
- */
-    values[9] = ((PyObject *)((PyObject *)Py_None));
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
-        case 10: values[9] = PyTuple_GET_ITEM(__pyx_args, 9);
-        CYTHON_FALLTHROUGH;
         case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
         CYTHON_FALLTHROUGH;
         case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
@@ -3055,20 +3031,12 @@ static PyObject *__pyx_pw_10pythiamill_5utils_17spherical_tracker_23SphericalTra
           PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_energy_threshold);
           if (value) { values[8] = value; kw_args--; }
         }
-        CYTHON_FALLTHROUGH;
-        case  9:
-        if (kw_args > 0) {
-          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_seed);
-          if (value) { values[9] = value; kw_args--; }
-        }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 45, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
-        case 10: values[9] = PyTuple_GET_ITEM(__pyx_args, 9);
-        CYTHON_FALLTHROUGH;
         case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
         CYTHON_FALLTHROUGH;
         case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
@@ -3099,200 +3067,113 @@ static PyObject *__pyx_pw_10pythiamill_5utils_17spherical_tracker_23SphericalTra
     __pyx_v_R_min = values[6];
     __pyx_v_R_max = values[7];
     __pyx_v_energy_threshold = values[8];
-    __pyx_v_seed = values[9];
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 10, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 45, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 45, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pythiamill.utils.spherical_tracker.SphericalTrackerWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper___init__(__pyx_self, __pyx_v_self, __pyx_v_is_binary, __pyx_v_pseudorapidity_steps, __pyx_v_phi_steps, __pyx_v_n_layers, __pyx_v_max_pseudorapidity, __pyx_v_R_min, __pyx_v_R_max, __pyx_v_energy_threshold, __pyx_v_seed);
-
-  /* "pythiamill/utils/spherical_tracker.pyx":45
- *   For pickle.
- *   """
- *   def __init__(self, is_binary=True,             # <<<<<<<<<<<<<<
- *                pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
- *                energy_threshold=0.0, seed=None):
- */
+  __pyx_r = __pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper___init__(__pyx_self, __pyx_v_self, __pyx_v_is_binary, __pyx_v_pseudorapidity_steps, __pyx_v_phi_steps, __pyx_v_n_layers, __pyx_v_max_pseudorapidity, __pyx_v_R_min, __pyx_v_R_max, __pyx_v_energy_threshold);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_is_binary, PyObject *__pyx_v_pseudorapidity_steps, PyObject *__pyx_v_phi_steps, PyObject *__pyx_v_n_layers, PyObject *__pyx_v_max_pseudorapidity, PyObject *__pyx_v_R_min, PyObject *__pyx_v_R_max, PyObject *__pyx_v_energy_threshold, PyObject *__pyx_v_seed) {
-  PyObject *__pyx_v_time = NULL;
+static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_is_binary, PyObject *__pyx_v_pseudorapidity_steps, PyObject *__pyx_v_phi_steps, PyObject *__pyx_v_n_layers, PyObject *__pyx_v_max_pseudorapidity, PyObject *__pyx_v_R_min, PyObject *__pyx_v_R_max, PyObject *__pyx_v_energy_threshold) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
+  PyObject *__pyx_t_1 = NULL;
   int __pyx_t_2;
   PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
   __Pyx_RefNannySetupContext("__init__", 0);
-  __Pyx_INCREF(__pyx_v_seed);
 
-  /* "pythiamill/utils/spherical_tracker.pyx":48
- *                pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
- *                energy_threshold=0.0, seed=None):
- *     if seed is None:             # <<<<<<<<<<<<<<
- *       import time
- *       seed = int(time.time() * 100)
- */
-  __pyx_t_1 = (__pyx_v_seed == Py_None);
-  __pyx_t_2 = (__pyx_t_1 != 0);
-  if (__pyx_t_2) {
-
-    /* "pythiamill/utils/spherical_tracker.pyx":49
- *                energy_threshold=0.0, seed=None):
- *     if seed is None:
- *       import time             # <<<<<<<<<<<<<<
- *       seed = int(time.time() * 100)
- * 
- */
-    __pyx_t_3 = __Pyx_Import(__pyx_n_s_time, 0, -1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __pyx_v_time = __pyx_t_3;
-    __pyx_t_3 = 0;
-
-    /* "pythiamill/utils/spherical_tracker.pyx":50
- *     if seed is None:
- *       import time
- *       seed = int(time.time() * 100)             # <<<<<<<<<<<<<<
- * 
- *     self.args = (
- */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_v_time, __pyx_n_s_time); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = NULL;
-    if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
-      __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-      if (likely(__pyx_t_5)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-        __Pyx_INCREF(__pyx_t_5);
-        __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_4, function);
-      }
-    }
-    if (__pyx_t_5) {
-      __pyx_t_3 = __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    } else {
-      __pyx_t_3 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
-    }
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = PyNumber_Multiply(__pyx_t_3, __pyx_int_100); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 50, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __Pyx_PyNumber_Int(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 50, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_3);
-    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __Pyx_DECREF_SET(__pyx_v_seed, __pyx_t_3);
-    __pyx_t_3 = 0;
-
-    /* "pythiamill/utils/spherical_tracker.pyx":48
- *                pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
- *                energy_threshold=0.0, seed=None):
- *     if seed is None:             # <<<<<<<<<<<<<<
- *       import time
- *       seed = int(time.time() * 100)
- */
-  }
-
-  /* "pythiamill/utils/spherical_tracker.pyx":53
- * 
+  /* "pythiamill/utils/spherical_tracker.pyx":49
+ *                energy_threshold=0.0):
  *     self.args = (
  *       (1 if is_binary else 0),             # <<<<<<<<<<<<<<
  *       pseudorapidity_steps, phi_steps,
  *       n_layers,
  */
-  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_is_binary); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_v_is_binary); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 49, __pyx_L1_error)
   if (__pyx_t_2) {
     __Pyx_INCREF(__pyx_int_1);
-    __pyx_t_3 = __pyx_int_1;
+    __pyx_t_1 = __pyx_int_1;
   } else {
     __Pyx_INCREF(__pyx_int_0);
-    __pyx_t_3 = __pyx_int_0;
+    __pyx_t_1 = __pyx_int_0;
   }
 
-  /* "pythiamill/utils/spherical_tracker.pyx":59
+  /* "pythiamill/utils/spherical_tracker.pyx":54
+ *       max_pseudorapidity,
  *       R_min, R_max,
- *       energy_threshold,
- *       seed             # <<<<<<<<<<<<<<
+ *       energy_threshold,             # <<<<<<<<<<<<<<
  *     )
  * 
  */
-  __pyx_t_4 = PyTuple_New(9); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 53, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
+  __pyx_t_3 = PyTuple_New(8); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
   __Pyx_INCREF(__pyx_v_pseudorapidity_steps);
   __Pyx_GIVEREF(__pyx_v_pseudorapidity_steps);
-  PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_v_pseudorapidity_steps);
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_v_pseudorapidity_steps);
   __Pyx_INCREF(__pyx_v_phi_steps);
   __Pyx_GIVEREF(__pyx_v_phi_steps);
-  PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_v_phi_steps);
+  PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_v_phi_steps);
   __Pyx_INCREF(__pyx_v_n_layers);
   __Pyx_GIVEREF(__pyx_v_n_layers);
-  PyTuple_SET_ITEM(__pyx_t_4, 3, __pyx_v_n_layers);
+  PyTuple_SET_ITEM(__pyx_t_3, 3, __pyx_v_n_layers);
   __Pyx_INCREF(__pyx_v_max_pseudorapidity);
   __Pyx_GIVEREF(__pyx_v_max_pseudorapidity);
-  PyTuple_SET_ITEM(__pyx_t_4, 4, __pyx_v_max_pseudorapidity);
+  PyTuple_SET_ITEM(__pyx_t_3, 4, __pyx_v_max_pseudorapidity);
   __Pyx_INCREF(__pyx_v_R_min);
   __Pyx_GIVEREF(__pyx_v_R_min);
-  PyTuple_SET_ITEM(__pyx_t_4, 5, __pyx_v_R_min);
+  PyTuple_SET_ITEM(__pyx_t_3, 5, __pyx_v_R_min);
   __Pyx_INCREF(__pyx_v_R_max);
   __Pyx_GIVEREF(__pyx_v_R_max);
-  PyTuple_SET_ITEM(__pyx_t_4, 6, __pyx_v_R_max);
+  PyTuple_SET_ITEM(__pyx_t_3, 6, __pyx_v_R_max);
   __Pyx_INCREF(__pyx_v_energy_threshold);
   __Pyx_GIVEREF(__pyx_v_energy_threshold);
-  PyTuple_SET_ITEM(__pyx_t_4, 7, __pyx_v_energy_threshold);
-  __Pyx_INCREF(__pyx_v_seed);
-  __Pyx_GIVEREF(__pyx_v_seed);
-  PyTuple_SET_ITEM(__pyx_t_4, 8, __pyx_v_seed);
-  __pyx_t_3 = 0;
+  PyTuple_SET_ITEM(__pyx_t_3, 7, __pyx_v_energy_threshold);
+  __pyx_t_1 = 0;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":52
- *       seed = int(time.time() * 100)
- * 
+  /* "pythiamill/utils/spherical_tracker.pyx":48
+ *                pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
+ *                energy_threshold=0.0):
  *     self.args = (             # <<<<<<<<<<<<<<
  *       (1 if is_binary else 0),
  *       pseudorapidity_steps, phi_steps,
  */
-  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_args, __pyx_t_4) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_args, __pyx_t_3) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "pythiamill/utils/spherical_tracker.pyx":45
  *   For pickle.
  *   """
  *   def __init__(self, is_binary=True,             # <<<<<<<<<<<<<<
  *                pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
- *                energy_threshold=0.0, seed=None):
+ *                energy_threshold=0.0):
  */
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
   __Pyx_AddTraceback("pythiamill.utils.spherical_tracker.SphericalTrackerWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_time);
-  __Pyx_XDECREF(__pyx_v_seed);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "pythiamill/utils/spherical_tracker.pyx":62
+/* "pythiamill/utils/spherical_tracker.pyx":57
  *     )
  * 
  *   def __call__(self):             # <<<<<<<<<<<<<<
@@ -3322,7 +3203,7 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTra
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("__call__", 0);
 
-  /* "pythiamill/utils/spherical_tracker.pyx":63
+  /* "pythiamill/utils/spherical_tracker.pyx":58
  * 
  *   def __call__(self):
  *     return SphericalTracker(*self.args)             # <<<<<<<<<<<<<<
@@ -3330,19 +3211,19 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTra
  *   def event_size(self,):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_args); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_args); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PySequence_Tuple(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PySequence_Tuple(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_10pythiamill_5utils_17spherical_tracker_SphericalTracker), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_10pythiamill_5utils_17spherical_tracker_SphericalTracker), __pyx_t_2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":62
+  /* "pythiamill/utils/spherical_tracker.pyx":57
  *     )
  * 
  *   def __call__(self):             # <<<<<<<<<<<<<<
@@ -3362,7 +3243,7 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTra
   return __pyx_r;
 }
 
-/* "pythiamill/utils/spherical_tracker.pyx":65
+/* "pythiamill/utils/spherical_tracker.pyx":60
  *     return SphericalTracker(*self.args)
  * 
  *   def event_size(self,):             # <<<<<<<<<<<<<<
@@ -3393,7 +3274,7 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTra
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("event_size", 0);
 
-  /* "pythiamill/utils/spherical_tracker.pyx":66
+  /* "pythiamill/utils/spherical_tracker.pyx":61
  * 
  *   def event_size(self,):
  *     return self.args[1] * self.args[2] * self.args[3]             # <<<<<<<<<<<<<<
@@ -3401,26 +3282,26 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTra
  * cdef class SphericalTracker(Detector):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_args); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_args); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_1, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_args); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_args); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt(__pyx_t_1, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_1 = PyNumber_Multiply(__pyx_t_2, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_args); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_args); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_3, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_3 = PyNumber_Multiply(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3428,7 +3309,7 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTra
   __pyx_t_3 = 0;
   goto __pyx_L0;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":65
+  /* "pythiamill/utils/spherical_tracker.pyx":60
  *     return SphericalTracker(*self.args)
  * 
  *   def event_size(self,):             # <<<<<<<<<<<<<<
@@ -3449,11 +3330,11 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_23SphericalTra
   return __pyx_r;
 }
 
-/* "pythiamill/utils/spherical_tracker.pyx":69
+/* "pythiamill/utils/spherical_tracker.pyx":64
  * 
  * cdef class SphericalTracker(Detector):
  *   def __init__(self, int is_binary, int pseudorapidity_steps, int phi_steps, int n_layers,             # <<<<<<<<<<<<<<
- *                double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0, long seed=1):
+ *                double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0):
  *     self.pr_steps = pseudorapidity_steps
  */
 
@@ -3468,19 +3349,16 @@ static int __pyx_pw_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_1
   double __pyx_v_R_min;
   double __pyx_v_R_max;
   double __pyx_v_energy_threshold;
-  long __pyx_v_seed;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_is_binary,&__pyx_n_s_pseudorapidity_steps,&__pyx_n_s_phi_steps,&__pyx_n_s_n_layers,&__pyx_n_s_max_pseudorapidity,&__pyx_n_s_R_min,&__pyx_n_s_R_max,&__pyx_n_s_energy_threshold,&__pyx_n_s_seed,0};
-    PyObject* values[9] = {0,0,0,0,0,0,0,0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_is_binary,&__pyx_n_s_pseudorapidity_steps,&__pyx_n_s_phi_steps,&__pyx_n_s_n_layers,&__pyx_n_s_max_pseudorapidity,&__pyx_n_s_R_min,&__pyx_n_s_R_max,&__pyx_n_s_energy_threshold,0};
+    PyObject* values[8] = {0,0,0,0,0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
-        case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
-        CYTHON_FALLTHROUGH;
         case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
         CYTHON_FALLTHROUGH;
         case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
@@ -3509,19 +3387,19 @@ static int __pyx_pw_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_1
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pseudorapidity_steps)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 9, 1); __PYX_ERR(0, 69, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 8, 1); __PYX_ERR(0, 64, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_phi_steps)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 9, 2); __PYX_ERR(0, 69, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 8, 2); __PYX_ERR(0, 64, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
         if (likely((values[3] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_n_layers)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 9, 3); __PYX_ERR(0, 69, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 8, 3); __PYX_ERR(0, 64, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -3547,20 +3425,12 @@ static int __pyx_pw_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_1
           PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_energy_threshold);
           if (value) { values[7] = value; kw_args--; }
         }
-        CYTHON_FALLTHROUGH;
-        case  8:
-        if (kw_args > 0) {
-          PyObject* value = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_seed);
-          if (value) { values[8] = value; kw_args--; }
-        }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 69, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 64, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
-        case  9: values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
-        CYTHON_FALLTHROUGH;
         case  8: values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
         CYTHON_FALLTHROUGH;
         case  7: values[6] = PyTuple_GET_ITEM(__pyx_args, 6);
@@ -3577,52 +3447,47 @@ static int __pyx_pw_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_1
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_is_binary = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_is_binary == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 69, __pyx_L3_error)
-    __pyx_v_pseudorapidity_steps = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_pseudorapidity_steps == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 69, __pyx_L3_error)
-    __pyx_v_phi_steps = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_phi_steps == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 69, __pyx_L3_error)
-    __pyx_v_n_layers = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_n_layers == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 69, __pyx_L3_error)
+    __pyx_v_is_binary = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_is_binary == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
+    __pyx_v_pseudorapidity_steps = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_pseudorapidity_steps == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
+    __pyx_v_phi_steps = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_phi_steps == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
+    __pyx_v_n_layers = __Pyx_PyInt_As_int(values[3]); if (unlikely((__pyx_v_n_layers == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
     if (values[4]) {
-      __pyx_v_max_pseudorapidity = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_max_pseudorapidity == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L3_error)
+      __pyx_v_max_pseudorapidity = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_max_pseudorapidity == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 65, __pyx_L3_error)
     } else {
       __pyx_v_max_pseudorapidity = ((double)5.0);
     }
     if (values[5]) {
-      __pyx_v_R_min = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_R_min == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L3_error)
+      __pyx_v_R_min = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_R_min == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 65, __pyx_L3_error)
     } else {
       __pyx_v_R_min = ((double)1.0);
     }
     if (values[6]) {
-      __pyx_v_R_max = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_R_max == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L3_error)
+      __pyx_v_R_max = __pyx_PyFloat_AsDouble(values[6]); if (unlikely((__pyx_v_R_max == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 65, __pyx_L3_error)
     } else {
       __pyx_v_R_max = ((double)100.0);
     }
     if (values[7]) {
-      __pyx_v_energy_threshold = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_energy_threshold == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L3_error)
+      __pyx_v_energy_threshold = __pyx_PyFloat_AsDouble(values[7]); if (unlikely((__pyx_v_energy_threshold == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 65, __pyx_L3_error)
     } else {
       __pyx_v_energy_threshold = ((double)0.0);
-    }
-    if (values[8]) {
-      __pyx_v_seed = __Pyx_PyInt_As_long(values[8]); if (unlikely((__pyx_v_seed == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L3_error)
-    } else {
-      __pyx_v_seed = ((long)1);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 9, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 69, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 4, 8, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 64, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pythiamill.utils.spherical_tracker.SphericalTracker.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker___init__(((struct __pyx_obj_10pythiamill_5utils_17spherical_tracker_SphericalTracker *)__pyx_v_self), __pyx_v_is_binary, __pyx_v_pseudorapidity_steps, __pyx_v_phi_steps, __pyx_v_n_layers, __pyx_v_max_pseudorapidity, __pyx_v_R_min, __pyx_v_R_max, __pyx_v_energy_threshold, __pyx_v_seed);
+  __pyx_r = __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker___init__(((struct __pyx_obj_10pythiamill_5utils_17spherical_tracker_SphericalTracker *)__pyx_v_self), __pyx_v_is_binary, __pyx_v_pseudorapidity_steps, __pyx_v_phi_steps, __pyx_v_n_layers, __pyx_v_max_pseudorapidity, __pyx_v_R_min, __pyx_v_R_max, __pyx_v_energy_threshold);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker___init__(struct __pyx_obj_10pythiamill_5utils_17spherical_tracker_SphericalTracker *__pyx_v_self, int __pyx_v_is_binary, int __pyx_v_pseudorapidity_steps, int __pyx_v_phi_steps, int __pyx_v_n_layers, double __pyx_v_max_pseudorapidity, double __pyx_v_R_min, double __pyx_v_R_max, double __pyx_v_energy_threshold, long __pyx_v_seed) {
+static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker___init__(struct __pyx_obj_10pythiamill_5utils_17spherical_tracker_SphericalTracker *__pyx_v_self, int __pyx_v_is_binary, int __pyx_v_pseudorapidity_steps, int __pyx_v_phi_steps, int __pyx_v_n_layers, double __pyx_v_max_pseudorapidity, double __pyx_v_R_min, double __pyx_v_R_max, double __pyx_v_energy_threshold) {
   int __pyx_v_i;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -3640,17 +3505,17 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
   Py_ssize_t __pyx_t_12;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "pythiamill/utils/spherical_tracker.pyx":71
+  /* "pythiamill/utils/spherical_tracker.pyx":66
  *   def __init__(self, int is_binary, int pseudorapidity_steps, int phi_steps, int n_layers,
- *                double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0, long seed=1):
+ *                double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0):
  *     self.pr_steps = pseudorapidity_steps             # <<<<<<<<<<<<<<
  *     self.phi_steps = phi_steps
  *     self.n_layers = n_layers
  */
   __pyx_v_self->pr_steps = __pyx_v_pseudorapidity_steps;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":72
- *                double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0, long seed=1):
+  /* "pythiamill/utils/spherical_tracker.pyx":67
+ *                double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0):
  *     self.pr_steps = pseudorapidity_steps
  *     self.phi_steps = phi_steps             # <<<<<<<<<<<<<<
  *     self.n_layers = n_layers
@@ -3658,7 +3523,7 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
  */
   __pyx_v_self->phi_steps = __pyx_v_phi_steps;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":73
+  /* "pythiamill/utils/spherical_tracker.pyx":68
  *     self.pr_steps = pseudorapidity_steps
  *     self.phi_steps = phi_steps
  *     self.n_layers = n_layers             # <<<<<<<<<<<<<<
@@ -3667,7 +3532,7 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
  */
   __pyx_v_self->n_layers = __pyx_v_n_layers;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":74
+  /* "pythiamill/utils/spherical_tracker.pyx":69
  *     self.phi_steps = phi_steps
  *     self.n_layers = n_layers
  *     self.R_min = R_min             # <<<<<<<<<<<<<<
@@ -3676,7 +3541,7 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
  */
   __pyx_v_self->R_min = __pyx_v_R_min;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":75
+  /* "pythiamill/utils/spherical_tracker.pyx":70
  *     self.n_layers = n_layers
  *     self.R_min = R_min
  *     self.R_max = R_max             # <<<<<<<<<<<<<<
@@ -3685,7 +3550,7 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
  */
   __pyx_v_self->R_max = __pyx_v_R_max;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":77
+  /* "pythiamill/utils/spherical_tracker.pyx":72
  *     self.R_max = R_max
  * 
  *     self.energy_threshold = energy_threshold             # <<<<<<<<<<<<<<
@@ -3694,7 +3559,7 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
  */
   __pyx_v_self->energy_threshold = __pyx_v_energy_threshold;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":79
+  /* "pythiamill/utils/spherical_tracker.pyx":74
  *     self.energy_threshold = energy_threshold
  * 
  *     self.is_binary = is_binary             # <<<<<<<<<<<<<<
@@ -3703,23 +3568,23 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
  */
   __pyx_v_self->is_binary = __pyx_v_is_binary;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":81
+  /* "pythiamill/utils/spherical_tracker.pyx":76
  *     self.is_binary = is_binary
  * 
  *     self.layers_R = np.linspace(R_min, R_max, num=self.n_layers, dtype='float64')             # <<<<<<<<<<<<<<
  *     self.layers_Rsqr = np.ndarray(shape=(self.n_layers, ), dtype='float64')
  *     cdef int i
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linspace); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_linspace); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_R_min); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_R_min); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_R_max); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_R_max); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_1);
@@ -3727,61 +3592,61 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
   PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_3);
   __pyx_t_1 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->n_layers); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->n_layers); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_num, __pyx_t_1) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_num, __pyx_t_1) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_n_s_float64) < 0) __PYX_ERR(0, 81, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_n_s_float64) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_10pythiamill_5utils_11pythiautils_float64(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 81, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_10pythiamill_5utils_11pythiautils_float64(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->layers_R, 0);
   __pyx_v_self->layers_R = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":82
+  /* "pythiamill/utils/spherical_tracker.pyx":77
  * 
  *     self.layers_R = np.linspace(R_min, R_max, num=self.n_layers, dtype='float64')
  *     self.layers_Rsqr = np.ndarray(shape=(self.n_layers, ), dtype='float64')             # <<<<<<<<<<<<<<
  *     cdef int i
  *     for i in range(self.n_layers):
  */
-  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ndarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ndarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_self->n_layers); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_self->n_layers); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_4);
   __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_2) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_shape, __pyx_t_2) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_n_s_float64) < 0) __PYX_ERR(0, 82, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_n_s_float64) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_10pythiamill_5utils_11pythiautils_float64(__pyx_t_2, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_10pythiamill_5utils_11pythiautils_float64(__pyx_t_2, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 77, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __PYX_XDEC_MEMVIEW(&__pyx_v_self->layers_Rsqr, 0);
   __pyx_v_self->layers_Rsqr = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":84
+  /* "pythiamill/utils/spherical_tracker.pyx":79
  *     self.layers_Rsqr = np.ndarray(shape=(self.n_layers, ), dtype='float64')
  *     cdef int i
  *     for i in range(self.n_layers):             # <<<<<<<<<<<<<<
@@ -3793,14 +3658,14 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
   for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_7; __pyx_t_8+=1) {
     __pyx_v_i = __pyx_t_8;
 
-    /* "pythiamill/utils/spherical_tracker.pyx":85
+    /* "pythiamill/utils/spherical_tracker.pyx":80
  *     cdef int i
  *     for i in range(self.n_layers):
  *       self.layers_Rsqr[i] = self.layers_R[i] * self.layers_R[i]             # <<<<<<<<<<<<<<
  * 
  *     self.max_pseudorapidity = max_pseudorapidity
  */
-    if (unlikely(!__pyx_v_self->layers_R.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 85, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->layers_R.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 80, __pyx_L1_error)}
     __pyx_t_9 = __pyx_v_i;
     __pyx_t_10 = -1;
     if (__pyx_t_9 < 0) {
@@ -3809,9 +3674,9 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
     } else if (unlikely(__pyx_t_9 >= __pyx_v_self->layers_R.shape[0])) __pyx_t_10 = 0;
     if (unlikely(__pyx_t_10 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_10);
-      __PYX_ERR(0, 85, __pyx_L1_error)
+      __PYX_ERR(0, 80, __pyx_L1_error)
     }
-    if (unlikely(!__pyx_v_self->layers_R.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 85, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->layers_R.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 80, __pyx_L1_error)}
     __pyx_t_11 = __pyx_v_i;
     __pyx_t_10 = -1;
     if (__pyx_t_11 < 0) {
@@ -3820,9 +3685,9 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
     } else if (unlikely(__pyx_t_11 >= __pyx_v_self->layers_R.shape[0])) __pyx_t_10 = 0;
     if (unlikely(__pyx_t_10 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_10);
-      __PYX_ERR(0, 85, __pyx_L1_error)
+      __PYX_ERR(0, 80, __pyx_L1_error)
     }
-    if (unlikely(!__pyx_v_self->layers_Rsqr.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 85, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->layers_Rsqr.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 80, __pyx_L1_error)}
     __pyx_t_12 = __pyx_v_i;
     __pyx_t_10 = -1;
     if (__pyx_t_12 < 0) {
@@ -3831,34 +3696,25 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
     } else if (unlikely(__pyx_t_12 >= __pyx_v_self->layers_Rsqr.shape[0])) __pyx_t_10 = 0;
     if (unlikely(__pyx_t_10 != -1)) {
       __Pyx_RaiseBufferIndexError(__pyx_t_10);
-      __PYX_ERR(0, 85, __pyx_L1_error)
+      __PYX_ERR(0, 80, __pyx_L1_error)
     }
     *((__pyx_t_10pythiamill_5utils_11pythiautils_float64 *) ( /* dim=0 */ (__pyx_v_self->layers_Rsqr.data + __pyx_t_12 * __pyx_v_self->layers_Rsqr.strides[0]) )) = ((*((__pyx_t_10pythiamill_5utils_11pythiautils_float64 *) ( /* dim=0 */ (__pyx_v_self->layers_R.data + __pyx_t_9 * __pyx_v_self->layers_R.strides[0]) ))) * (*((__pyx_t_10pythiamill_5utils_11pythiautils_float64 *) ( /* dim=0 */ (__pyx_v_self->layers_R.data + __pyx_t_11 * __pyx_v_self->layers_R.strides[0]) ))));
   }
 
-  /* "pythiamill/utils/spherical_tracker.pyx":87
+  /* "pythiamill/utils/spherical_tracker.pyx":82
  *       self.layers_Rsqr[i] = self.layers_R[i] * self.layers_R[i]
  * 
  *     self.max_pseudorapidity = max_pseudorapidity             # <<<<<<<<<<<<<<
  * 
- *     srand(seed)
+ *   def event_size(self):
  */
   __pyx_v_self->max_pseudorapidity = __pyx_v_max_pseudorapidity;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":89
- *     self.max_pseudorapidity = max_pseudorapidity
- * 
- *     srand(seed)             # <<<<<<<<<<<<<<
- * 
- *   def event_size(self):
- */
-  srand(__pyx_v_seed);
-
-  /* "pythiamill/utils/spherical_tracker.pyx":69
+  /* "pythiamill/utils/spherical_tracker.pyx":64
  * 
  * cdef class SphericalTracker(Detector):
  *   def __init__(self, int is_binary, int pseudorapidity_steps, int phi_steps, int n_layers,             # <<<<<<<<<<<<<<
- *                double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0, long seed=1):
+ *                double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0):
  *     self.pr_steps = pseudorapidity_steps
  */
 
@@ -3878,8 +3734,8 @@ static int __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker__
   return __pyx_r;
 }
 
-/* "pythiamill/utils/spherical_tracker.pyx":91
- *     srand(seed)
+/* "pythiamill/utils/spherical_tracker.pyx":84
+ *     self.max_pseudorapidity = max_pseudorapidity
  * 
  *   def event_size(self):             # <<<<<<<<<<<<<<
  *     return self.n_layers * self.pr_steps * self.phi_steps
@@ -3906,7 +3762,7 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTra
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("event_size", 0);
 
-  /* "pythiamill/utils/spherical_tracker.pyx":92
+  /* "pythiamill/utils/spherical_tracker.pyx":85
  * 
  *   def event_size(self):
  *     return self.n_layers * self.pr_steps * self.phi_steps             # <<<<<<<<<<<<<<
@@ -3914,14 +3770,14 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTra
  *   @cython.boundscheck(False)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(((__pyx_v_self->n_layers * __pyx_v_self->pr_steps) * __pyx_v_self->phi_steps)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(((__pyx_v_self->n_layers * __pyx_v_self->pr_steps) * __pyx_v_self->phi_steps)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":91
- *     srand(seed)
+  /* "pythiamill/utils/spherical_tracker.pyx":84
+ *     self.max_pseudorapidity = max_pseudorapidity
  * 
  *   def event_size(self):             # <<<<<<<<<<<<<<
  *     return self.n_layers * self.pr_steps * self.phi_steps
@@ -3939,7 +3795,7 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTra
   return __pyx_r;
 }
 
-/* "pythiamill/utils/spherical_tracker.pyx":98
+/* "pythiamill/utils/spherical_tracker.pyx":91
  *   @cython.wraparound(False)
  *   @cython.infer_types(True)
  *   cpdef void view(self, FLOAT[:] buffer, tuple args):             # <<<<<<<<<<<<<<
@@ -4015,11 +3871,11 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
   else if (unlikely(Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0)) {
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_view); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_view); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)__pyx_pw_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_5view)) {
-      if (unlikely(!__pyx_v_buffer.memview)) { __Pyx_RaiseUnboundLocalError("buffer"); __PYX_ERR(0, 98, __pyx_L1_error) }
-      __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_buffer, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 98, __pyx_L1_error)
+      if (unlikely(!__pyx_v_buffer.memview)) { __Pyx_RaiseUnboundLocalError("buffer"); __PYX_ERR(0, 91, __pyx_L1_error) }
+      __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_buffer, 1, (PyObject *(*)(char *)) __pyx_memview_get_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT, (int (*)(char *, PyObject *)) __pyx_memview_set_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 91, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_1);
       __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
@@ -4037,7 +3893,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_v_args};
-        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -4046,14 +3902,14 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
         PyObject *__pyx_temp[3] = {__pyx_t_5, __pyx_t_3, __pyx_v_args};
-        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_6, 2+__pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       } else
       #endif
       {
-        __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __pyx_t_7 = PyTuple_New(2+__pyx_t_6); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 91, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         if (__pyx_t_5) {
           __Pyx_GIVEREF(__pyx_t_5); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_5); __pyx_t_5 = NULL;
@@ -4064,7 +3920,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
         __Pyx_GIVEREF(__pyx_v_args);
         PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_6, __pyx_v_args);
         __pyx_t_3 = 0;
-        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 98, __pyx_L1_error)
+        __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       }
@@ -4076,7 +3932,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "pythiamill/utils/spherical_tracker.pyx":99
+  /* "pythiamill/utils/spherical_tracker.pyx":92
  *   @cython.infer_types(True)
  *   cpdef void view(self, FLOAT[:] buffer, tuple args):
  *     cdef double offset = 0.0             # <<<<<<<<<<<<<<
@@ -4085,7 +3941,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
   __pyx_v_offset = 0.0;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":100
+  /* "pythiamill/utils/spherical_tracker.pyx":93
  *   cpdef void view(self, FLOAT[:] buffer, tuple args):
  *     cdef double offset = 0.0
  *     if len(args) > 0:             # <<<<<<<<<<<<<<
@@ -4094,13 +3950,13 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
   if (unlikely(__pyx_v_args == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
-    __PYX_ERR(0, 100, __pyx_L1_error)
+    __PYX_ERR(0, 93, __pyx_L1_error)
   }
-  __pyx_t_8 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_GET_SIZE(__pyx_v_args); if (unlikely(__pyx_t_8 == ((Py_ssize_t)-1))) __PYX_ERR(0, 93, __pyx_L1_error)
   __pyx_t_9 = ((__pyx_t_8 > 0) != 0);
   if (__pyx_t_9) {
 
-    /* "pythiamill/utils/spherical_tracker.pyx":101
+    /* "pythiamill/utils/spherical_tracker.pyx":94
  *     cdef double offset = 0.0
  *     if len(args) > 0:
  *       offset = args[0]             # <<<<<<<<<<<<<<
@@ -4109,12 +3965,12 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
     if (unlikely(__pyx_v_args == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 101, __pyx_L1_error)
+      __PYX_ERR(0, 94, __pyx_L1_error)
     }
-    __pyx_t_10 = __pyx_PyFloat_AsDouble(PyTuple_GET_ITEM(__pyx_v_args, 0)); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 101, __pyx_L1_error)
+    __pyx_t_10 = __pyx_PyFloat_AsDouble(PyTuple_GET_ITEM(__pyx_v_args, 0)); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 94, __pyx_L1_error)
     __pyx_v_offset = __pyx_t_10;
 
-    /* "pythiamill/utils/spherical_tracker.pyx":100
+    /* "pythiamill/utils/spherical_tracker.pyx":93
  *   cpdef void view(self, FLOAT[:] buffer, tuple args):
  *     cdef double offset = 0.0
  *     if len(args) > 0:             # <<<<<<<<<<<<<<
@@ -4123,7 +3979,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
   }
 
-  /* "pythiamill/utils/spherical_tracker.pyx":104
+  /* "pythiamill/utils/spherical_tracker.pyx":97
  * 
  * 
  *     cdef Pythia * pythia = self.pythia             # <<<<<<<<<<<<<<
@@ -4133,7 +3989,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
   __pyx_t_11 = __pyx_v_self->__pyx_base.pythia;
   __pyx_v_pythia = __pyx_t_11;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":107
+  /* "pythiamill/utils/spherical_tracker.pyx":100
  * 
  *     ### ...
  *     cdef double max_pseudorapidity = self.max_pseudorapidity             # <<<<<<<<<<<<<<
@@ -4143,7 +3999,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
   __pyx_t_12 = __pyx_v_self->max_pseudorapidity;
   __pyx_v_max_pseudorapidity = __pyx_t_12;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":110
+  /* "pythiamill/utils/spherical_tracker.pyx":103
  * 
  *     ### utility constant.
  *     cdef double max_tanh = tanh(max_pseudorapidity)             # <<<<<<<<<<<<<<
@@ -4152,7 +4008,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
   __pyx_v_max_tanh = tanh(__pyx_v_max_pseudorapidity);
 
-  /* "pythiamill/utils/spherical_tracker.pyx":113
+  /* "pythiamill/utils/spherical_tracker.pyx":106
  * 
  *     ### number of steps in pseudorapidity axis
  *     cdef int pr_steps = self.pr_steps             # <<<<<<<<<<<<<<
@@ -4162,7 +4018,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
   __pyx_t_6 = __pyx_v_self->pr_steps;
   __pyx_v_pr_steps = __pyx_t_6;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":115
+  /* "pythiamill/utils/spherical_tracker.pyx":108
  *     cdef int pr_steps = self.pr_steps
  *     ### size of one pseudorapidity step
  *     cdef double pr_step = 2 * max_pseudorapidity / pr_steps             # <<<<<<<<<<<<<<
@@ -4172,11 +4028,11 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
   __pyx_t_10 = (2.0 * __pyx_v_max_pseudorapidity);
   if (unlikely(__pyx_v_pr_steps == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 115, __pyx_L1_error)
+    __PYX_ERR(0, 108, __pyx_L1_error)
   }
   __pyx_v_pr_step = (__pyx_t_10 / __pyx_v_pr_steps);
 
-  /* "pythiamill/utils/spherical_tracker.pyx":118
+  /* "pythiamill/utils/spherical_tracker.pyx":111
  * 
  *     ### the same for phi
  *     cdef int phi_steps = self.phi_steps             # <<<<<<<<<<<<<<
@@ -4186,7 +4042,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
   __pyx_t_6 = __pyx_v_self->phi_steps;
   __pyx_v_phi_steps = __pyx_t_6;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":119
+  /* "pythiamill/utils/spherical_tracker.pyx":112
  *     ### the same for phi
  *     cdef int phi_steps = self.phi_steps
  *     cdef double phi_step = 2 * M_PI / phi_steps             # <<<<<<<<<<<<<<
@@ -4196,11 +4052,11 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
   __pyx_t_10 = (2.0 * M_PI);
   if (unlikely(__pyx_v_phi_steps == 0)) {
     PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-    __PYX_ERR(0, 119, __pyx_L1_error)
+    __PYX_ERR(0, 112, __pyx_L1_error)
   }
   __pyx_v_phi_step = (__pyx_t_10 / __pyx_v_phi_steps);
 
-  /* "pythiamill/utils/spherical_tracker.pyx":168
+  /* "pythiamill/utils/spherical_tracker.pyx":161
  *     cdef int indx
  * 
  *     buffer[:] = 0.0             # <<<<<<<<<<<<<<
@@ -4222,7 +4078,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       }
   }
 
-  /* "pythiamill/utils/spherical_tracker.pyx":170
+  /* "pythiamill/utils/spherical_tracker.pyx":163
  *     buffer[:] = 0.0
  * 
  *     for i in range(pythia.event.size()):             # <<<<<<<<<<<<<<
@@ -4234,7 +4090,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
   for (__pyx_t_14 = 0; __pyx_t_14 < __pyx_t_13; __pyx_t_14+=1) {
     __pyx_v_i = __pyx_t_14;
 
-    /* "pythiamill/utils/spherical_tracker.pyx":171
+    /* "pythiamill/utils/spherical_tracker.pyx":164
  * 
  *     for i in range(pythia.event.size()):
  *       for j in range(self.n_layers):             # <<<<<<<<<<<<<<
@@ -4246,29 +4102,29 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
     for (__pyx_t_17 = 0; __pyx_t_17 < __pyx_t_16; __pyx_t_17+=1) {
       __pyx_v_j = __pyx_t_17;
 
-      /* "pythiamill/utils/spherical_tracker.pyx":172
+      /* "pythiamill/utils/spherical_tracker.pyx":165
  *     for i in range(pythia.event.size()):
  *       for j in range(self.n_layers):
  *         R_sqr = self.layers_Rsqr[j]             # <<<<<<<<<<<<<<
  *         R = self.layers_R[j]
  * 
  */
-      if (unlikely(!__pyx_v_self->layers_Rsqr.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 172, __pyx_L1_error)}
+      if (unlikely(!__pyx_v_self->layers_Rsqr.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 165, __pyx_L1_error)}
       __pyx_t_18 = __pyx_v_j;
       __pyx_v_R_sqr = (*((__pyx_t_10pythiamill_5utils_11pythiautils_float64 *) ( /* dim=0 */ (__pyx_v_self->layers_Rsqr.data + __pyx_t_18 * __pyx_v_self->layers_Rsqr.strides[0]) )));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":173
+      /* "pythiamill/utils/spherical_tracker.pyx":166
  *       for j in range(self.n_layers):
  *         R_sqr = self.layers_Rsqr[j]
  *         R = self.layers_R[j]             # <<<<<<<<<<<<<<
  * 
  *         px = pythia.event.at(i).px()
  */
-      if (unlikely(!__pyx_v_self->layers_R.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 173, __pyx_L1_error)}
+      if (unlikely(!__pyx_v_self->layers_R.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 166, __pyx_L1_error)}
       __pyx_t_19 = __pyx_v_j;
       __pyx_v_R = (*((__pyx_t_10pythiamill_5utils_11pythiautils_float64 *) ( /* dim=0 */ (__pyx_v_self->layers_R.data + __pyx_t_19 * __pyx_v_self->layers_R.strides[0]) )));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":175
+      /* "pythiamill/utils/spherical_tracker.pyx":168
  *         R = self.layers_R[j]
  * 
  *         px = pythia.event.at(i).px()             # <<<<<<<<<<<<<<
@@ -4277,7 +4133,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_px = __pyx_v_pythia->event.at(__pyx_v_i).px();
 
-      /* "pythiamill/utils/spherical_tracker.pyx":176
+      /* "pythiamill/utils/spherical_tracker.pyx":169
  * 
  *         px = pythia.event.at(i).px()
  *         py = pythia.event.at(i).py()             # <<<<<<<<<<<<<<
@@ -4286,7 +4142,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_py = __pyx_v_pythia->event.at(__pyx_v_i).py();
 
-      /* "pythiamill/utils/spherical_tracker.pyx":177
+      /* "pythiamill/utils/spherical_tracker.pyx":170
  *         px = pythia.event.at(i).px()
  *         py = pythia.event.at(i).py()
  *         pz = pythia.event.at(i).pz()             # <<<<<<<<<<<<<<
@@ -4295,7 +4151,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_pz = __pyx_v_pythia->event.at(__pyx_v_i).pz();
 
-      /* "pythiamill/utils/spherical_tracker.pyx":179
+      /* "pythiamill/utils/spherical_tracker.pyx":172
  *         pz = pythia.event.at(i).pz()
  * 
  *         p = px * px + py * py + pz * pz             # <<<<<<<<<<<<<<
@@ -4304,7 +4160,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_p = (((__pyx_v_px * __pyx_v_px) + (__pyx_v_py * __pyx_v_py)) + (__pyx_v_pz * __pyx_v_pz));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":181
+      /* "pythiamill/utils/spherical_tracker.pyx":174
  *         p = px * px + py * py + pz * pz
  * 
  *         if p < 1.0e-12:             # <<<<<<<<<<<<<<
@@ -4314,7 +4170,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       __pyx_t_9 = ((__pyx_v_p < 1.0e-12) != 0);
       if (__pyx_t_9) {
 
-        /* "pythiamill/utils/spherical_tracker.pyx":183
+        /* "pythiamill/utils/spherical_tracker.pyx":176
  *         if p < 1.0e-12:
  *           ### I guess, nobody would miss such particles
  *           continue             # <<<<<<<<<<<<<<
@@ -4323,7 +4179,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
         goto __pyx_L6_continue;
 
-        /* "pythiamill/utils/spherical_tracker.pyx":181
+        /* "pythiamill/utils/spherical_tracker.pyx":174
  *         p = px * px + py * py + pz * pz
  * 
  *         if p < 1.0e-12:             # <<<<<<<<<<<<<<
@@ -4332,7 +4188,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       }
 
-      /* "pythiamill/utils/spherical_tracker.pyx":185
+      /* "pythiamill/utils/spherical_tracker.pyx":178
  *           continue
  * 
  *         ox = pythia.event.at(i).xProd()             # <<<<<<<<<<<<<<
@@ -4341,7 +4197,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_ox = __pyx_v_pythia->event.at(__pyx_v_i).xProd();
 
-      /* "pythiamill/utils/spherical_tracker.pyx":186
+      /* "pythiamill/utils/spherical_tracker.pyx":179
  * 
  *         ox = pythia.event.at(i).xProd()
  *         oy = pythia.event.at(i).yProd()             # <<<<<<<<<<<<<<
@@ -4350,7 +4206,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_oy = __pyx_v_pythia->event.at(__pyx_v_i).yProd();
 
-      /* "pythiamill/utils/spherical_tracker.pyx":187
+      /* "pythiamill/utils/spherical_tracker.pyx":180
  *         ox = pythia.event.at(i).xProd()
  *         oy = pythia.event.at(i).yProd()
  *         oz = pythia.event.at(i).zProd() + offset             # <<<<<<<<<<<<<<
@@ -4359,7 +4215,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_oz = (__pyx_v_pythia->event.at(__pyx_v_i).zProd() + __pyx_v_offset);
 
-      /* "pythiamill/utils/spherical_tracker.pyx":189
+      /* "pythiamill/utils/spherical_tracker.pyx":182
  *         oz = pythia.event.at(i).zProd() + offset
  * 
  *         dx = pythia.event.at(i).xDec()             # <<<<<<<<<<<<<<
@@ -4368,7 +4224,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_dx = __pyx_v_pythia->event.at(__pyx_v_i).xDec();
 
-      /* "pythiamill/utils/spherical_tracker.pyx":190
+      /* "pythiamill/utils/spherical_tracker.pyx":183
  * 
  *         dx = pythia.event.at(i).xDec()
  *         dy = pythia.event.at(i).yDec()             # <<<<<<<<<<<<<<
@@ -4377,7 +4233,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_dy = __pyx_v_pythia->event.at(__pyx_v_i).yDec();
 
-      /* "pythiamill/utils/spherical_tracker.pyx":191
+      /* "pythiamill/utils/spherical_tracker.pyx":184
  *         dx = pythia.event.at(i).xDec()
  *         dy = pythia.event.at(i).yDec()
  *         dz = pythia.event.at(i).zDec() + offset             # <<<<<<<<<<<<<<
@@ -4386,7 +4242,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_dz = (__pyx_v_pythia->event.at(__pyx_v_i).zDec() + __pyx_v_offset);
 
-      /* "pythiamill/utils/spherical_tracker.pyx":193
+      /* "pythiamill/utils/spherical_tracker.pyx":186
  *         dz = pythia.event.at(i).zDec() + offset
  * 
  *         ax = dx - ox             # <<<<<<<<<<<<<<
@@ -4395,7 +4251,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_ax = (__pyx_v_dx - __pyx_v_ox);
 
-      /* "pythiamill/utils/spherical_tracker.pyx":194
+      /* "pythiamill/utils/spherical_tracker.pyx":187
  * 
  *         ax = dx - ox
  *         ay = dy - oy             # <<<<<<<<<<<<<<
@@ -4404,7 +4260,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_ay = (__pyx_v_dy - __pyx_v_oy);
 
-      /* "pythiamill/utils/spherical_tracker.pyx":195
+      /* "pythiamill/utils/spherical_tracker.pyx":188
  *         ax = dx - ox
  *         ay = dy - oy
  *         az = dz - oz             # <<<<<<<<<<<<<<
@@ -4413,7 +4269,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_az = (__pyx_v_dz - __pyx_v_oz);
 
-      /* "pythiamill/utils/spherical_tracker.pyx":196
+      /* "pythiamill/utils/spherical_tracker.pyx":189
  *         ay = dy - oy
  *         az = dz - oz
  *         a = ax * ax + ay * ay + az * az             # <<<<<<<<<<<<<<
@@ -4422,7 +4278,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_a = (((__pyx_v_ax * __pyx_v_ax) + (__pyx_v_ay * __pyx_v_ay)) + (__pyx_v_az * __pyx_v_az));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":198
+      /* "pythiamill/utils/spherical_tracker.pyx":191
  *         a = ax * ax + ay * ay + az * az
  * 
  *         if (a < 1.0e-9):             # <<<<<<<<<<<<<<
@@ -4432,7 +4288,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       __pyx_t_9 = ((__pyx_v_a < 1.0e-9) != 0);
       if (__pyx_t_9) {
 
-        /* "pythiamill/utils/spherical_tracker.pyx":200
+        /* "pythiamill/utils/spherical_tracker.pyx":193
  *         if (a < 1.0e-9):
  *           ### particle decayed immediately
  *           continue             # <<<<<<<<<<<<<<
@@ -4441,7 +4297,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
         goto __pyx_L6_continue;
 
-        /* "pythiamill/utils/spherical_tracker.pyx":198
+        /* "pythiamill/utils/spherical_tracker.pyx":191
  *         a = ax * ax + ay * ay + az * az
  * 
  *         if (a < 1.0e-9):             # <<<<<<<<<<<<<<
@@ -4450,7 +4306,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       }
 
-      /* "pythiamill/utils/spherical_tracker.pyx":202
+      /* "pythiamill/utils/spherical_tracker.pyx":195
  *           continue
  * 
  *         o = ox * ox + oy * oy + oz * oz             # <<<<<<<<<<<<<<
@@ -4459,7 +4315,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_o = (((__pyx_v_ox * __pyx_v_ox) + (__pyx_v_oy * __pyx_v_oy)) + (__pyx_v_oz * __pyx_v_oz));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":203
+      /* "pythiamill/utils/spherical_tracker.pyx":196
  * 
  *         o = ox * ox + oy * oy + oz * oz
  *         d = dx * dx + dy * dy + dz * dz             # <<<<<<<<<<<<<<
@@ -4468,7 +4324,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_d = (((__pyx_v_dx * __pyx_v_dx) + (__pyx_v_dy * __pyx_v_dy)) + (__pyx_v_dz * __pyx_v_dz));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":205
+      /* "pythiamill/utils/spherical_tracker.pyx":198
  *         d = dx * dx + dy * dy + dz * dz
  * 
  *         if (o >= R_sqr and d >= R_sqr) or (o <= R_sqr and d <= R_sqr):             # <<<<<<<<<<<<<<
@@ -4498,7 +4354,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       __pyx_L11_bool_binop_done:;
       if (__pyx_t_9) {
 
-        /* "pythiamill/utils/spherical_tracker.pyx":208
+        /* "pythiamill/utils/spherical_tracker.pyx":201
  *           ### the particle originates and decays
  *           ### either outside or inside the detector
  *           continue             # <<<<<<<<<<<<<<
@@ -4507,7 +4363,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
         goto __pyx_L6_continue;
 
-        /* "pythiamill/utils/spherical_tracker.pyx":205
+        /* "pythiamill/utils/spherical_tracker.pyx":198
  *         d = dx * dx + dy * dy + dz * dz
  * 
  *         if (o >= R_sqr and d >= R_sqr) or (o <= R_sqr and d <= R_sqr):             # <<<<<<<<<<<<<<
@@ -4516,7 +4372,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       }
 
-      /* "pythiamill/utils/spherical_tracker.pyx":211
+      /* "pythiamill/utils/spherical_tracker.pyx":204
  * 
  *         ### solution of ||origin + scale * (decay - origin)|| = R for scale
  *         scale = intersection_scale(o, ox, oy, oz, a, ax, ay, az, R_sqr)             # <<<<<<<<<<<<<<
@@ -4525,7 +4381,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_scale = __pyx_f_10pythiamill_5utils_17spherical_tracker_intersection_scale(__pyx_v_o, __pyx_v_ox, __pyx_v_oy, __pyx_v_oz, __pyx_v_a, __pyx_v_ax, __pyx_v_ay, __pyx_v_az, __pyx_v_R_sqr);
 
-      /* "pythiamill/utils/spherical_tracker.pyx":213
+      /* "pythiamill/utils/spherical_tracker.pyx":206
  *         scale = intersection_scale(o, ox, oy, oz, a, ax, ay, az, R_sqr)
  * 
  *         if scale < 0.0 or scale > 1.0:             # <<<<<<<<<<<<<<
@@ -4543,7 +4399,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       __pyx_L16_bool_binop_done:;
       if (__pyx_t_9) {
 
-        /* "pythiamill/utils/spherical_tracker.pyx":215
+        /* "pythiamill/utils/spherical_tracker.pyx":208
  *         if scale < 0.0 or scale > 1.0:
  *           ### this should not happen
  *           continue             # <<<<<<<<<<<<<<
@@ -4552,7 +4408,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
         goto __pyx_L6_continue;
 
-        /* "pythiamill/utils/spherical_tracker.pyx":213
+        /* "pythiamill/utils/spherical_tracker.pyx":206
  *         scale = intersection_scale(o, ox, oy, oz, a, ax, ay, az, R_sqr)
  * 
  *         if scale < 0.0 or scale > 1.0:             # <<<<<<<<<<<<<<
@@ -4561,7 +4417,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       }
 
-      /* "pythiamill/utils/spherical_tracker.pyx":218
+      /* "pythiamill/utils/spherical_tracker.pyx":211
  * 
  *         ### coordinates of intersection
  *         ix = ox + scale * ax             # <<<<<<<<<<<<<<
@@ -4570,7 +4426,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_ix = (__pyx_v_ox + (__pyx_v_scale * __pyx_v_ax));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":219
+      /* "pythiamill/utils/spherical_tracker.pyx":212
  *         ### coordinates of intersection
  *         ix = ox + scale * ax
  *         iy = oy + scale * ay             # <<<<<<<<<<<<<<
@@ -4579,7 +4435,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_iy = (__pyx_v_oy + (__pyx_v_scale * __pyx_v_ay));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":220
+      /* "pythiamill/utils/spherical_tracker.pyx":213
  *         ix = ox + scale * ax
  *         iy = oy + scale * ay
  *         iz = oz + scale * az             # <<<<<<<<<<<<<<
@@ -4588,7 +4444,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_iz = (__pyx_v_oz + (__pyx_v_scale * __pyx_v_az));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":223
+      /* "pythiamill/utils/spherical_tracker.pyx":216
  * 
  *         ### ix ** 2 + iy ** 2 + iz ** 2 must sum to R ** 2
  *         th = abs(iz) / R             # <<<<<<<<<<<<<<
@@ -4598,11 +4454,11 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       __pyx_t_10 = __pyx_f_10pythiamill_5utils_17spherical_tracker_abs(__pyx_v_iz);
       if (unlikely(__pyx_v_R == 0)) {
         PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-        __PYX_ERR(0, 223, __pyx_L1_error)
+        __PYX_ERR(0, 216, __pyx_L1_error)
       }
       __pyx_v_th = (__pyx_t_10 / __pyx_v_R);
 
-      /* "pythiamill/utils/spherical_tracker.pyx":227
+      /* "pythiamill/utils/spherical_tracker.pyx":220
  *         ### to avoid expensive atanh call
  *         ### Note: tanh and atanh are monotonous.
  *         if th >= max_tanh:             # <<<<<<<<<<<<<<
@@ -4612,7 +4468,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       __pyx_t_9 = ((__pyx_v_th >= __pyx_v_max_tanh) != 0);
       if (__pyx_t_9) {
 
-        /* "pythiamill/utils/spherical_tracker.pyx":229
+        /* "pythiamill/utils/spherical_tracker.pyx":222
  *         if th >= max_tanh:
  *           ### particle too close to the beam axis
  *           continue             # <<<<<<<<<<<<<<
@@ -4621,7 +4477,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
         goto __pyx_L6_continue;
 
-        /* "pythiamill/utils/spherical_tracker.pyx":227
+        /* "pythiamill/utils/spherical_tracker.pyx":220
  *         ### to avoid expensive atanh call
  *         ### Note: tanh and atanh are monotonous.
  *         if th >= max_tanh:             # <<<<<<<<<<<<<<
@@ -4630,7 +4486,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       }
 
-      /* "pythiamill/utils/spherical_tracker.pyx":232
+      /* "pythiamill/utils/spherical_tracker.pyx":225
  * 
  *         ### actual pseudorapidity (abs of it)
  *         pr = atanh(th)             # <<<<<<<<<<<<<<
@@ -4639,7 +4495,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_pr = atanh(__pyx_v_th);
 
-      /* "pythiamill/utils/spherical_tracker.pyx":233
+      /* "pythiamill/utils/spherical_tracker.pyx":226
  *         ### actual pseudorapidity (abs of it)
  *         pr = atanh(th)
  *         pr_i = <int> floor(pr / pr_step)             # <<<<<<<<<<<<<<
@@ -4648,11 +4504,11 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       if (unlikely(__pyx_v_pr_step == 0)) {
         PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-        __PYX_ERR(0, 233, __pyx_L1_error)
+        __PYX_ERR(0, 226, __pyx_L1_error)
       }
       __pyx_v_pr_i = ((int)floor((__pyx_v_pr / __pyx_v_pr_step)));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":236
+      /* "pythiamill/utils/spherical_tracker.pyx":229
  * 
  *         ### the negative semi-sphere.
  *         if iz < 0:             # <<<<<<<<<<<<<<
@@ -4662,7 +4518,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       __pyx_t_9 = ((__pyx_v_iz < 0.0) != 0);
       if (__pyx_t_9) {
 
-        /* "pythiamill/utils/spherical_tracker.pyx":237
+        /* "pythiamill/utils/spherical_tracker.pyx":230
  *         ### the negative semi-sphere.
  *         if iz < 0:
  *           pr_i = -pr_i - 1             # <<<<<<<<<<<<<<
@@ -4671,7 +4527,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
         __pyx_v_pr_i = ((-__pyx_v_pr_i) - 1);
 
-        /* "pythiamill/utils/spherical_tracker.pyx":236
+        /* "pythiamill/utils/spherical_tracker.pyx":229
  * 
  *         ### the negative semi-sphere.
  *         if iz < 0:             # <<<<<<<<<<<<<<
@@ -4680,7 +4536,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       }
 
-      /* "pythiamill/utils/spherical_tracker.pyx":239
+      /* "pythiamill/utils/spherical_tracker.pyx":232
  *           pr_i = -pr_i - 1
  * 
  *         pr_i += pr_steps / 2             # <<<<<<<<<<<<<<
@@ -4689,7 +4545,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_pr_i = (__pyx_v_pr_i + __Pyx_div_long(__pyx_v_pr_steps, 2));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":242
+      /* "pythiamill/utils/spherical_tracker.pyx":235
  * 
  *         ### phi is just atan, pi shift is just to compensate for negative angels
  *         phi = atan2(iy, ix) + M_PI             # <<<<<<<<<<<<<<
@@ -4698,7 +4554,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       __pyx_v_phi = (atan2(__pyx_v_iy, __pyx_v_ix) + M_PI);
 
-      /* "pythiamill/utils/spherical_tracker.pyx":243
+      /* "pythiamill/utils/spherical_tracker.pyx":236
  *         ### phi is just atan, pi shift is just to compensate for negative angels
  *         phi = atan2(iy, ix) + M_PI
  *         phi_i = <int> floor(phi / phi_step)             # <<<<<<<<<<<<<<
@@ -4707,11 +4563,11 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
       if (unlikely(__pyx_v_phi_step == 0)) {
         PyErr_SetString(PyExc_ZeroDivisionError, "float division");
-        __PYX_ERR(0, 243, __pyx_L1_error)
+        __PYX_ERR(0, 236, __pyx_L1_error)
       }
       __pyx_v_phi_i = ((int)floor((__pyx_v_phi / __pyx_v_phi_step)));
 
-      /* "pythiamill/utils/spherical_tracker.pyx":246
+      /* "pythiamill/utils/spherical_tracker.pyx":239
  * 
  *         ### tracker activation
  *         if pythia.event.at(i).isCharged():             # <<<<<<<<<<<<<<
@@ -4721,7 +4577,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
       __pyx_t_9 = (__pyx_v_pythia->event.at(__pyx_v_i).isCharged() != 0);
       if (__pyx_t_9) {
 
-        /* "pythiamill/utils/spherical_tracker.pyx":247
+        /* "pythiamill/utils/spherical_tracker.pyx":240
  *         ### tracker activation
  *         if pythia.event.at(i).isCharged():
  *           indx = j * (phi_steps * pr_steps) + pr_i * phi_steps + phi_i             # <<<<<<<<<<<<<<
@@ -4730,7 +4586,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
         __pyx_v_indx = (((__pyx_v_j * (__pyx_v_phi_steps * __pyx_v_pr_steps)) + (__pyx_v_pr_i * __pyx_v_phi_steps)) + __pyx_v_phi_i);
 
-        /* "pythiamill/utils/spherical_tracker.pyx":249
+        /* "pythiamill/utils/spherical_tracker.pyx":242
  *           indx = j * (phi_steps * pr_steps) + pr_i * phi_steps + phi_i
  * 
  *           if self.is_binary:             # <<<<<<<<<<<<<<
@@ -4740,7 +4596,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
         __pyx_t_9 = (__pyx_v_self->is_binary != 0);
         if (__pyx_t_9) {
 
-          /* "pythiamill/utils/spherical_tracker.pyx":250
+          /* "pythiamill/utils/spherical_tracker.pyx":243
  * 
  *           if self.is_binary:
  *             if pythia.event.at(i).e() > self.energy_threshold:             # <<<<<<<<<<<<<<
@@ -4750,7 +4606,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
           __pyx_t_9 = ((__pyx_v_pythia->event.at(__pyx_v_i).e() > __pyx_v_self->energy_threshold) != 0);
           if (__pyx_t_9) {
 
-            /* "pythiamill/utils/spherical_tracker.pyx":251
+            /* "pythiamill/utils/spherical_tracker.pyx":244
  *           if self.is_binary:
  *             if pythia.event.at(i).e() > self.energy_threshold:
  *               buffer[indx] = 1.0             # <<<<<<<<<<<<<<
@@ -4760,7 +4616,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
             __pyx_t_21 = __pyx_v_indx;
             *((__pyx_t_10pythiamill_5utils_11pythiautils_FLOAT *) ( /* dim=0 */ (__pyx_v_buffer.data + __pyx_t_21 * __pyx_v_buffer.strides[0]) )) = 1.0;
 
-            /* "pythiamill/utils/spherical_tracker.pyx":250
+            /* "pythiamill/utils/spherical_tracker.pyx":243
  * 
  *           if self.is_binary:
  *             if pythia.event.at(i).e() > self.energy_threshold:             # <<<<<<<<<<<<<<
@@ -4769,7 +4625,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
  */
           }
 
-          /* "pythiamill/utils/spherical_tracker.pyx":249
+          /* "pythiamill/utils/spherical_tracker.pyx":242
  *           indx = j * (phi_steps * pr_steps) + pr_i * phi_steps + phi_i
  * 
  *           if self.is_binary:             # <<<<<<<<<<<<<<
@@ -4779,7 +4635,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
           goto __pyx_L21;
         }
 
-        /* "pythiamill/utils/spherical_tracker.pyx":253
+        /* "pythiamill/utils/spherical_tracker.pyx":246
  *               buffer[indx] = 1.0
  *           else:
  *             buffer[indx] += pythia.event.at(i).e()             # <<<<<<<<<<<<<<
@@ -4790,7 +4646,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
         }
         __pyx_L21:;
 
-        /* "pythiamill/utils/spherical_tracker.pyx":246
+        /* "pythiamill/utils/spherical_tracker.pyx":239
  * 
  *         ### tracker activation
  *         if pythia.event.at(i).isCharged():             # <<<<<<<<<<<<<<
@@ -4802,7 +4658,7 @@ static void __pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_v
     }
   }
 
-  /* "pythiamill/utils/spherical_tracker.pyx":98
+  /* "pythiamill/utils/spherical_tracker.pyx":91
  *   @cython.wraparound(False)
  *   @cython.infer_types(True)
  *   cpdef void view(self, FLOAT[:] buffer, tuple args):             # <<<<<<<<<<<<<<
@@ -4856,11 +4712,11 @@ static PyObject *__pyx_pw_10pythiamill_5utils_17spherical_tracker_16SphericalTra
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_args)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("view", 1, 2, 2, 1); __PYX_ERR(0, 98, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("view", 1, 2, 2, 1); __PYX_ERR(0, 91, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "view") < 0)) __PYX_ERR(0, 98, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "view") < 0)) __PYX_ERR(0, 91, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -4868,18 +4724,18 @@ static PyObject *__pyx_pw_10pythiamill_5utils_17spherical_tracker_16SphericalTra
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_buffer = __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_buffer.memview)) __PYX_ERR(0, 98, __pyx_L3_error)
+    __pyx_v_buffer = __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_buffer.memview)) __PYX_ERR(0, 91, __pyx_L3_error)
     __pyx_v_args = ((PyObject*)values[1]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("view", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 98, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("view", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 91, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pythiamill.utils.spherical_tracker.SphericalTracker.view", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_args), (&PyTuple_Type), 1, "args", 1))) __PYX_ERR(0, 98, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_args), (&PyTuple_Type), 1, "args", 1))) __PYX_ERR(0, 91, __pyx_L1_error)
   __pyx_r = __pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_4view(((struct __pyx_obj_10pythiamill_5utils_17spherical_tracker_SphericalTracker *)__pyx_v_self), __pyx_v_buffer, __pyx_v_args);
 
   /* function exit code */
@@ -4897,8 +4753,8 @@ static PyObject *__pyx_pf_10pythiamill_5utils_17spherical_tracker_16SphericalTra
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("view", 0);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_buffer.memview)) { __Pyx_RaiseUnboundLocalError("buffer"); __PYX_ERR(0, 98, __pyx_L1_error) }
-  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_view(__pyx_v_self, __pyx_v_buffer, __pyx_v_args, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 98, __pyx_L1_error)
+  if (unlikely(!__pyx_v_buffer.memview)) { __Pyx_RaiseUnboundLocalError("buffer"); __PYX_ERR(0, 91, __pyx_L1_error) }
+  __pyx_t_1 = __Pyx_void_to_None(__pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_view(__pyx_v_self, __pyx_v_buffer, __pyx_v_args, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 91, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -20463,7 +20319,7 @@ static PyTypeObject __pyx_type_10pythiamill_5utils_17spherical_tracker_Spherical
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
-  "SphericalTracker(int is_binary, int pseudorapidity_steps, int phi_steps, int n_layers, double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0, long seed=1)", /*tp_doc*/
+  "SphericalTracker(int is_binary, int pseudorapidity_steps, int phi_steps, int n_layers, double max_pseudorapidity=5, double R_min=1.0, double R_max=100.0, double energy_threshold=0.0)", /*tp_doc*/
   0, /*tp_traverse*/
   0, /*tp_clear*/
   0, /*tp_richcompare*/
@@ -21313,7 +21169,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_reduce, __pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_cython, __pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
-  {&__pyx_n_s_seed, __pyx_k_seed, sizeof(__pyx_k_seed), 0, 0, 1, 1},
   {&__pyx_n_s_self, __pyx_k_self, sizeof(__pyx_k_self), 0, 0, 1, 1},
   {&__pyx_kp_s_self_pythia_cannot_be_converted, __pyx_k_self_pythia_cannot_be_converted, sizeof(__pyx_k_self_pythia_cannot_be_converted), 0, 0, 1, 0},
   {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
@@ -21330,7 +21185,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
   {&__pyx_n_s_struct, __pyx_k_struct, sizeof(__pyx_k_struct), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
-  {&__pyx_n_s_time, __pyx_k_time, sizeof(__pyx_k_time), 0, 0, 1, 1},
   {&__pyx_kp_s_unable_to_allocate_array_data, __pyx_k_unable_to_allocate_array_data, sizeof(__pyx_k_unable_to_allocate_array_data), 0, 0, 1, 0},
   {&__pyx_kp_s_unable_to_allocate_shape_and_str, __pyx_k_unable_to_allocate_shape_and_str, sizeof(__pyx_k_unable_to_allocate_shape_and_str), 0, 0, 1, 0},
   {&__pyx_kp_u_unknown_dtype_code_in_numpy_pxd, __pyx_k_unknown_dtype_code_in_numpy_pxd, sizeof(__pyx_k_unknown_dtype_code_in_numpy_pxd), 0, 1, 0, 0},
@@ -21341,7 +21195,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
 };
 static int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_object = __Pyx_GetBuiltinName(__pyx_n_s_object); if (!__pyx_builtin_object) __PYX_ERR(0, 41, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 79, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(2, 229, __pyx_L1_error)
   __pyx_builtin_RuntimeError = __Pyx_GetBuiltinName(__pyx_n_s_RuntimeError); if (!__pyx_builtin_RuntimeError) __PYX_ERR(2, 810, __pyx_L1_error)
@@ -21717,39 +21571,39 @@ static int __Pyx_InitCachedConstants(void) {
  *   """
  *   def __init__(self, is_binary=True,             # <<<<<<<<<<<<<<
  *                pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
- *                energy_threshold=0.0, seed=None):
+ *                energy_threshold=0.0):
  */
-  __pyx_tuple__34 = PyTuple_Pack(11, __pyx_n_s_self, __pyx_n_s_is_binary, __pyx_n_s_pseudorapidity_steps, __pyx_n_s_phi_steps, __pyx_n_s_n_layers, __pyx_n_s_max_pseudorapidity, __pyx_n_s_R_min, __pyx_n_s_R_max, __pyx_n_s_energy_threshold, __pyx_n_s_seed, __pyx_n_s_time); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_tuple__34 = PyTuple_Pack(9, __pyx_n_s_self, __pyx_n_s_is_binary, __pyx_n_s_pseudorapidity_steps, __pyx_n_s_phi_steps, __pyx_n_s_n_layers, __pyx_n_s_max_pseudorapidity, __pyx_n_s_R_min, __pyx_n_s_R_max, __pyx_n_s_energy_threshold); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__34);
   __Pyx_GIVEREF(__pyx_tuple__34);
-  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(10, 0, 11, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_pythiamill_utils_spherical_t, __pyx_n_s_init, 45, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 45, __pyx_L1_error)
-  __pyx_tuple__36 = PyTuple_Pack(9, ((PyObject *)Py_True), ((PyObject *)__pyx_int_32), ((PyObject *)__pyx_int_32), ((PyObject *)__pyx_int_1), ((PyObject *)__pyx_int_5), ((PyObject*)__pyx_float_1_0), ((PyObject*)__pyx_float_100_0), ((PyObject*)__pyx_float_0_0), ((PyObject *)Py_None)); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_codeobj__35 = (PyObject*)__Pyx_PyCode_New(9, 0, 9, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__34, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_pythiamill_utils_spherical_t, __pyx_n_s_init, 45, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__35)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_tuple__36 = PyTuple_Pack(8, ((PyObject *)Py_True), ((PyObject *)__pyx_int_32), ((PyObject *)__pyx_int_32), ((PyObject *)__pyx_int_1), ((PyObject *)__pyx_int_5), ((PyObject*)__pyx_float_1_0), ((PyObject*)__pyx_float_100_0), ((PyObject*)__pyx_float_0_0)); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__36);
   __Pyx_GIVEREF(__pyx_tuple__36);
 
-  /* "pythiamill/utils/spherical_tracker.pyx":62
+  /* "pythiamill/utils/spherical_tracker.pyx":57
  *     )
  * 
  *   def __call__(self):             # <<<<<<<<<<<<<<
  *     return SphericalTracker(*self.args)
  * 
  */
-  __pyx_tuple__37 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_tuple__37 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__37)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
-  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_pythiamill_utils_spherical_t, __pyx_n_s_call, 62, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_codeobj__38 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__37, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_pythiamill_utils_spherical_t, __pyx_n_s_call, 57, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__38)) __PYX_ERR(0, 57, __pyx_L1_error)
 
-  /* "pythiamill/utils/spherical_tracker.pyx":65
+  /* "pythiamill/utils/spherical_tracker.pyx":60
  *     return SphericalTracker(*self.args)
  * 
  *   def event_size(self,):             # <<<<<<<<<<<<<<
  *     return self.args[1] * self.args[2] * self.args[3]
  * 
  */
-  __pyx_tuple__39 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_tuple__39 = PyTuple_Pack(1, __pyx_n_s_self); if (unlikely(!__pyx_tuple__39)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__39);
   __Pyx_GIVEREF(__pyx_tuple__39);
-  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_pythiamill_utils_spherical_t, __pyx_n_s_event_size, 65, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_codeobj__40 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__39, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_src_pythiamill_utils_spherical_t, __pyx_n_s_event_size, 60, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__40)) __PYX_ERR(0, 60, __pyx_L1_error)
 
   /* "View.MemoryView":285
  *         return self.name
@@ -21831,7 +21685,6 @@ static int __Pyx_InitGlobals(void) {
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_5 = PyInt_FromLong(5); if (unlikely(!__pyx_int_5)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_32 = PyInt_FromLong(32); if (unlikely(!__pyx_int_32)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_int_100 = PyInt_FromLong(100); if (unlikely(!__pyx_int_100)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_184977713 = PyInt_FromLong(184977713L); if (unlikely(!__pyx_int_184977713)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_neg_1 = PyInt_FromLong(-1); if (unlikely(!__pyx_int_neg_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
@@ -21886,14 +21739,14 @@ static int __Pyx_modinit_type_init_code(void) {
   __pyx_vtable_10pythiamill_5utils_17spherical_tracker_SphericalTracker.__pyx_base = *__pyx_vtabptr_10pythiamill_5utils_8detector_Detector;
   __pyx_vtable_10pythiamill_5utils_17spherical_tracker_SphericalTracker.__pyx_base.view = (void (*)(struct __pyx_obj_10pythiamill_5utils_8detector_Detector *, __Pyx_memviewslice, PyObject *, int __pyx_skip_dispatch))__pyx_f_10pythiamill_5utils_17spherical_tracker_16SphericalTracker_view;
   __pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker.tp_base = __pyx_ptype_10pythiamill_5utils_8detector_Detector;
-  if (PyType_Ready(&__pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
   __pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker.tp_print = 0;
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker.tp_dictoffset && __pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (__Pyx_SetVtable(__pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker.tp_dict, __pyx_vtabptr_10pythiamill_5utils_17spherical_tracker_SphericalTracker) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
-  if (PyObject_SetAttrString(__pyx_m, "SphericalTracker", (PyObject *)&__pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker.tp_dict, __pyx_vtabptr_10pythiamill_5utils_17spherical_tracker_SphericalTracker) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "SphericalTracker", (PyObject *)&__pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker) < 0) __PYX_ERR(0, 63, __pyx_L1_error)
   __pyx_ptype_10pythiamill_5utils_17spherical_tracker_SphericalTracker = &__pyx_type_10pythiamill_5utils_17spherical_tracker_SphericalTracker;
   __pyx_vtabptr_array = &__pyx_vtable_array;
   __pyx_vtable_array.get_memview = (PyObject *(*)(struct __pyx_array_obj *))__pyx_array_get_memview;
@@ -22189,7 +22042,7 @@ if (!__Pyx_RefNanny) {
  *   """
  *   def __init__(self, is_binary=True,             # <<<<<<<<<<<<<<
  *                pseudorapidity_steps=32, phi_steps=32, n_layers=1, max_pseudorapidity=5, R_min=1.0, R_max = 100.0,
- *                energy_threshold=0.0, seed=None):
+ *                energy_threshold=0.0):
  */
   __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_1__init__, 0, __pyx_n_s_SphericalTrackerWrapper___init, NULL, __pyx_n_s_pythiamill_utils_spherical_track, __pyx_d, ((PyObject *)__pyx_codeobj__35)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -22197,28 +22050,28 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_init, __pyx_t_3) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":62
+  /* "pythiamill/utils/spherical_tracker.pyx":57
  *     )
  * 
  *   def __call__(self):             # <<<<<<<<<<<<<<
  *     return SphericalTracker(*self.args)
  * 
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_3__call__, 0, __pyx_n_s_SphericalTrackerWrapper___call, NULL, __pyx_n_s_pythiamill_utils_spherical_track, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_3__call__, 0, __pyx_n_s_SphericalTrackerWrapper___call, NULL, __pyx_n_s_pythiamill_utils_spherical_track, __pyx_d, ((PyObject *)__pyx_codeobj__38)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_call, __pyx_t_3) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_call, __pyx_t_3) < 0) __PYX_ERR(0, 57, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pythiamill/utils/spherical_tracker.pyx":65
+  /* "pythiamill/utils/spherical_tracker.pyx":60
  *     return SphericalTracker(*self.args)
  * 
  *   def event_size(self,):             # <<<<<<<<<<<<<<
  *     return self.args[1] * self.args[2] * self.args[3]
  * 
  */
-  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_5event_size, 0, __pyx_n_s_SphericalTrackerWrapper_event_si, NULL, __pyx_n_s_pythiamill_utils_spherical_track, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_NewEx(&__pyx_mdef_10pythiamill_5utils_17spherical_tracker_23SphericalTrackerWrapper_5event_size, 0, __pyx_n_s_SphericalTrackerWrapper_event_si, NULL, __pyx_n_s_pythiamill_utils_spherical_track, __pyx_d, ((PyObject *)__pyx_codeobj__40)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_event_size, __pyx_t_3) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
+  if (__Pyx_SetNameInClass(__pyx_t_2, __pyx_n_s_event_size, __pyx_t_3) < 0) __PYX_ERR(0, 60, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "pythiamill/utils/spherical_tracker.pyx":41
@@ -22678,212 +22531,18 @@ static void __Pyx_RaiseArgtupleInvalid(
                  (num_expected == 1) ? "" : "s", num_found);
 }
 
-/* Import */
-static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
-    PyObject *empty_list = 0;
-    PyObject *module = 0;
-    PyObject *global_dict = 0;
-    PyObject *empty_dict = 0;
-    PyObject *list;
-    #if PY_MAJOR_VERSION < 3
-    PyObject *py_import;
-    py_import = __Pyx_PyObject_GetAttrStr(__pyx_b, __pyx_n_s_import);
-    if (!py_import)
-        goto bad;
-    #endif
-    if (from_list)
-        list = from_list;
-    else {
-        empty_list = PyList_New(0);
-        if (!empty_list)
-            goto bad;
-        list = empty_list;
-    }
-    global_dict = PyModule_GetDict(__pyx_m);
-    if (!global_dict)
-        goto bad;
-    empty_dict = PyDict_New();
-    if (!empty_dict)
-        goto bad;
-    {
-        #if PY_MAJOR_VERSION >= 3
-        if (level == -1) {
-            if (strchr(__Pyx_MODULE_NAME, '.')) {
-                module = PyImport_ImportModuleLevelObject(
-                    name, global_dict, empty_dict, list, 1);
-                if (!module) {
-                    if (!PyErr_ExceptionMatches(PyExc_ImportError))
-                        goto bad;
-                    PyErr_Clear();
-                }
-            }
-            level = 0;
-        }
-        #endif
-        if (!module) {
-            #if PY_MAJOR_VERSION < 3
-            PyObject *py_level = PyInt_FromLong(level);
-            if (!py_level)
-                goto bad;
-            module = PyObject_CallFunctionObjArgs(py_import,
-                name, global_dict, empty_dict, list, py_level, NULL);
-            Py_DECREF(py_level);
-            #else
-            module = PyImport_ImportModuleLevelObject(
-                name, global_dict, empty_dict, list, level);
-            #endif
-        }
-    }
-bad:
-    #if PY_MAJOR_VERSION < 3
-    Py_XDECREF(py_import);
-    #endif
-    Py_XDECREF(empty_list);
-    Py_XDECREF(empty_dict);
-    return module;
+/* PyObjectSetAttrStr */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value) {
+    PyTypeObject* tp = Py_TYPE(obj);
+    if (likely(tp->tp_setattro))
+        return tp->tp_setattro(obj, attr_name, value);
+#if PY_MAJOR_VERSION < 3
+    if (likely(tp->tp_setattr))
+        return tp->tp_setattr(obj, PyString_AS_STRING(attr_name), value);
+#endif
+    return PyObject_SetAttr(obj, attr_name, value);
 }
-
-/* PyCFunctionFastCall */
-#if CYTHON_FAST_PYCCALL
-static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
-    PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
-    PyCFunction meth = PyCFunction_GET_FUNCTION(func);
-    PyObject *self = PyCFunction_GET_SELF(func);
-    int flags = PyCFunction_GET_FLAGS(func);
-    assert(PyCFunction_Check(func));
-    assert(METH_FASTCALL == (flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_KEYWORDS)));
-    assert(nargs >= 0);
-    assert(nargs == 0 || args != NULL);
-    /* _PyCFunction_FastCallDict() must not be called with an exception set,
-       because it may clear it (directly or indirectly) and so the
-       caller loses its exception */
-    assert(!PyErr_Occurred());
-    if ((PY_VERSION_HEX < 0x030700A0) || unlikely(flags & METH_KEYWORDS)) {
-        return (*((__Pyx_PyCFunctionFastWithKeywords)meth)) (self, args, nargs, NULL);
-    } else {
-        return (*((__Pyx_PyCFunctionFast)meth)) (self, args, nargs);
-    }
-}
-#endif
-
-/* PyFunctionFastCall */
-#if CYTHON_FAST_PYCALL
-#include "frameobject.h"
-static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
-                                               PyObject *globals) {
-    PyFrameObject *f;
-    PyThreadState *tstate = __Pyx_PyThreadState_Current;
-    PyObject **fastlocals;
-    Py_ssize_t i;
-    PyObject *result;
-    assert(globals != NULL);
-    /* XXX Perhaps we should create a specialized
-       PyFrame_New() that doesn't take locals, but does
-       take builtins without sanity checking them.
-       */
-    assert(tstate != NULL);
-    f = PyFrame_New(tstate, co, globals, NULL);
-    if (f == NULL) {
-        return NULL;
-    }
-    fastlocals = f->f_localsplus;
-    for (i = 0; i < na; i++) {
-        Py_INCREF(*args);
-        fastlocals[i] = *args++;
-    }
-    result = PyEval_EvalFrameEx(f,0);
-    ++tstate->recursion_depth;
-    Py_DECREF(f);
-    --tstate->recursion_depth;
-    return result;
-}
-#if 1 || PY_VERSION_HEX < 0x030600B1
-static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, int nargs, PyObject *kwargs) {
-    PyCodeObject *co = (PyCodeObject *)PyFunction_GET_CODE(func);
-    PyObject *globals = PyFunction_GET_GLOBALS(func);
-    PyObject *argdefs = PyFunction_GET_DEFAULTS(func);
-    PyObject *closure;
-#if PY_MAJOR_VERSION >= 3
-    PyObject *kwdefs;
-#endif
-    PyObject *kwtuple, **k;
-    PyObject **d;
-    Py_ssize_t nd;
-    Py_ssize_t nk;
-    PyObject *result;
-    assert(kwargs == NULL || PyDict_Check(kwargs));
-    nk = kwargs ? PyDict_Size(kwargs) : 0;
-    if (Py_EnterRecursiveCall((char*)" while calling a Python object")) {
-        return NULL;
-    }
-    if (
-#if PY_MAJOR_VERSION >= 3
-            co->co_kwonlyargcount == 0 &&
-#endif
-            likely(kwargs == NULL || nk == 0) &&
-            co->co_flags == (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)) {
-        if (argdefs == NULL && co->co_argcount == nargs) {
-            result = __Pyx_PyFunction_FastCallNoKw(co, args, nargs, globals);
-            goto done;
-        }
-        else if (nargs == 0 && argdefs != NULL
-                 && co->co_argcount == Py_SIZE(argdefs)) {
-            /* function called with no arguments, but all parameters have
-               a default value: use default values as arguments .*/
-            args = &PyTuple_GET_ITEM(argdefs, 0);
-            result =__Pyx_PyFunction_FastCallNoKw(co, args, Py_SIZE(argdefs), globals);
-            goto done;
-        }
-    }
-    if (kwargs != NULL) {
-        Py_ssize_t pos, i;
-        kwtuple = PyTuple_New(2 * nk);
-        if (kwtuple == NULL) {
-            result = NULL;
-            goto done;
-        }
-        k = &PyTuple_GET_ITEM(kwtuple, 0);
-        pos = i = 0;
-        while (PyDict_Next(kwargs, &pos, &k[i], &k[i+1])) {
-            Py_INCREF(k[i]);
-            Py_INCREF(k[i+1]);
-            i += 2;
-        }
-        nk = i / 2;
-    }
-    else {
-        kwtuple = NULL;
-        k = NULL;
-    }
-    closure = PyFunction_GET_CLOSURE(func);
-#if PY_MAJOR_VERSION >= 3
-    kwdefs = PyFunction_GET_KW_DEFAULTS(func);
-#endif
-    if (argdefs != NULL) {
-        d = &PyTuple_GET_ITEM(argdefs, 0);
-        nd = Py_SIZE(argdefs);
-    }
-    else {
-        d = NULL;
-        nd = 0;
-    }
-#if PY_MAJOR_VERSION >= 3
-    result = PyEval_EvalCodeEx((PyObject*)co, globals, (PyObject *)NULL,
-                               args, nargs,
-                               k, (int)nk,
-                               d, (int)nd, kwdefs, closure);
-#else
-    result = PyEval_EvalCodeEx(co, globals, (PyObject *)NULL,
-                               args, nargs,
-                               k, (int)nk,
-                               d, (int)nd, closure);
-#endif
-    Py_XDECREF(kwtuple);
-done:
-    Py_LeaveRecursiveCall();
-    return result;
-}
-#endif
 #endif
 
 /* PyObjectCall */
@@ -22906,103 +22565,8 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg
 }
 #endif
 
-/* PyObjectCallMethO */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
-    PyObject *self, *result;
-    PyCFunction cfunc;
-    cfunc = PyCFunction_GET_FUNCTION(func);
-    self = PyCFunction_GET_SELF(func);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = cfunc(self, arg);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
-#endif
-
-/* PyObjectCallOneArg */
-#if CYTHON_COMPILING_IN_CPYTHON
-static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject *result;
-    PyObject *args = PyTuple_New(1);
-    if (unlikely(!args)) return NULL;
-    Py_INCREF(arg);
-    PyTuple_SET_ITEM(args, 0, arg);
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-#if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(func)) {
-        return __Pyx_PyFunction_FastCall(func, &arg, 1);
-    }
-#endif
-    if (likely(PyCFunction_Check(func))) {
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
-            return __Pyx_PyObject_CallMethO(func, arg);
-#if CYTHON_FAST_PYCCALL
-        } else if (PyCFunction_GET_FLAGS(func) & METH_FASTCALL) {
-            return __Pyx_PyCFunction_FastCall(func, &arg, 1);
-#endif
-        }
-    }
-    return __Pyx__PyObject_CallOneArg(func, arg);
-}
-#else
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
-    PyObject *result;
-    PyObject *args = PyTuple_Pack(1, arg);
-    if (unlikely(!args)) return NULL;
-    result = __Pyx_PyObject_Call(func, args, NULL);
-    Py_DECREF(args);
-    return result;
-}
-#endif
-
-/* PyObjectCallNoArg */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
-#if CYTHON_FAST_PYCALL
-    if (PyFunction_Check(func)) {
-        return __Pyx_PyFunction_FastCall(func, NULL, 0);
-    }
-#endif
-#ifdef __Pyx_CyFunction_USED
-    if (likely(PyCFunction_Check(func) || __Pyx_TypeCheck(func, __pyx_CyFunctionType))) {
-#else
-    if (likely(PyCFunction_Check(func))) {
-#endif
-        if (likely(PyCFunction_GET_FLAGS(func) & METH_NOARGS)) {
-            return __Pyx_PyObject_CallMethO(func, NULL);
-        }
-    }
-    return __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL);
-}
-#endif
-
-/* PyObjectSetAttrStr */
-  #if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE int __Pyx_PyObject_SetAttrStr(PyObject* obj, PyObject* attr_name, PyObject* value) {
-    PyTypeObject* tp = Py_TYPE(obj);
-    if (likely(tp->tp_setattro))
-        return tp->tp_setattro(obj, attr_name, value);
-#if PY_MAJOR_VERSION < 3
-    if (likely(tp->tp_setattr))
-        return tp->tp_setattr(obj, PyString_AS_STRING(attr_name), value);
-#endif
-    return PyObject_SetAttr(obj, attr_name, value);
-}
-#endif
-
 /* GetItemInt */
-  static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
+static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
     PyObject *r;
     if (!j) return NULL;
     r = PyObject_GetItem(o, j);
@@ -23089,7 +22653,7 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
 }
 
 /* GetModuleGlobalName */
-  static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
+static CYTHON_INLINE PyObject *__Pyx_GetModuleGlobalName(PyObject *name) {
     PyObject *result;
 #if !CYTHON_AVOID_BORROWED_REFS
 #if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
@@ -23116,7 +22680,7 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
 }
 
 /* MemviewSliceInit */
-      static int
+    static int
 __Pyx_init_memviewslice(struct __pyx_memoryview_obj *memview,
                         int ndim,
                         __Pyx_memviewslice *memviewslice,
@@ -23254,18 +22818,161 @@ static CYTHON_INLINE void __Pyx_XDEC_MEMVIEW(__Pyx_memviewslice *memslice,
 }
 
 /* BufferIndexError */
-      static void __Pyx_RaiseBufferIndexError(int axis) {
+    static void __Pyx_RaiseBufferIndexError(int axis) {
   PyErr_Format(PyExc_IndexError,
      "Out of bounds on buffer access (axis %d)", axis);
 }
 
 /* None */
-      static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname) {
+    static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname) {
     PyErr_Format(PyExc_UnboundLocalError, "local variable '%s' referenced before assignment", varname);
 }
 
+/* PyFunctionFastCall */
+    #if CYTHON_FAST_PYCALL
+#include "frameobject.h"
+static PyObject* __Pyx_PyFunction_FastCallNoKw(PyCodeObject *co, PyObject **args, Py_ssize_t na,
+                                               PyObject *globals) {
+    PyFrameObject *f;
+    PyThreadState *tstate = __Pyx_PyThreadState_Current;
+    PyObject **fastlocals;
+    Py_ssize_t i;
+    PyObject *result;
+    assert(globals != NULL);
+    /* XXX Perhaps we should create a specialized
+       PyFrame_New() that doesn't take locals, but does
+       take builtins without sanity checking them.
+       */
+    assert(tstate != NULL);
+    f = PyFrame_New(tstate, co, globals, NULL);
+    if (f == NULL) {
+        return NULL;
+    }
+    fastlocals = f->f_localsplus;
+    for (i = 0; i < na; i++) {
+        Py_INCREF(*args);
+        fastlocals[i] = *args++;
+    }
+    result = PyEval_EvalFrameEx(f,0);
+    ++tstate->recursion_depth;
+    Py_DECREF(f);
+    --tstate->recursion_depth;
+    return result;
+}
+#if 1 || PY_VERSION_HEX < 0x030600B1
+static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, int nargs, PyObject *kwargs) {
+    PyCodeObject *co = (PyCodeObject *)PyFunction_GET_CODE(func);
+    PyObject *globals = PyFunction_GET_GLOBALS(func);
+    PyObject *argdefs = PyFunction_GET_DEFAULTS(func);
+    PyObject *closure;
+#if PY_MAJOR_VERSION >= 3
+    PyObject *kwdefs;
+#endif
+    PyObject *kwtuple, **k;
+    PyObject **d;
+    Py_ssize_t nd;
+    Py_ssize_t nk;
+    PyObject *result;
+    assert(kwargs == NULL || PyDict_Check(kwargs));
+    nk = kwargs ? PyDict_Size(kwargs) : 0;
+    if (Py_EnterRecursiveCall((char*)" while calling a Python object")) {
+        return NULL;
+    }
+    if (
+#if PY_MAJOR_VERSION >= 3
+            co->co_kwonlyargcount == 0 &&
+#endif
+            likely(kwargs == NULL || nk == 0) &&
+            co->co_flags == (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)) {
+        if (argdefs == NULL && co->co_argcount == nargs) {
+            result = __Pyx_PyFunction_FastCallNoKw(co, args, nargs, globals);
+            goto done;
+        }
+        else if (nargs == 0 && argdefs != NULL
+                 && co->co_argcount == Py_SIZE(argdefs)) {
+            /* function called with no arguments, but all parameters have
+               a default value: use default values as arguments .*/
+            args = &PyTuple_GET_ITEM(argdefs, 0);
+            result =__Pyx_PyFunction_FastCallNoKw(co, args, Py_SIZE(argdefs), globals);
+            goto done;
+        }
+    }
+    if (kwargs != NULL) {
+        Py_ssize_t pos, i;
+        kwtuple = PyTuple_New(2 * nk);
+        if (kwtuple == NULL) {
+            result = NULL;
+            goto done;
+        }
+        k = &PyTuple_GET_ITEM(kwtuple, 0);
+        pos = i = 0;
+        while (PyDict_Next(kwargs, &pos, &k[i], &k[i+1])) {
+            Py_INCREF(k[i]);
+            Py_INCREF(k[i+1]);
+            i += 2;
+        }
+        nk = i / 2;
+    }
+    else {
+        kwtuple = NULL;
+        k = NULL;
+    }
+    closure = PyFunction_GET_CLOSURE(func);
+#if PY_MAJOR_VERSION >= 3
+    kwdefs = PyFunction_GET_KW_DEFAULTS(func);
+#endif
+    if (argdefs != NULL) {
+        d = &PyTuple_GET_ITEM(argdefs, 0);
+        nd = Py_SIZE(argdefs);
+    }
+    else {
+        d = NULL;
+        nd = 0;
+    }
+#if PY_MAJOR_VERSION >= 3
+    result = PyEval_EvalCodeEx((PyObject*)co, globals, (PyObject *)NULL,
+                               args, nargs,
+                               k, (int)nk,
+                               d, (int)nd, kwdefs, closure);
+#else
+    result = PyEval_EvalCodeEx(co, globals, (PyObject *)NULL,
+                               args, nargs,
+                               k, (int)nk,
+                               d, (int)nd, closure);
+#endif
+    Py_XDECREF(kwtuple);
+done:
+    Py_LeaveRecursiveCall();
+    return result;
+}
+#endif
+#endif
+
+/* PyCFunctionFastCall */
+    #if CYTHON_FAST_PYCCALL
+static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
+    PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
+    PyCFunction meth = PyCFunction_GET_FUNCTION(func);
+    PyObject *self = PyCFunction_GET_SELF(func);
+    int flags = PyCFunction_GET_FLAGS(func);
+    assert(PyCFunction_Check(func));
+    assert(METH_FASTCALL == (flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_KEYWORDS)));
+    assert(nargs >= 0);
+    assert(nargs == 0 || args != NULL);
+    /* _PyCFunction_FastCallDict() must not be called with an exception set,
+       because it may clear it (directly or indirectly) and so the
+       caller loses its exception */
+    assert(!PyErr_Occurred());
+    if ((PY_VERSION_HEX < 0x030700A0) || unlikely(flags & METH_KEYWORDS)) {
+        return (*((__Pyx_PyCFunctionFastWithKeywords)meth)) (self, args, nargs, NULL);
+    } else {
+        return (*((__Pyx_PyCFunctionFast)meth)) (self, args, nargs);
+    }
+}
+#endif
+
 /* None */
-      static CYTHON_INLINE long __Pyx_div_long(long a, long b) {
+    static CYTHON_INLINE long __Pyx_div_long(long a, long b) {
     long q = a / b;
     long r = a - q*b;
     q -= ((r != 0) & ((r ^ b) < 0));
@@ -23273,7 +22980,7 @@ static CYTHON_INLINE void __Pyx_XDEC_MEMVIEW(__Pyx_memviewslice *memslice,
 }
 
 /* ArgTypeTest */
-      static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
+    static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
 {
     if (unlikely(!type)) {
         PyErr_SetString(PyExc_SystemError, "Missing type object");
@@ -23294,7 +23001,7 @@ static CYTHON_INLINE void __Pyx_XDEC_MEMVIEW(__Pyx_memviewslice *memslice,
 }
 
 /* RaiseException */
-      #if PY_MAJOR_VERSION < 3
+    #if PY_MAJOR_VERSION < 3
 static void __Pyx_Raise(PyObject *type, PyObject *value, PyObject *tb,
                         CYTHON_UNUSED PyObject *cause) {
     __Pyx_PyThreadState_declare
@@ -23452,8 +23159,68 @@ bad:
 }
 #endif
 
+/* PyObjectCallMethO */
+    #if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg) {
+    PyObject *self, *result;
+    PyCFunction cfunc;
+    cfunc = PyCFunction_GET_FUNCTION(func);
+    self = PyCFunction_GET_SELF(func);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = cfunc(self, arg);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
+/* PyObjectCallOneArg */
+    #if CYTHON_COMPILING_IN_CPYTHON
+static PyObject* __Pyx__PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_New(1);
+    if (unlikely(!args)) return NULL;
+    Py_INCREF(arg);
+    PyTuple_SET_ITEM(args, 0, arg);
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+#if CYTHON_FAST_PYCALL
+    if (PyFunction_Check(func)) {
+        return __Pyx_PyFunction_FastCall(func, &arg, 1);
+    }
+#endif
+    if (likely(PyCFunction_Check(func))) {
+        if (likely(PyCFunction_GET_FLAGS(func) & METH_O)) {
+            return __Pyx_PyObject_CallMethO(func, arg);
+#if CYTHON_FAST_PYCCALL
+        } else if (PyCFunction_GET_FLAGS(func) & METH_FASTCALL) {
+            return __Pyx_PyCFunction_FastCall(func, &arg, 1);
+#endif
+        }
+    }
+    return __Pyx__PyObject_CallOneArg(func, arg);
+}
+#else
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg) {
+    PyObject *result;
+    PyObject *args = PyTuple_Pack(1, arg);
+    if (unlikely(!args)) return NULL;
+    result = __Pyx_PyObject_Call(func, args, NULL);
+    Py_DECREF(args);
+    return result;
+}
+#endif
+
 /* DictGetItem */
-      #if PY_MAJOR_VERSION >= 3 && !CYTHON_COMPILING_IN_PYPY
+    #if PY_MAJOR_VERSION >= 3 && !CYTHON_COMPILING_IN_PYPY
 static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
     PyObject *value;
     value = PyDict_GetItemWithError(d, key);
@@ -23472,25 +23239,25 @@ static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
 #endif
 
 /* RaiseTooManyValuesToUnpack */
-      static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
+    static CYTHON_INLINE void __Pyx_RaiseTooManyValuesError(Py_ssize_t expected) {
     PyErr_Format(PyExc_ValueError,
                  "too many values to unpack (expected %" CYTHON_FORMAT_SSIZE_T "d)", expected);
 }
 
 /* RaiseNeedMoreValuesToUnpack */
-      static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
+    static CYTHON_INLINE void __Pyx_RaiseNeedMoreValuesError(Py_ssize_t index) {
     PyErr_Format(PyExc_ValueError,
                  "need more than %" CYTHON_FORMAT_SSIZE_T "d value%.1s to unpack",
                  index, (index == 1) ? "" : "s");
 }
 
 /* RaiseNoneIterError */
-      static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void) {
+    static CYTHON_INLINE void __Pyx_RaiseNoneNotIterableError(void) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
 }
 
 /* ExtTypeTest */
-      static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
+    static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
     if (unlikely(!type)) {
         PyErr_SetString(PyExc_SystemError, "Missing type object");
         return 0;
@@ -23503,7 +23270,7 @@ static PyObject *__Pyx_PyDict_GetItem(PyObject *d, PyObject* key) {
 }
 
 /* SaveResetException */
-      #if CYTHON_FAST_THREAD_STATE
+    #if CYTHON_FAST_THREAD_STATE
 static CYTHON_INLINE void __Pyx__ExceptionSave(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
     #if PY_VERSION_HEX >= 0x030700A2
     *type = tstate->exc_state.exc_type;
@@ -23542,7 +23309,7 @@ static CYTHON_INLINE void __Pyx__ExceptionReset(PyThreadState *tstate, PyObject 
 #endif
 
 /* PyErrExceptionMatches */
-      #if CYTHON_FAST_THREAD_STATE
+    #if CYTHON_FAST_THREAD_STATE
 static int __Pyx_PyErr_ExceptionMatchesTuple(PyObject *exc_type, PyObject *tuple) {
     Py_ssize_t i, n;
     n = PyTuple_GET_SIZE(tuple);
@@ -23567,7 +23334,7 @@ static CYTHON_INLINE int __Pyx_PyErr_ExceptionMatchesInState(PyThreadState* tsta
 #endif
 
 /* GetException */
-      #if CYTHON_FAST_THREAD_STATE
+    #if CYTHON_FAST_THREAD_STATE
 static int __Pyx__GetException(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
 #else
 static int __Pyx_GetException(PyObject **type, PyObject **value, PyObject **tb) {
@@ -23637,7 +23404,7 @@ bad:
 }
 
 /* BytesEquals */
-        static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals) {
+      static CYTHON_INLINE int __Pyx_PyBytes_Equals(PyObject* s1, PyObject* s2, int equals) {
 #if CYTHON_COMPILING_IN_PYPY
     return PyObject_RichCompareBool(s1, s2, equals);
 #else
@@ -23684,7 +23451,7 @@ bad:
 }
 
 /* UnicodeEquals */
-        static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals) {
+      static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int equals) {
 #if CYTHON_COMPILING_IN_PYPY
     return PyObject_RichCompareBool(s1, s2, equals);
 #else
@@ -23783,7 +23550,7 @@ return_ne:
 }
 
 /* None */
-        static CYTHON_INLINE Py_ssize_t __Pyx_div_Py_ssize_t(Py_ssize_t a, Py_ssize_t b) {
+      static CYTHON_INLINE Py_ssize_t __Pyx_div_Py_ssize_t(Py_ssize_t a, Py_ssize_t b) {
     Py_ssize_t q = a / b;
     Py_ssize_t r = a - q*b;
     q -= ((r != 0) & ((r ^ b) < 0));
@@ -23791,7 +23558,7 @@ return_ne:
 }
 
 /* GetAttr */
-        static CYTHON_INLINE PyObject *__Pyx_GetAttr(PyObject *o, PyObject *n) {
+      static CYTHON_INLINE PyObject *__Pyx_GetAttr(PyObject *o, PyObject *n) {
 #if CYTHON_USE_TYPE_SLOTS
 #if PY_MAJOR_VERSION >= 3
     if (likely(PyUnicode_Check(n)))
@@ -23804,7 +23571,7 @@ return_ne:
 }
 
 /* ObjectGetItem */
-        #if CYTHON_USE_TYPE_SLOTS
+      #if CYTHON_USE_TYPE_SLOTS
 static PyObject *__Pyx_PyObject_GetIndex(PyObject *obj, PyObject* index) {
     PyObject *runerr;
     Py_ssize_t key_value;
@@ -23833,7 +23600,7 @@ static PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject* key) {
 #endif
 
 /* decode_c_string */
-        static CYTHON_INLINE PyObject* __Pyx_decode_c_string(
+      static CYTHON_INLINE PyObject* __Pyx_decode_c_string(
          const char* cstring, Py_ssize_t start, Py_ssize_t stop,
          const char* encoding, const char* errors,
          PyObject* (*decode_func)(const char *s, Py_ssize_t size, const char *errors)) {
@@ -23866,7 +23633,7 @@ static PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject* key) {
 }
 
 /* GetAttr3 */
-        static PyObject *__Pyx_GetAttr3Default(PyObject *d) {
+      static PyObject *__Pyx_GetAttr3Default(PyObject *d) {
     __Pyx_PyThreadState_declare
     __Pyx_PyThreadState_assign
     if (unlikely(!__Pyx_PyErr_ExceptionMatches(PyExc_AttributeError)))
@@ -23881,7 +23648,7 @@ static CYTHON_INLINE PyObject *__Pyx_GetAttr3(PyObject *o, PyObject *n, PyObject
 }
 
 /* SwapException */
-        #if CYTHON_FAST_THREAD_STATE
+      #if CYTHON_FAST_THREAD_STATE
 static CYTHON_INLINE void __Pyx__ExceptionSwap(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
     PyObject *tmp_type, *tmp_value, *tmp_tb;
     #if PY_VERSION_HEX >= 0x030700A2
@@ -23914,8 +23681,73 @@ static CYTHON_INLINE void __Pyx_ExceptionSwap(PyObject **type, PyObject **value,
 }
 #endif
 
+/* Import */
+      static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
+    PyObject *empty_list = 0;
+    PyObject *module = 0;
+    PyObject *global_dict = 0;
+    PyObject *empty_dict = 0;
+    PyObject *list;
+    #if PY_MAJOR_VERSION < 3
+    PyObject *py_import;
+    py_import = __Pyx_PyObject_GetAttrStr(__pyx_b, __pyx_n_s_import);
+    if (!py_import)
+        goto bad;
+    #endif
+    if (from_list)
+        list = from_list;
+    else {
+        empty_list = PyList_New(0);
+        if (!empty_list)
+            goto bad;
+        list = empty_list;
+    }
+    global_dict = PyModule_GetDict(__pyx_m);
+    if (!global_dict)
+        goto bad;
+    empty_dict = PyDict_New();
+    if (!empty_dict)
+        goto bad;
+    {
+        #if PY_MAJOR_VERSION >= 3
+        if (level == -1) {
+            if (strchr(__Pyx_MODULE_NAME, '.')) {
+                module = PyImport_ImportModuleLevelObject(
+                    name, global_dict, empty_dict, list, 1);
+                if (!module) {
+                    if (!PyErr_ExceptionMatches(PyExc_ImportError))
+                        goto bad;
+                    PyErr_Clear();
+                }
+            }
+            level = 0;
+        }
+        #endif
+        if (!module) {
+            #if PY_MAJOR_VERSION < 3
+            PyObject *py_level = PyInt_FromLong(level);
+            if (!py_level)
+                goto bad;
+            module = PyObject_CallFunctionObjArgs(py_import,
+                name, global_dict, empty_dict, list, py_level, NULL);
+            Py_DECREF(py_level);
+            #else
+            module = PyImport_ImportModuleLevelObject(
+                name, global_dict, empty_dict, list, level);
+            #endif
+        }
+    }
+bad:
+    #if PY_MAJOR_VERSION < 3
+    Py_XDECREF(py_import);
+    #endif
+    Py_XDECREF(empty_list);
+    Py_XDECREF(empty_dict);
+    return module;
+}
+
 /* FastTypeChecks */
-        #if CYTHON_COMPILING_IN_CPYTHON
+      #if CYTHON_COMPILING_IN_CPYTHON
 static int __Pyx_InBases(PyTypeObject *a, PyTypeObject *b) {
     while (a) {
         a = a->tp_base;
@@ -23987,7 +23819,7 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
 #endif
 
 /* PyIntBinop */
-        #if !CYTHON_COMPILING_IN_PYPY
+      #if !CYTHON_COMPILING_IN_PYPY
 static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, CYTHON_UNUSED int inplace) {
     #if PY_MAJOR_VERSION < 3
     if (likely(PyInt_CheckExact(op1))) {
@@ -24109,7 +23941,7 @@ static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED
 #endif
 
 /* ImportFrom */
-        static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
+      static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
     PyObject* value = __Pyx_PyObject_GetAttrStr(module, name);
     if (unlikely(!value) && PyErr_ExceptionMatches(PyExc_AttributeError)) {
         PyErr_Format(PyExc_ImportError,
@@ -24123,7 +23955,7 @@ static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED
 }
 
 /* HasAttr */
-        static CYTHON_INLINE int __Pyx_HasAttr(PyObject *o, PyObject *n) {
+      static CYTHON_INLINE int __Pyx_HasAttr(PyObject *o, PyObject *n) {
     PyObject *r;
     if (unlikely(!__Pyx_PyBaseString_Check(n))) {
         PyErr_SetString(PyExc_TypeError,
@@ -24141,7 +23973,7 @@ static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED
 }
 
 /* CallNextTpDealloc */
-        static void __Pyx_call_next_tp_dealloc(PyObject* obj, destructor current_tp_dealloc) {
+      static void __Pyx_call_next_tp_dealloc(PyObject* obj, destructor current_tp_dealloc) {
     PyTypeObject* type = Py_TYPE(obj);
     while (type && type->tp_dealloc != current_tp_dealloc)
         type = type->tp_base;
@@ -24152,7 +23984,7 @@ static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED
 }
 
 /* PyObject_GenericGetAttrNoDict */
-        #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
+      #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
 static PyObject *__Pyx_RaiseGenericGetAttributeError(PyTypeObject *tp, PyObject *attr_name) {
     PyErr_Format(PyExc_AttributeError,
 #if PY_MAJOR_VERSION >= 3
@@ -24192,7 +24024,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GenericGetAttrNoDict(PyObject* obj
 #endif
 
 /* PyObject_GenericGetAttr */
-        #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
+      #if CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP && PY_VERSION_HEX < 0x03070000
 static PyObject* __Pyx_PyObject_GenericGetAttr(PyObject* obj, PyObject* attr_name) {
     if (unlikely(Py_TYPE(obj)->tp_dictoffset)) {
         return PyObject_GenericGetAttr(obj, attr_name);
@@ -24202,7 +24034,7 @@ static PyObject* __Pyx_PyObject_GenericGetAttr(PyObject* obj, PyObject* attr_nam
 #endif
 
 /* GetVTable */
-        static void* __Pyx_GetVtable(PyObject *dict) {
+      static void* __Pyx_GetVtable(PyObject *dict) {
     void* ptr;
     PyObject *ob = PyObject_GetItem(dict, __pyx_n_s_pyx_vtable);
     if (!ob)
@@ -24222,7 +24054,7 @@ bad:
 }
 
 /* SetVTable */
-        static int __Pyx_SetVtable(PyObject *dict, void *vtable) {
+      static int __Pyx_SetVtable(PyObject *dict, void *vtable) {
 #if PY_VERSION_HEX >= 0x02070000
     PyObject *ob = PyCapsule_New(vtable, 0, 0);
 #else
@@ -24240,7 +24072,7 @@ bad:
 }
 
 /* SetupReduce */
-        static int __Pyx_setup_reduce_is_named(PyObject* meth, PyObject* name) {
+      static int __Pyx_setup_reduce_is_named(PyObject* meth, PyObject* name) {
   int ret;
   PyObject *name_attr;
   name_attr = __Pyx_PyObject_GetAttrStr(meth, __pyx_n_s_name_2);
@@ -24316,7 +24148,7 @@ GOOD:
 }
 
 /* CalculateMetaclass */
-        static PyObject *__Pyx_CalculateMetaclass(PyTypeObject *metaclass, PyObject *bases) {
+      static PyObject *__Pyx_CalculateMetaclass(PyTypeObject *metaclass, PyObject *bases) {
     Py_ssize_t i, nbases = PyTuple_GET_SIZE(bases);
     for (i=0; i < nbases; i++) {
         PyTypeObject *tmptype;
@@ -24355,7 +24187,7 @@ GOOD:
 }
 
 /* FetchCommonType */
-        static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
+      static PyTypeObject* __Pyx_FetchCommonType(PyTypeObject* type) {
     PyObject* fake_module;
     PyTypeObject* cached_type = NULL;
     fake_module = PyImport_AddModule((char*) "_cython_" CYTHON_ABI);
@@ -24394,7 +24226,7 @@ bad:
 }
 
 /* CythonFunction */
-        #include <structmember.h>
+      #include <structmember.h>
 static PyObject *
 __Pyx_CyFunction_get_doc(__pyx_CyFunctionObject *op, CYTHON_UNUSED void *closure)
 {
@@ -24988,7 +24820,7 @@ static CYTHON_INLINE void __Pyx_CyFunction_SetAnnotationsDict(PyObject *func, Py
 }
 
 /* Py3ClassCreate */
-            static PyObject *__Pyx_Py3MetaclassPrepare(PyObject *metaclass, PyObject *bases, PyObject *name,
+          static PyObject *__Pyx_Py3MetaclassPrepare(PyObject *metaclass, PyObject *bases, PyObject *name,
                                            PyObject *qualname, PyObject *mkw, PyObject *modname, PyObject *doc) {
     PyObject *ns;
     if (metaclass) {
@@ -25055,7 +24887,7 @@ static PyObject *__Pyx_Py3ClassCreate(PyObject *metaclass, PyObject *name, PyObj
 }
 
 /* CLineInTraceback */
-            #ifndef CYTHON_CLINE_IN_TRACEBACK
+          #ifndef CYTHON_CLINE_IN_TRACEBACK
 static int __Pyx_CLineForTraceback(CYTHON_UNUSED PyThreadState *tstate, int c_line) {
     PyObject *use_cline;
     PyObject *ptype, *pvalue, *ptraceback;
@@ -25092,7 +24924,7 @@ static int __Pyx_CLineForTraceback(CYTHON_UNUSED PyThreadState *tstate, int c_li
 #endif
 
 /* CodeObjectCache */
-            static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
+          static int __pyx_bisect_code_objects(__Pyx_CodeObjectCacheEntry* entries, int count, int code_line) {
     int start = 0, mid = 0, end = count - 1;
     if (end >= 0 && code_line > entries[end].code_line) {
         return count;
@@ -25172,7 +25004,7 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object) {
 }
 
 /* AddTraceback */
-            #include "compile.h"
+          #include "compile.h"
 #include "frameobject.h"
 #include "traceback.h"
 static PyCodeObject* __Pyx_CreateCodeObjectForTraceback(
@@ -25280,8 +25112,8 @@ static void __Pyx_ReleaseBuffer(Py_buffer *view) {
 #endif
 
 
-            /* MemviewSliceIsContig */
-            static int
+          /* MemviewSliceIsContig */
+          static int
 __pyx_memviewslice_is_contig(const __Pyx_memviewslice mvs, char order, int ndim)
 {
     int i, index, step, start;
@@ -25303,7 +25135,7 @@ __pyx_memviewslice_is_contig(const __Pyx_memviewslice mvs, char order, int ndim)
 }
 
 /* OverlappingSlices */
-            static void
+          static void
 __pyx_get_array_memory_extents(__Pyx_memviewslice *slice,
                                void **out_start, void **out_end,
                                int ndim, size_t itemsize)
@@ -25339,7 +25171,7 @@ __pyx_slices_overlap(__Pyx_memviewslice *slice1,
 }
 
 /* Capsule */
-            static CYTHON_INLINE PyObject *
+          static CYTHON_INLINE PyObject *
 __pyx_capsule_create(void *p, CYTHON_UNUSED const char *sig)
 {
     PyObject *cobj;
@@ -25352,7 +25184,7 @@ __pyx_capsule_create(void *p, CYTHON_UNUSED const char *sig)
 }
 
 /* CIntFromPyVerify */
-            #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
+          #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 0)
 #define __PYX_VERIFY_RETURN_INT_EXC(target_type, func_type, func_value)\
     __PYX__VERIFY_RETURN_INT(target_type, func_type, func_value, 1)
@@ -25374,7 +25206,7 @@ __pyx_capsule_create(void *p, CYTHON_UNUSED const char *sig)
     }
 
 /* IsLittleEndian */
-            static CYTHON_INLINE int __Pyx_Is_Little_Endian(void)
+          static CYTHON_INLINE int __Pyx_Is_Little_Endian(void)
 {
   union {
     uint32_t u32;
@@ -25385,7 +25217,7 @@ __pyx_capsule_create(void *p, CYTHON_UNUSED const char *sig)
 }
 
 /* BufferFormatCheck */
-            static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
+          static void __Pyx_BufFmt_Init(__Pyx_BufFmt_Context* ctx,
                               __Pyx_BufFmt_StackElem* stack,
                               __Pyx_TypeInfo* type) {
   stack[0].field = &ctx->root;
@@ -25887,7 +25719,7 @@ static const char* __Pyx_BufFmt_CheckString(__Pyx_BufFmt_Context* ctx, const cha
 }
 
 /* TypeInfoCompare */
-              static int
+            static int
 __pyx_typeinfo_cmp(__Pyx_TypeInfo *a, __Pyx_TypeInfo *b)
 {
     int i;
@@ -25928,7 +25760,7 @@ __pyx_typeinfo_cmp(__Pyx_TypeInfo *a, __Pyx_TypeInfo *b)
 }
 
 /* MemviewSliceValidateAndInit */
-              static int
+            static int
 __pyx_check_strides(Py_buffer *buf, int dim, int ndim, int spec)
 {
     if (buf->shape[dim] <= 1)
@@ -26110,7 +25942,7 @@ no_fail:
 }
 
 /* ObjectToMemviewSlice */
-              static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT(PyObject *obj, int writable_flag) {
+            static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT(PyObject *obj, int writable_flag) {
     __Pyx_memviewslice result = { 0, 0, { 0 }, { 0 }, { 0 } };
     __Pyx_BufFmt_StackElem stack[1];
     int axes_specs[] = { (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED) };
@@ -26133,7 +25965,7 @@ __pyx_fail:
 }
 
 /* CIntToPy */
-              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
     const long neg_one = (long) -1, const_zero = (long) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -26164,7 +25996,7 @@ __pyx_fail:
 }
 
 /* CIntToPy */
-              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
     const int neg_one = (int) -1, const_zero = (int) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -26195,7 +26027,7 @@ __pyx_fail:
 }
 
 /* MemviewDtypeToObject */
-              static CYTHON_INLINE PyObject *__pyx_memview_get_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT(const char *itemp) {
+            static CYTHON_INLINE PyObject *__pyx_memview_get_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT(const char *itemp) {
     return (PyObject *) PyFloat_FromDouble(*(__pyx_t_10pythiamill_5utils_11pythiautils_FLOAT *) itemp);
 }
 static CYTHON_INLINE int __pyx_memview_set_nn___pyx_t_10pythiamill_5utils_11pythiautils_FLOAT(const char *itemp, PyObject *obj) {
@@ -26207,7 +26039,7 @@ static CYTHON_INLINE int __pyx_memview_set_nn___pyx_t_10pythiamill_5utils_11pyth
 }
 
 /* Declarations */
-              #if CYTHON_CCOMPLEX
+            #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
     static CYTHON_INLINE __pyx_t_float_complex __pyx_t_float_complex_from_parts(float x, float y) {
       return ::std::complex< float >(x, y);
@@ -26227,7 +26059,7 @@ static CYTHON_INLINE int __pyx_memview_set_nn___pyx_t_10pythiamill_5utils_11pyth
 #endif
 
 /* Arithmetic */
-              #if CYTHON_CCOMPLEX
+            #if CYTHON_CCOMPLEX
 #else
     static CYTHON_INLINE int __Pyx_c_eq_float(__pyx_t_float_complex a, __pyx_t_float_complex b) {
        return (a.real == b.real) && (a.imag == b.imag);
@@ -26362,7 +26194,7 @@ static CYTHON_INLINE int __pyx_memview_set_nn___pyx_t_10pythiamill_5utils_11pyth
 #endif
 
 /* Declarations */
-              #if CYTHON_CCOMPLEX
+            #if CYTHON_CCOMPLEX
   #ifdef __cplusplus
     static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(double x, double y) {
       return ::std::complex< double >(x, y);
@@ -26382,7 +26214,7 @@ static CYTHON_INLINE int __pyx_memview_set_nn___pyx_t_10pythiamill_5utils_11pyth
 #endif
 
 /* Arithmetic */
-              #if CYTHON_CCOMPLEX
+            #if CYTHON_CCOMPLEX
 #else
     static CYTHON_INLINE int __Pyx_c_eq_double(__pyx_t_double_complex a, __pyx_t_double_complex b) {
        return (a.real == b.real) && (a.imag == b.imag);
@@ -26517,7 +26349,7 @@ static CYTHON_INLINE int __pyx_memview_set_nn___pyx_t_10pythiamill_5utils_11pyth
 #endif
 
 /* CIntToPy */
-              static CYTHON_INLINE PyObject* __Pyx_PyInt_From_enum__NPY_TYPES(enum NPY_TYPES value) {
+            static CYTHON_INLINE PyObject* __Pyx_PyInt_From_enum__NPY_TYPES(enum NPY_TYPES value) {
     const enum NPY_TYPES neg_one = (enum NPY_TYPES) -1, const_zero = (enum NPY_TYPES) 0;
     const int is_unsigned = neg_one > const_zero;
     if (is_unsigned) {
@@ -26548,7 +26380,7 @@ static CYTHON_INLINE int __pyx_memview_set_nn___pyx_t_10pythiamill_5utils_11pyth
 }
 
 /* MemviewSliceCopyTemplate */
-              static __Pyx_memviewslice
+            static __Pyx_memviewslice
 __pyx_memoryview_copy_new_contig(const __Pyx_memviewslice *from_mvs,
                                  const char *mode, int ndim,
                                  size_t sizeof_dtype, int contig_flag,
@@ -26615,7 +26447,7 @@ no_fail:
 }
 
 /* CIntFromPy */
-              static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
+            static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
     const int neg_one = (int) -1, const_zero = (int) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -26804,7 +26636,7 @@ raise_neg_overflow:
 }
 
 /* CIntFromPy */
-              static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
+            static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
     const long neg_one = (long) -1, const_zero = (long) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -26993,7 +26825,7 @@ raise_neg_overflow:
 }
 
 /* CIntFromPy */
-              static CYTHON_INLINE char __Pyx_PyInt_As_char(PyObject *x) {
+            static CYTHON_INLINE char __Pyx_PyInt_As_char(PyObject *x) {
     const char neg_one = (char) -1, const_zero = (char) 0;
     const int is_unsigned = neg_one > const_zero;
 #if PY_MAJOR_VERSION < 3
@@ -27182,7 +27014,7 @@ raise_neg_overflow:
 }
 
 /* ObjectToMemviewSlice */
-              static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_10pythiamill_5utils_11pythiautils_float64(PyObject *obj, int writable_flag) {
+            static CYTHON_INLINE __Pyx_memviewslice __Pyx_PyObject_to_MemoryviewSlice_ds_nn___pyx_t_10pythiamill_5utils_11pythiautils_float64(PyObject *obj, int writable_flag) {
     __Pyx_memviewslice result = { 0, 0, { 0 }, { 0 }, { 0 } };
     __Pyx_BufFmt_StackElem stack[1];
     int axes_specs[] = { (__Pyx_MEMVIEW_DIRECT | __Pyx_MEMVIEW_STRIDED) };
@@ -27205,7 +27037,7 @@ __pyx_fail:
 }
 
 /* CheckBinaryVersion */
-              static int __Pyx_check_binary_version(void) {
+            static int __Pyx_check_binary_version(void) {
     char ctversion[4], rtversion[4];
     PyOS_snprintf(ctversion, 4, "%d.%d", PY_MAJOR_VERSION, PY_MINOR_VERSION);
     PyOS_snprintf(rtversion, 4, "%s", Py_GetVersion());
@@ -27221,7 +27053,7 @@ __pyx_fail:
 }
 
 /* ModuleImport */
-              #ifndef __PYX_HAVE_RT_ImportModule
+            #ifndef __PYX_HAVE_RT_ImportModule
 #define __PYX_HAVE_RT_ImportModule
 static PyObject *__Pyx_ImportModule(const char *name) {
     PyObject *py_name = 0;
@@ -27239,7 +27071,7 @@ bad:
 #endif
 
 /* TypeImport */
-              #ifndef __PYX_HAVE_RT_ImportType
+            #ifndef __PYX_HAVE_RT_ImportType
 #define __PYX_HAVE_RT_ImportType
 static PyTypeObject *__Pyx_ImportType(const char *module_name, const char *class_name,
     size_t size, int strict)
@@ -27304,7 +27136,7 @@ bad:
 #endif
 
 /* InitStrings */
-              static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
+            static int __Pyx_InitStrings(__Pyx_StringTabEntry *t) {
     while (t->p) {
         #if PY_MAJOR_VERSION < 3
         if (t->is_unicode) {

@@ -35,16 +35,16 @@ def pythia_blade(detector_factory, command_queue, queue, options, batch_size=1):
   while True:
     args = command_queue.get(block=True)
     if args is None:
-      command_queue.task_done()
+      #command_queue.task_done()
       queue.put(None, block=True)
       break
 
     try:
       pythia_worker(detector_instance, pythia, buffer, args)
-      command_queue.task_done()
+      #command_queue.task_done()
       queue.put((args, buffer.copy()), block=True)
     except Exception as e:
-      command_queue.task_done()
+      #command_queue.task_done()
       queue.put((args, e), block=True)
 
 
@@ -84,8 +84,8 @@ class PythiaMillBase(object):
 
     ctx = mp.get_context('spawn')
 
-    self.command_queue = ctx.JoinableQueue()
-    self.queue = ctx.JoinableQueue()
+    self.command_queue = ctx.Queue()
+    self.queue = ctx.Queue()
 
     self.processes = [
       ctx.Process(
@@ -173,7 +173,7 @@ class CachedPythiaMill(PythiaMillBase):
       raise ValueError('Mill has already been stopped!')
 
     _, batch = self.queue.get(block=True)
-    self.queue.task_done()
+    #self.queue.task_done()
     self.command_queue.put(self.detector_args)
     return batch
 
@@ -207,7 +207,7 @@ class ParametrizedPythiaMill(PythiaMillBase):
 
     try:
       args, batch = self.queue.get(block=True)
-      self.queue.task_done()
+      #self.queue.task_done()
 
       self.n_requests -= 1
 
@@ -217,9 +217,9 @@ class ParametrizedPythiaMill(PythiaMillBase):
       warnings.warn('An exception occurred while retrieving. Cleaning queue.')
       while not self.queue.empty():
         self.queue.get()
-        self.queue.task_done()
+        #self.queue.task_done()
 
-      raise ...
+      raise
 
 PythiaMill = CachedPythiaMill
 
